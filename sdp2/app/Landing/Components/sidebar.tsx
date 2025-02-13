@@ -36,7 +36,7 @@ export function Sidebar() {
       <div className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer">
         <Bell size={20} />
         <span>Notifications</span>
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-redAccent text-xs text-white">3</span> {/* Dit is een vb, later checken of er nieuwe notifs zijn --> dan tonen */}
+        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-redAccent">3</span> {/* Dit is een vb, later checken of er nieuwe notifs zijn --> dan tonen */}
       </div>
     </aside>
   )

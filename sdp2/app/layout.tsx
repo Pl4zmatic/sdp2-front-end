@@ -10,7 +10,7 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: "Shopfloor Delaware",
+  title: "Shopfloor",
   description: "A shopfloor application for Delware",
 };
 
