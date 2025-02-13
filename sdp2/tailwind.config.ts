@@ -11,6 +11,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        navy: "var(--navy)",
+        blueTransparant: "var(--blue-transparant)",
+        redAccent: "var(--red-accent)",
       },
     },
   },
