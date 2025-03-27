@@ -6,7 +6,7 @@ interface WelcomeProps {
 
 export function Welcome({ name }: WelcomeProps) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)]">
+    <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)]">
       <h1 className="text-7xl font-bold text-white mb-4">Welcome</h1>
       <p className="text-6xl font-bold text-redAccent mb-8">{name}</p>
 
