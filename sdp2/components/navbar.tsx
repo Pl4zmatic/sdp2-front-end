@@ -37,7 +37,7 @@ export function Navbar() {
       >
         <div className="space-y-8">
           <div className="flex items-center gap-2">
-            <Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" />
+            <a href="Landing"><Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" /></a>
           </div>
 
           <nav className="space-y-6">
@@ -82,7 +82,7 @@ export function Navbar() {
         <div className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer">
           <Bell size={20} />
           <span>Notifications</span>
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-red-500">3</span>
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed">3</span>
         </div>
       </aside>
     </>
