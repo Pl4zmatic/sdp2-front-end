@@ -20,12 +20,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased bg-lightNavy`}
-      >
+      <body className={`${inter.variable} antialiased bg-lightNavy`}>
         <Navbar />
-        {children}
-        
+
+        <div className="flex min-h-screen">
+          <div className="hidden md:block w-64"></div>
+          <main className="flex-1 p-8">{children}</main>
+        </div>
       </body>
     </html>
   );

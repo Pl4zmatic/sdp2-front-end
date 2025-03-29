@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Compass, BarChart2, FileText, Users, Bell, Menu, X } from "lucide-react"
+import { Compass, BarChart2, FileText, Users, Bell, Menu, X, ChartNoAxesCombined } from "lucide-react"
 import Image from "next/image"
 
 export function Navbar() {
@@ -75,6 +75,15 @@ export function Navbar() {
             >
               <Users size={20} />
               <span>Employees</span>
+            </Link>
+
+            <Link
+              href="/Kpi"
+              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <ChartNoAxesCombined size={20} />
+              <span>Key Performance Indicators</span>
             </Link>
           </nav>
         </div>
