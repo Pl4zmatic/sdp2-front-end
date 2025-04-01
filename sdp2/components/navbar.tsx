@@ -51,7 +51,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="#"
+              href="PlantDetails"
               className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >

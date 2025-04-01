@@ -1,6 +1,6 @@
 import { Welcome } from "./Components/WelcomeMsg"
 
-export default function Home() {
+export default function Landing() {
   return (
     <div className="flex min-h-screen">
       <div className="hidden md:block w-64"></div>
