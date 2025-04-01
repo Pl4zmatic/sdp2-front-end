@@ -1,3 +1,4 @@
+import { ChevronDown, FileText } from "lucide-react";
 import MachineInfo from "./MachineInfo";
 
 import {
@@ -7,24 +8,39 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 
+interface Machine {
+  name: string;
+  machineCode: string,
+  status: string,
+}
 interface MachineCardProps {
-    machines: string[]
+    machines: Machine[]
+
 }
 
 export const MachineCard = ({ machines } : MachineCardProps) => {
   return (
-    <div className="flex flex-col items-end justify-center:end min-h-[calc(100vh-4rem)] max-w-[80%] bg-red-50 ml-[300px]">
-      <Accordion type="single" collapsible className="bg-red-50 w-full">
+    <div className="flex flex-col h-auto ml-[300px] bg-lightestNavy rounded-2xl">
+      <Accordion type="single" collapsible className="bg-lightestNavy w-full rounded-xl p-[10px]">
         {machines.map((machine, index) => (
-        <AccordionItem value={`item-${index}`} key={index} className="flex h-[100px]">
-          <AccordionTrigger className="flex w-full">
-            <div className="bg-red-500 w-5 h-5 rounded-[50%] mx-2"></div>{machine} 
+        <AccordionItem value={`item-${index}`} key={machine.machineCode} className="min-h-[50px] border-0">
+          <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#5C658C] rounded-xl px-[10px]">
+            <div className={`${machine.status == "Running" ? "bg-[#3CEF3C]":"bg-delawareRed"} w-5 h-5 rounded-[50%] mx-2`}></div>
+            <p className="">
+              <span className="font-semibold text-2xl px-[20px] hover:underline">
+                {machine.name}
+              </span>
+              <span className="text-[#999] text-sm">
+                ({machine.machineCode})
+              </span>
+            </p>
+            <FileText className="ml-3"/>
           </AccordionTrigger>
-          <AccordionContent>
+          <AccordionContent className="text-white text-base">
             <MachineInfo
               supervisor="John Doe"
               nameTechnician="John Doe"
-              status="Running"
+              status={machine.status}
               uptime={20}
               lastMaintenance="12/02/2025"
               nextMaintenance="12/04/2025"
