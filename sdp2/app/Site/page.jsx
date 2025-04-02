@@ -29,13 +29,6 @@ export default function Site() {
             <div className="hidden md:block w-64"></div>
             <main className="flex-1 p-8">
                 <h1 className="text-3xl font-bold mb-4 text-white">Plants</h1>
-                <input
-                    type="text"
-                    placeholder="Search by site name..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="mb-4 p-2 border border-gray-300 rounded"
-                />
                 <SiteCardList sites={filteredSites}></SiteCardList>
             </main>
         </div>
