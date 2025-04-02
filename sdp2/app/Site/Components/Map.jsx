@@ -1,4 +1,4 @@
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
 import { useState } from "react";
 import React from 'react';
 import {createRoot} from 'react-dom/client';
@@ -25,7 +25,10 @@ export default function SiteMap() {
       defaultZoom={10}
       gestureHandling={'greedy'}
       disableDefaultUI={true}
-    />
+    > 
+        <Marker position={{lat: 51.20, lng: 4.43}} />
+        <Marker position={{lat: 50.85, lng: 4.35}} />
+    </Map >
   </APIProvider>
         </div>
     )
