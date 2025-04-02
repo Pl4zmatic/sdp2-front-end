@@ -8,16 +8,15 @@
     --lightNavy: #1a1e33;
     --lightestNavy: #252a43;
     --blue-transparant: rgba(74, 84, 133, 0.2);
-    --delawareRed: #EF463C;
+    --delawareRed: #ef463c;
     --delawareRedAccent: rgb(199, 46, 35);
+    --greenErrorMessage: #3cef3c;
   }
 }
 
 body {
   font-family: Inter, Helvetica, sans-serif;
 }
-
-
 
 @layer base {
   :root {
@@ -74,12 +73,6 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
-
-
-
-
-
-
 
 @layer base {
   * {

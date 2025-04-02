@@ -1,5 +1,6 @@
 "use client";
 import { arrMachines } from "./Mock";
+import { arrPlants } from "./Mock";
 import { MachineCard } from "./Components/MachineCard";
 import PlantTable from "./Components/PlantTable";
 
@@ -11,9 +12,8 @@ const PlantDetails = () => {
           <h1 className="text-7xl font-bold text-white my-4">
             Pick a <span className="text-delawareRed">plant</span>
           </h1>
-          <PlantTable />
+          <PlantTable plants={arrPlants} />
         </div>
-        <MachineCard machines={arrMachines} />
       </main>
     </div>
   );

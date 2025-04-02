@@ -1,4 +1,4 @@
-import { ChevronDown, FileText } from "lucide-react";
+import { FileText } from "lucide-react";
 import MachineInfo from "./MachineInfo";
 import { Machine } from "@/app/types/Machine";
 
@@ -7,50 +7,56 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-
-interface Machine {
-  name: string;
-  machineCode: string,
-  status: string,
-}
+} from "@/components/ui/accordion";
 interface MachineCardProps {
-    machines: Machine[]
-
+  machines: Machine[];
 }
 
-export const MachineCard = ({ machines } : MachineCardProps) => {
+export const MachineCard = ({ machines }: MachineCardProps) => {
   return (
-    <div className="flex flex-col h-auto bg-lightestNavy rounded-2xl">
-      <Accordion type="single" collapsible className="bg-lightestNavy w-full rounded-xl p-[10px]">
+    <div className="flex flex-col h-auto bg-lightestNavy rounded-2xl mt-5">
+      <Accordion
+        type="single"
+        collapsible
+        className="bg-lightestNavy w-full rounded-xl p-[10px]"
+      >
         {machines.map((machine, index) => (
-        <AccordionItem value={`item-${index}`} key={machine.machineCode} className="min-h-[50px] border-0">
-          <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#5C658C] rounded-xl px-[10px]">
-            <div className={`${machine.status == "Running" ? "bg-[#3CEF3C]":"bg-delawareRed"} w-5 h-5 rounded-[50%] mx-2`}></div>
-            <p className="">
-              <span className="font-semibold text-2xl px-[20px] hover:underline">
-                {machine.name}
-              </span>
-              <span className="text-[#999] text-sm">
-                ({machine.machineCode})
-              </span>
-            </p>
-            <FileText className="ml-3"/>
-          </AccordionTrigger>
-          <AccordionContent className="text-white text-base">
-            <MachineInfo
-              supervisor="John Doe"
-              nameTechnician="John Doe"
-              status={machine.status}
-              uptime={20}
-              lastMaintenance="12/02/2025"
-              nextMaintenance="12/04/2025"
-            />
-          </AccordionContent>
-        </AccordionItem>
+          <AccordionItem
+            value={`item-${index}`}
+            key={machine.machineCode}
+            className="min-h-[50px] border-0"
+          >
+            <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#5C658C] rounded-xl px-[10px]">
+              <div
+                className={`${
+                  machine.status == "Running"
+                    ? "bg-greenErrorMessage"
+                    : "bg-delawareRed"
+                } w-5 h-5 rounded-[50%] mx-2`}
+              ></div>
+              <p className="">
+                <span className="font-semibold text-2xl px-[20px] hover:underline">
+                  {machine.name}
+                </span>
+                <span className="text-[#999] text-sm">
+                  ({machine.machineCode})
+                </span>
+              </p>
+              <FileText className="ml-3" />
+            </AccordionTrigger>
+            <AccordionContent className="text-white text-base">
+              <MachineInfo
+                supervisor="John Doe"
+                nameTechnician="John Doe"
+                status={machine.status}
+                uptime={20}
+                lastMaintenance="12/02/2025"
+                nextMaintenance="12/04/2025"
+              />
+            </AccordionContent>
+          </AccordionItem>
         ))}
       </Accordion>
     </div>
-)}
-
-
+  );
+};

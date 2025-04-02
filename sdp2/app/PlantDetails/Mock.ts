@@ -37,10 +37,18 @@ export const arrPlants = [
   },
   {
     name: "Plant 2",
-    status: "Active",
+    status: "Inactive",
     health: 64,
     maintenance: 10,
     location: "Voorbeeld 456, 9000 Gent",
+    machines: arrMachines,
+  },
+  {
+    name: "Plant 3",
+    status: "Active",
+    health: 100,
+    maintenance: 50,
+    location: "Voorbeeld 789, 9620 Zottegem",
     machines: arrMachines,
   },
 ];
