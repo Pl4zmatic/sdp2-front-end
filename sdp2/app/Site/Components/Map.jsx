@@ -7,8 +7,8 @@ import {createRoot} from 'react-dom/client';
 
 export default function SiteMap() {
     const [viewport, setViewport] = useState({
-        latitude: 51.032961,
-        longitude:  3.703077,
+        latitude: 50.832961,
+        longitude:  4.503077,
         zoom: 10,
         width: "100%",
         height: "100%",
@@ -22,7 +22,7 @@ export default function SiteMap() {
     <Map
       style={{width: '50vw', height: '25vw'}}
       defaultCenter={{lat: viewport.latitude, lng: viewport.longitude}}
-      defaultZoom={10}
+      defaultZoom={8}
       gestureHandling={'greedy'}
       disableDefaultUI={true}
     > 
