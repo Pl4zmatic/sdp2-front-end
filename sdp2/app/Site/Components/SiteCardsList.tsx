@@ -33,7 +33,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
   return (
     <div className="space-y-6">
       <div className="bg-lightNavy rounded-lg">
-        <SearchField
+        <SearchField className="mt-8"
           placeholder="Zoek op naam, adres of verantwoordelijke..."
           onSearch={setSearchTerm}
   
