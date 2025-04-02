@@ -37,10 +37,16 @@ export default function Barchart({ chartData, xAxisName }: props) {
                     tickLine={false}
                     tickMargin={10}
                     axisLine={false}
-                    tickFormatter={(value) => value.slice(0, 3)}
+                    tickFormatter={(value) => {
+                        value = new Date(value)
+                        return value.toLocaleDateString("nl-BE", {
+                            month: "short",
+                            day: "numeric"
+                        })
+                    }}
                 />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <ChartLegend content={<ChartLegendContent />} />
+                <ChartLegend content={<ChartLegendContent />} className="text-white"/>
 
                 {valueKeys.map((key, index) => {
                     return (

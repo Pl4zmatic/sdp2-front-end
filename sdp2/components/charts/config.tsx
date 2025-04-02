@@ -1,12 +1,12 @@
 import { ChartConfig } from "../ui/chart";
 
 export const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
+  site1: {
+    label: "Site",
+    color: "hsl(var(--chart-1))"
   },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
+  site2: {
+    label: "Another Site",
+    color: "hsl(var(--chart-2))"
   }
 } satisfies ChartConfig;
