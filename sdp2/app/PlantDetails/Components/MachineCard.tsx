@@ -1,5 +1,6 @@
 import { ChevronDown, FileText } from "lucide-react";
 import MachineInfo from "./MachineInfo";
+import { Machine } from "@/app/types/Machine";
 
 import {
   Accordion,
@@ -20,7 +21,7 @@ interface MachineCardProps {
 
 export const MachineCard = ({ machines } : MachineCardProps) => {
   return (
-    <div className="flex flex-col h-auto ml-[300px] bg-lightestNavy rounded-2xl">
+    <div className="flex flex-col h-auto bg-lightestNavy rounded-2xl">
       <Accordion type="single" collapsible className="bg-lightestNavy w-full rounded-xl p-[10px]">
         {machines.map((machine, index) => (
         <AccordionItem value={`item-${index}`} key={machine.machineCode} className="min-h-[50px] border-0">

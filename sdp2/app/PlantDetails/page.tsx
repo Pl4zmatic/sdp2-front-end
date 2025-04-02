@@ -1,42 +1,19 @@
-'use client'
+"use client";
+import { arrMachines } from "./Mock";
 import { MachineCard } from "./Components/MachineCard";
-import { useState } from "react";
-import MachineInfo from "./Components/MachineInfo";
+import PlantTable from "./Components/PlantTable";
 
 const PlantDetails = () => {
-  const [selectedMachine, setSelectedMachine] = useState<string | null>(null);
-
-  const arr = [
-  {
-    name:"Machine 1",
-    machineCode: "a-01",
-    status: "Running",
-  }, 
-  {
-    name: "Machine 2",
-    machineCode: "a-02",
-    status: "Running",
-  }, 
-  {
-    name: "Machine 3",
-    machineCode: "a-03",
-    status: "Not running",
-  }, 
-  {
-    name: "Machine 4",
-    machineCode: "a-04",
-    status: "Running",
-  }, 
-  {
-    name: "Machine 5",
-    machineCode: "a-05",
-    status: "Not running",
-  }
-];
   return (
     <div className="flex min-h-screen ">
       <main className="flex-1 p-8">
-        <MachineCard machines={arr} />
+        <div className="flex flex-col items-center h-[calc(100vh-4rem)]">
+          <h1 className="text-7xl font-bold text-white my-4">
+            Pick a <span className="text-delawareRed">plant</span>
+          </h1>
+          <PlantTable />
+        </div>
+        <MachineCard machines={arrMachines} />
       </main>
     </div>
   );
