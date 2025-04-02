@@ -42,7 +42,7 @@ export function Navbar() {
 
           <nav className="space-y-6">
             <Link
-              href="#"
+              href="/Site"
               className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
