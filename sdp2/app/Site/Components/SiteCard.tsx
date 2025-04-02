@@ -36,7 +36,7 @@ export default function SiteCard({
           <div className="text-gray-400 flex flex-col md:flex-row md:items-start">
             <div className="flex items-center">
               <User size={16} className="mr-2 text-gray-400 shrink-0" />
-              <span className="font-medium text-white whitespace-nowrap">Verantwoordelijke:</span>
+              <span className="font-medium text-white whitespace-nowrap">Responsible:</span>
             </div>
             <span className="md:ml-2 break-words">{verantwoordelijke}</span>
           </div>
