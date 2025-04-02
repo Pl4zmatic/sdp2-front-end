@@ -70,7 +70,10 @@ const PlantTable = ({ plants }: PlantTableProps) => {
       </Table>
 
       {selectedPlant && (
-        <MachineCard machines={selectedPlant ? selectedPlant.machines : []} />
+        <MachineCard
+          key={selectedPlant.name}
+          machines={selectedPlant ? selectedPlant.machines : []}
+        />
       )}
     </div>
   );
