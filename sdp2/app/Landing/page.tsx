@@ -2,11 +2,8 @@ import { Welcome } from "./Components/WelcomeMsg"
 
 export default function Landing() {
   return (
-    <div className="flex min-h-screen">
-      <div className="hidden md:block w-64"></div>
-      <main className="flex-1 p-8">
+    <div className="flex items-center justify-center h-full">
         <Welcome name="John Doe" /> {/* Naam moet nog dynamisch aangepast worden */}
-      </main>
     </div>
   )
 }
