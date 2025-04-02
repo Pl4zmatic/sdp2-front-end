@@ -1,4 +1,4 @@
-import { Welcome } from "./Components/welcomeMsg"
+import { Welcome } from "./Components/WelcomeMsg"
 
 export default function Landing() {
   return (
