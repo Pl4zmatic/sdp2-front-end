@@ -1,30 +1,30 @@
 'use client'
-
 import { useState } from "react";
 import SiteCardList from "./Components/SiteCardsList";
+import { arrPlants } from "./Mock";
 import SiteMap from "./Components/Map";
 
 const sites = [
-    {
-        siteNaam: "Antwerpen",
-        siteAdres: "Antwerpen 23, 9140 Elversele",
-        aantalMachines: 5,
-        verantwoordelijke: "John Doe",
-    },
-    {
-        siteNaam: "Brussel",
-        siteAdres: "Brussel 45, 1000 Brussel",
-        aantalMachines: 3,
-        verantwoordelijke: "Jane Smith",
-    }
+  {
+    siteNaam: "Antwerpen",
+    siteAdres: "Antwerpen 23, 9140 Elversele",
+    aantalMachines: 5,
+    verantwoordelijke: "John Doe",
+  },
+  {
+    siteNaam: "Brussel",
+    siteAdres: "Brussel 45, 1000 Brussel",
+    aantalMachines: 3,
+    verantwoordelijke: "Jane Smith",
+  },
 ];
 
 export default function Site() {
-    const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
-    const filteredSites = sites.filter(site =>
-        site.siteNaam.toLowerCase().includes(search.toLowerCase())
-    );
+  const filteredSites = sites.filter((site) =>
+    site.siteNaam.toLowerCase().includes(search.toLowerCase())
+  );
 
     return (
         <div className="flex min-h-screen">
