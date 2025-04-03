@@ -9,12 +9,21 @@ import {
 
 import { Button } from "@/components/ui/button";
 
+interface PlantCardProps {
+  siteId: number;
+  siteNaam: string;
+  siteAdres: string;
+  aantalMachines: number;
+  verantwoordelijke: string;
+}
+
 export default function SiteCard({
-  siteNaam = "Antwerpen",
-  siteAdres = "Antwerpen 23, 9140 Elversele",
+  siteId,
+  siteNaam,
+  siteAdres,
   aantalMachines,
   verantwoordelijke,
-}) {
+}: PlantCardProps) {
   return (
     <div className="flex">
       <Card>
@@ -27,7 +36,9 @@ export default function SiteCard({
           <p>verantwoordelijke: {verantwoordelijke}</p>
         </CardContent>
         <CardFooter>
-          <Button>Select Plant</Button>
+          <a key={siteNaam} href={`${siteNaam}`}>
+            <Button>Select Plant{siteNaam}</Button>
+          </a>
         </CardFooter>
       </Card>
     </div>

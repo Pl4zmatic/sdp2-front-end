@@ -42,7 +42,9 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                   ({machine.machineCode})
                 </span>
               </p>
-              <FileText className="ml-3" />
+              <div className="ml-3">
+                <FileText />
+              </div>
             </AccordionTrigger>
             <AccordionContent className="text-white text-base">
               <MachineInfo

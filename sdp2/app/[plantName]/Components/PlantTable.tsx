@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 import { MachineCard } from "./MachineCard";
+import PlantInfo from "./PlantInfo";
 
 interface PlantTableProps {
   plants: Plant[];
@@ -69,12 +70,7 @@ const PlantTable = ({ plants }: PlantTableProps) => {
         </TableBody>
       </Table>
 
-      {selectedPlant && (
-        <MachineCard
-          key={selectedPlant.name}
-          machines={selectedPlant ? selectedPlant.machines : []}
-        />
-      )}
+      {selectedPlant && <div></div>}
     </div>
   );
 };
