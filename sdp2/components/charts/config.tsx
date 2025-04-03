@@ -8,5 +8,8 @@ export const chartConfig = {
   site2: {
     label: "Another Site",
     color: "hsl(var(--chart-2))"
+  },
+  data: {
+    label: "Data"
   }
 } satisfies ChartConfig;
