@@ -12,8 +12,7 @@ export default function Site() {
   );
 
   return (
-    <div className="flex min-h-screen">
-      <div className="hidden md:block w-64"></div>
+    <div className="flex min-h-screen justify-center items-center">
       <main className="p-8 w-[68%]">
         <div>
           <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white text-center">
