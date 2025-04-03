@@ -30,7 +30,7 @@ export default function Site() {
         <div className="flex min-h-screen">
             <div className="hidden md:block w-64"></div>
             <main className="flex-1 p-8">
-                <h1 className="text-3xl font-bold mb-4 text-white">Plants</h1>
+                <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white">Plants</h1>
                 <SiteMap></SiteMap>
                 <SiteCardList sites={filteredSites}></SiteCardList>
             </main>
