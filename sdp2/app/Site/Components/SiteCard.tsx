@@ -23,7 +23,7 @@ export default function SiteCard({
   verantwoordelijke = "",
 }: SiteCardProps) {
   return (
-    <Card className="bg-delawareRed dark:bg-navy border-0 text-white dark:text-white hover:shadow-lg transition-all duration-300 w-full">
+    <Card className="bg-delawareRed dark:bg-navy border-0 text-white dark:text-white hover:shadow-lg transition-all duration-300 w-full flex-1">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-bold text-white">
           {siteNaam}

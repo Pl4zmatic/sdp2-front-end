@@ -25,8 +25,8 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
   }, [sites, searchTerm]);
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-lg">
+    <div className="space-y-6 w-full">
+      <div className="flex justify-center rounded-lg w-full">
         <SearchField
           className="mt-8"
           placeholder="Zoek op naam, adres of verantwoordelijke..."
@@ -39,7 +39,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
           <p>Geen locaties gevonden die overeenkomen met je zoekopdracht.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="flex flex-wrap gap-4 w-full">
           {filteredSites.map((site) => (
             <SiteCard
               key={site.name}

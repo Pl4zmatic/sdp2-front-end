@@ -4,21 +4,6 @@ import SiteCardList from "./Components/SiteCardsList";
 import { arrPlants } from "./Mock";
 import SiteMap from "./Components/Map";
 
-/*const sites = [
-  {
-    siteNaam: "Antwerpen",
-    siteAdres: "Antwerpen 23, 9140 Elversele",
-    aantalMachines: 5,
-    verantwoordelijke: "John Doe",
-  },
-  {
-    siteNaam: "Brussel",
-    siteAdres: "Brussel 45, 1000 Brussel",
-    aantalMachines: 3,
-    verantwoordelijke: "Jane Smith",
-  },
-];*/
-
 export default function Site() {
   const [search, setSearch] = useState("");
 
@@ -29,12 +14,14 @@ export default function Site() {
   return (
     <div className="flex min-h-screen">
       <div className="hidden md:block w-64"></div>
-      <main className="flex-1 p-8">
-        <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white">
-          Plants
-        </h1>
-        <SiteMap></SiteMap>
-        <SiteCardList sites={filteredSites}></SiteCardList>
+      <main className="p-8 w-[68%]">
+        <div>
+          <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white text-center">
+            Plants
+          </h1>
+          <SiteMap></SiteMap>
+          <SiteCardList sites={filteredSites}></SiteCardList>
+        </div>
       </main>
     </div>
   );
