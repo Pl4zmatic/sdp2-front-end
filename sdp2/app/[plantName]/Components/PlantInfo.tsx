@@ -11,7 +11,6 @@ const PlantInfo = ({
 }: PlantInfoProps) => {
   return (
     <div className="flex-col items-center my-[50px] space-x-5">
-      <h1>{plantName}</h1>
       <div>
         <div
           id="currentprod"

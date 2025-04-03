@@ -1,39 +1,34 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import SiteCard from "./SiteCard"
-import SearchField from "@/components/ui/SearchField"
-
-interface Site {
-  siteNaam: string
-  siteAdres: string
-  aantalMachines: number
-  verantwoordelijke: string
-}
+import { useState, useMemo } from "react";
+import SiteCard from "./SiteCard";
+import SearchField from "@/components/ui/SearchField";
+import { Plant } from "@/app/types/Plant";
 
 interface SiteCardsListProps {
-  sites: Site[]
+  sites: Plant[];
 }
 
 export default function SiteCardsList({ sites }: SiteCardsListProps) {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredSites = useMemo(() => {
-    if (!searchTerm.trim()) return sites
+    if (!searchTerm.trim()) return sites;
 
-    const lowerCaseSearch = searchTerm.toLowerCase()
+    const lowerCaseSearch = searchTerm.toLowerCase();
     return sites.filter(
       (site) =>
-        site.siteNaam.toLowerCase().includes(lowerCaseSearch) ||
-        site.siteAdres.toLowerCase().includes(lowerCaseSearch) ||
-        site.verantwoordelijke.toLowerCase().includes(lowerCaseSearch),
-    )
-  }, [sites, searchTerm])
+        site.name.toLowerCase().includes(lowerCaseSearch) ||
+        site.location.toLowerCase().includes(lowerCaseSearch) ||
+        site.verantwoordelijke.toLowerCase().includes(lowerCaseSearch)
+    );
+  }, [sites, searchTerm]);
 
   return (
     <div className="space-y-6">
       <div className="rounded-lg">
-        <SearchField className="mt-8"
+        <SearchField
+          className="mt-8"
           placeholder="Zoek op naam, adres of verantwoordelijke..."
           onSearch={setSearchTerm}
         />
@@ -47,16 +42,15 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredSites.map((site) => (
             <SiteCard
-              key={site.siteNaam}
-              siteNaam={site.siteNaam}
-              siteAdres={site.siteAdres}
-              aantalMachines={site.aantalMachines}
+              key={site.name}
+              siteNaam={site.name}
+              siteAdres={site.location}
+              aantalMachines={site.machines.length}
               verantwoordelijke={site.verantwoordelijke}
             />
           ))}
         </div>
       )}
     </div>
-  )
+  );
 }
-
