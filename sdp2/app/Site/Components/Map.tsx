@@ -16,9 +16,9 @@ export default function SiteMap() {
     
     return(
         <div>
-            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string}>
     <Map
-      style={{width: '50vw', height: '25vw'}}
+      style={{width: '66%', height: '25vw'}}
       defaultCenter={{lat: viewport.latitude, lng: viewport.longitude}}
       defaultZoom={8}
       gestureHandling={'greedy'}
