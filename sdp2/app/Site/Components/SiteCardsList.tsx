@@ -32,16 +32,15 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
 
   return (
     <div className="space-y-6">
-      <div className="bg-lightNavy rounded-lg">
+      <div className="rounded-lg">
         <SearchField className="mt-8"
           placeholder="Zoek op naam, adres of verantwoordelijke..."
           onSearch={setSearchTerm}
-  
         />
       </div>
 
       {filteredSites.length === 0 ? (
-        <div className="text-center py-8 text-white bg-navy rounded-lg">
+        <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
           <p>Geen locaties gevonden die overeenkomen met je zoekopdracht.</p>
         </div>
       ) : (

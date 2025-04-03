@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Compass, BarChart2, FileText, Users, Bell, Menu, X } from "lucide-react"
 import Image from "next/image"
+import { ThemeToggle } from "./theme-toggle"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -19,7 +20,7 @@ export function Navbar() {
     <>
       {/* Hamburger icoontje */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-navy text-white md:hidden"
+        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-delawareRed dark:bg-navy text-white md:hidden"
         onClick={toggleMenu}
         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
       >
@@ -31,19 +32,20 @@ export function Navbar() {
 
       {/* Navbar */}
       <aside
-        className={`fixed top-0 h-screen w-64 flex-col justify-between bg-navy p-6 transition-all duration-300 ease-in-out z-50 md:flex md:left-0 ${
+        className={`fixed top-0 h-screen w-64 flex-col justify-between bg-delawareRed dark:bg-navy p-6 transition-all duration-300 ease-in-out z-50 md:flex md:left-0 ${
           isMenuOpen ? "left-0 flex" : "-left-64 hidden"
         }`}
       >
         <div className="space-y-8">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between">
             <a href="Landing"><Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" /></a>
+            <ThemeToggle />
           </div>
 
           <nav className="space-y-6">
             <Link
               href="/Site"
-              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <Compass size={20} />
@@ -52,7 +54,7 @@ export function Navbar() {
 
             <Link
               href="PlantDetails"
-              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <BarChart2 size={20} />
@@ -61,7 +63,7 @@ export function Navbar() {
 
             <Link
               href="#"
-              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <FileText size={20} />
@@ -70,7 +72,7 @@ export function Navbar() {
 
             <Link
               href="#"
-              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <Users size={20} />
@@ -79,7 +81,7 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors cursor-pointer">
+        <div className="flex items-center gap-2 text-white hover:text-white/80 transition-colors cursor-pointer">
           <Bell size={20} />
           <span>Notifications</span>
           <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed">3</span>

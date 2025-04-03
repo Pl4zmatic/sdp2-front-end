@@ -10,14 +10,26 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			goodGreen: 'var(--goodGreen)',
+			rancidRed: 'var(--rancidRed)',
+			okOrange: 'var(--okOrange)',
+			gray: 'var(--gray)',
+			lightGray: 'var(--lightGray)',
+			delawareRed: 'var(--delawareRed)',
+			deepBlue: 'var(--deepBlue)',
+			bgGreen: 'var(--bgGreen)',
+			bgRed: 'var(--bgRed)',
+			bgOrange: 'var(--bgOrange)',
+			graySelected: 'var(--graySelected)',
+			bgGray: 'var(--bgGray)',
+			darkGray: 'var(--darkGray)',
 			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			navy: 'var(--navy)',
 			lightNavy: 'var(--lightNavy)',
 			lightestNavy: 'var(--lightestNavy)',
   			blueTransparant: 'var(--blue-transparant)',
-  			delawareRed: 'var(--delawareRed)',
-			delawareRedAccent: 'var(--delawareRedAccent)',
+  			delawareRedAccent: 'var(--delawareRedAccent)',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
