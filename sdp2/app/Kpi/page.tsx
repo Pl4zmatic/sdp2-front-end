@@ -1,6 +1,7 @@
 import Barchart from "@/components/charts/barchart";
 import FilteredAreaChart from "@/components/charts/filteredAreaChart";
 import PieChart from "@/components/charts/pieChart";
+import RadarChart from "@/components/charts/radarChart";
 
 interface props {}
 
@@ -24,7 +25,7 @@ export default function Kpi({}: props) {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
       <Barchart chartData={chartData} xAxisName={"date"}></Barchart>
-      <Barchart chartData={chartData} xAxisName={"date"}></Barchart>
+      <RadarChart chartData={chartData} xAxisName={"date"}></RadarChart>
       <PieChart chartData={chartDataPie}></PieChart>
       <FilteredAreaChart chartData={chartData}></FilteredAreaChart>
     </div>
