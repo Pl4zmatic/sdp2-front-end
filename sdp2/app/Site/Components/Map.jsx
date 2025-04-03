@@ -13,12 +13,10 @@ export default function SiteMap() {
         width: "100%",
         height: "100%",
     })
-
-    const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-    console.log(API_KEY);
+    
     return(
         <div>
-            <APIProvider apiKey={"AIzaSyATaM2lc81FB86XfU2iM3ZuDNnofKei_mw"}>
+            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
     <Map
       style={{width: '50vw', height: '25vw'}}
       defaultCenter={{lat: viewport.latitude, lng: viewport.longitude}}
