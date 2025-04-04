@@ -66,9 +66,14 @@ const PlantInfo = ({
             <h1 className="text-2xl text-white">Active Machines</h1>
           </div>
           <div className="mt-4">
-            <p className="text-5xl text-deepBlue dark:text-delawareRed">
-              {"" + activeMachines + "/" + length}
-            </p>
+            <div className="flex">
+              <p className="text-5xl text-deepBlue dark:text-delawareRed">
+                {"" + activeMachines + "/" + length}
+              </p>
+              <p className="text-base text-deepBlue dark:text-delawareRed mt-5">
+                ({(activeMachines / length) * 100}%)
+              </p>
+            </div>
             <p className="text-sm font-normal text-white dark:text-gray">
               machines running
             </p>

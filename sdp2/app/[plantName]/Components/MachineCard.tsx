@@ -65,7 +65,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                         machine.status == "Running"
                           ? "bg-[#3CEF3C]"
                           : "bg-rancidRed dark:bg-delawareRed"
-                      } w-5 h-5 rounded-[50%] mx-2 border-2 border-white`}
+                      } w-5 h-5 rounded-[50%] mx-2 border-2 border-white `}
                     ></div>
                     <p className="">
                       <span className="font-semibold text-2xl px-[20px] hover:underline text-nowrap">

@@ -55,7 +55,7 @@ const PlantDetails = () => {
         ) : (
           <div className="flex justify-center">
             <a href="Site">
-              <Button className="bg-navy text-white hover:text-[#d13a32]">
+              <Button className="bg-navy text-white hover:bg-lightestNavy hover:text-white">
                 Choose a plant
               </Button>
             </a>
