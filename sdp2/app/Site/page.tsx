@@ -18,7 +18,7 @@ export default function Site() {
           <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white text-center">
             Plants
           </h1>
-          <SiteMap></SiteMap>
+          <SiteMap sites={filteredSites}></SiteMap>
           <SiteCardList sites={filteredSites}></SiteCardList>
         </div>
       </main>

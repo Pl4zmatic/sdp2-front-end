@@ -1,9 +1,11 @@
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import { createRoot } from "react-dom/client";
+import {getCoordinates} from "../../../api/coordinates"
+import Markers from "./Markers";
 
-export default function SiteMap() {
+export default function SiteMap(sites: any) {
   const [viewport, setViewport] = useState({
     latitude: 50.832961,
     longitude: 4.503077,
@@ -12,6 +14,9 @@ export default function SiteMap() {
     height: "100%",
   });
 
+  
+
+//TODO GETCOORDINATES ASYNCDATA
   return (
     <div>
       <APIProvider
@@ -23,9 +28,8 @@ export default function SiteMap() {
           defaultZoom={8}
           gestureHandling={"greedy"}
           disableDefaultUI={true}
-        >
-          <Marker position={{ lat: 51.2, lng: 4.43 }} />
-          <Marker position={{ lat: 50.85, lng: 4.35 }} />
+        > 
+          <Markers sites={sites.sites}></Markers>
         </Map>
       </APIProvider>
     </div>
