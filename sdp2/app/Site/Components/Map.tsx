@@ -16,7 +16,6 @@ export default function SiteMap(sites: any) {
 
   
 
-//TODO GETCOORDINATES ASYNCDATA
   return (
     <div>
       <APIProvider

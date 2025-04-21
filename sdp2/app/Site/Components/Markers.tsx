@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { getCoordinates } from "../../../api/coordinates";
-import { Marker } from "@vis.gl/react-google-maps";
+import { InfoWindow, Marker } from "@vis.gl/react-google-maps";
 import { Plant } from "@/app/types/Plant";
 
 interface MarkersProps {
   sites: Plant[];
 }
 
+
+
 export default function Markers({ sites }: MarkersProps) {
+  const [selectedMarker, setSelectedMarker] = useState<{ lat: number; lng: number, site:Plant } | null>(null);
   const [coordinates, setCoordinates] = useState<{ lat: number; lng: number }[]>([]);
 
   useEffect(() => {
@@ -34,8 +37,16 @@ export default function Markers({ sites }: MarkersProps) {
   return (
     <>
       {coordinates.map((coord, index) => (
-        <Marker key={index} position={coord} />
+        <Marker key={index} position={coord} onClick={() => {
+          setSelectedMarker({ lat: coord.lat, lng: coord.lng, site: sites[index] });
+        }} />
       ))}
+      {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.name}</p>} className="min-h-1" 
+      position={selectedMarker} onCloseClick={() => setSelectedMarker(null)}>
+        <p className="text-black">{selectedMarker.site.location}</p>
+         </InfoWindow>}
+
+      
     </>
   );
 }
