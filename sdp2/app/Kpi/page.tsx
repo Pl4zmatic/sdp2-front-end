@@ -36,6 +36,8 @@ const chartData = [
 const chartDataPie = [
   { name: "site1", data: 1754, fill: "var(--color-site1)" },
   { name: "site2", data: 2094, fill: "var(--color-site2)"},
+  // { name: "site3", data: 3456, fill: "var(--color-site3)" },
+  // { name: "site4", data: 4712, fill: "var(--color-site4)"},
 ]
 
 export default function Kpi({}: props) {
@@ -43,9 +45,9 @@ export default function Kpi({}: props) {
     <div className="flex flex-wrap gap-4 justify-center">
       <Barchart chartData={chartData} xAxisName={"date"}></Barchart>
       <RadarChart chartData={chartData} xAxisName={"date"}></RadarChart>
-      <PieChart chartData={chartDataPie}></PieChart>
       <FilteredAreaChart chartData={chartData}></FilteredAreaChart>
-      <RadialChart chartData={chartDataPie}></RadialChart>
+      <PieChart chartData={chartDataPie}></PieChart>
+      <RadialChart chartData={chartDataPie} dataName="items"></RadialChart>
     </div>
   );
 }

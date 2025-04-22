@@ -3,14 +3,7 @@
 import { TrendingUp } from "lucide-react";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import ChartCard from "./chartCard";
 
 import {
   ChartConfig,
@@ -39,41 +32,36 @@ export default function Component({ chartData, xAxisName }: props) {
   );
 
   return (
-    <Card className="sm:w-full md:w-[45%] lg:w-[30%] bg-transparent border-transparent text-white">
-      <CardContent>
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto"
+    <ChartCard>
+      <ChartContainer config={chartConfig} className="mx-auto">
+        <RadarChart
+          data={chartData}
+          margin={{
+            top: -40,
+            bottom: -10,
+          }}
         >
-          <RadarChart
-            data={chartData}
-            margin={{
-              top: -40,
-              bottom: -10,
-            }}
-          >
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <PolarAngleAxis dataKey={xAxisName} />
-            <PolarGrid />
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent indicator="line" />}
+          />
+          <PolarAngleAxis dataKey={xAxisName} />
+          <PolarGrid />
 
-            {valueKeys.map((key, index, arr) => {
-              return (
-                <Radar
-                  dataKey={key}
-                  fill={`var(--color-${key})`}
-                  fillOpacity={0.5 / arr.length * index+1 + 0.5}
-                  key={index}
-                ></Radar>
-              );
-            })}
+          {valueKeys.map((key, index, arr) => {
+            return (
+              <Radar
+                dataKey={key}
+                fill={`var(--color-${key})`}
+                fillOpacity={(0.5 / arr.length) * index + 1 + 0.5}
+                key={index}
+              ></Radar>
+            );
+          })}
 
-            <ChartLegend className="mt-8" content={<ChartLegendContent />} />
-          </RadarChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+          <ChartLegend className="mt-8" content={<ChartLegendContent />} />
+        </RadarChart>
+      </ChartContainer>
+    </ChartCard>
   );
 }

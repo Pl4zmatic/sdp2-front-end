@@ -6,8 +6,16 @@ export const chartConfig = {
     color: "hsl(var(--chart-1))"
   },
   site2: {
-    label: "Another Site",
+    label: "Site2",
     color: "hsl(var(--chart-2))"
+  },
+  site3: {
+    label: "Site3",
+    color: "hsl(var(--chart-3))"
+  },
+  site4: {
+    label: "Site4",
+    color: "hsl(var(--chart-4))"
   },
   data: {
     label: "Data"

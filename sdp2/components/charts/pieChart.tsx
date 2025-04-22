@@ -3,15 +3,7 @@
 import * as React from "react"
 import { Label, LabelList, Pie, PieChart, Sector } from "recharts"
 import { PieSectorDataItem } from "recharts/types/polar/Pie"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import ChartCard from "./chartCard"
 
 import {
   ChartContainer,
@@ -43,9 +35,8 @@ export default function Component({ chartData } : props) {
   // })
 
   return (
-    <Card className="flex flex-col sm:w-full md:w-[45%] lg:w-[30%] bg-transparent border-transparent">
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
+    <ChartCard>
+      <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px] [&_.recharts-text]:fill-background"
         >
@@ -66,7 +57,6 @@ export default function Component({ chartData } : props) {
             </Pie>
           </PieChart>
         </ChartContainer>
-      </CardContent>
-    </Card>
+    </ChartCard>
   )
 }
