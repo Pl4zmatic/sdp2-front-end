@@ -81,7 +81,7 @@ export function Navbar() {
 
             <Link
               href="/Kpi"
-              className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-3 text-white hover:text-white transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <ChartNoAxesCombined size={20} />
