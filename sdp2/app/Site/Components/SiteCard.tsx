@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MapPin, Factory, User } from "lucide-react";
+import Link from "next/link";
 
 interface SiteCardProps {
   siteNaam?: string;
@@ -56,11 +57,11 @@ export default function SiteCard({
         </div>
       </CardContent>
       <CardFooter className="pt-0">
-        <a href={`${siteNaam}`}>
+        <Link href={`${siteNaam}`}>
           <Button className="bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant text-white border-0 transition-colors w-full">
             Select Plant
           </Button>
-        </a>
+        </Link>
       </CardFooter>
     </Card>
   );
