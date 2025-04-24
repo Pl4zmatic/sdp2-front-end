@@ -75,7 +75,7 @@ const UserManagement = () => {
           <input
             type="text"
             placeholder="Search"
-            className="w-full px-4 py-3 pl-10 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+            className="w-full px-4 py-3 pl-10 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -120,7 +120,7 @@ const UserManagement = () => {
               <input
                 type="text"
                 placeholder="Last Name"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.LASTNAME}
                 onChange={(e) => setFormData({...formData, LASTNAME: e.target.value})}
                 required
@@ -128,7 +128,7 @@ const UserManagement = () => {
               <input
                 type="text"
                 placeholder="First Name"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.FIRSTNAME}
                 onChange={(e) => setFormData({...formData, FIRSTNAME: e.target.value})}
                 required
@@ -136,7 +136,7 @@ const UserManagement = () => {
               <input
                 type="email"
                 placeholder="Email"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.EMAIL}
                 onChange={(e) => setFormData({...formData, EMAIL: e.target.value})}
                 required
@@ -144,7 +144,7 @@ const UserManagement = () => {
               <input
                 type="text"
                 placeholder="Address"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.ADRES}
                 onChange={(e) => setFormData({...formData, ADRES: e.target.value})}
                 required
@@ -152,7 +152,7 @@ const UserManagement = () => {
               <input
                 type="date"
                 placeholder="Birth Date"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.BIRTHDATE}
                 onChange={(e) => setFormData({...formData, BIRTHDATE: e.target.value})}
                 required
@@ -160,7 +160,7 @@ const UserManagement = () => {
               <input
                 type="tel"
                 placeholder="Phone Number"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.GSMNUMMER}
                 onChange={(e) => setFormData({...formData, GSMNUMMER: e.target.value})}
                 required
@@ -168,7 +168,7 @@ const UserManagement = () => {
               <input
                 type="password"
                 placeholder="Password"
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.PASSWORD}
                 onChange={(e) => setFormData({...formData, PASSWORD: e.target.value})}
                 required
@@ -176,7 +176,7 @@ const UserManagement = () => {
               <select
                 value={formData.ROL}
                 onChange={(e) => setFormData({...formData, ROL: Number(e.target.value)})}
-                className="w-full px-4 py-3 bg-red-500/10 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                 required
               >
                 {Object.entries(roles).map(([value, label]) => (
