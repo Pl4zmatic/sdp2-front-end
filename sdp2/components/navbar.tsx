@@ -71,7 +71,7 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="#"
+              href="/Employees"
               className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
