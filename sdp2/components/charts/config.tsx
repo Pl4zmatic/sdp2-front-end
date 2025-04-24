@@ -1,23 +1,67 @@
 import { ChartConfig } from "../ui/chart";
 
 export const chartConfig = {
-  site1: {
-    label: "Site",
-    color: "hsl(var(--chart-1))"
+  Antwerpen: {
+    label: "Antwerpen",
+    color: "hsl(var(--chart-1))",
   },
-  site2: {
-    label: "Site2",
-    color: "hsl(var(--chart-2))"
+  Brussel: {
+    label: "Brussel",
+    color: "hsl(var(--chart-2))",
   },
-  site3: {
-    label: "Site3",
-    color: "hsl(var(--chart-3))"
+  Gent: {
+    label: "Gent",
+    color: "hsl(var(--chart-3))",
   },
-  site4: {
-    label: "Site4",
-    color: "hsl(var(--chart-4))"
+  Leuven: {
+    label: "Leuven",
+    color: "hsl(var(--chart-4))",
   },
-  data: {
-    label: "Data"
-  }
+  Brugge: {
+    label: "Brugge",
+    color: "hsl(var(--chart-5))",
+  },
+
+  produced: {
+    label: "Total",
+    color: "hsl(var(--chart-2))",
+  },
+  maintenanceCost: {
+    label: "Costs",
+    color: "hsl(var(--chart-4))",
+  },
+  defectRate: {
+    label: "Defect Rate",
+    color: "hsl(var(--chart-1))",
+  },
+  averageProductionCost: {
+    label: "Defect Rate",
+    color: "hsl(var(--chart-5))",
+  },
+
+  Tomaten: {
+    label: "Tomaten",
+    color: "hsl(var(--chart-1))",
+  },
+  Aardbeien: {
+    label: "Aarbeien",
+    color: "hsl(var(--chart-2))",
+  },
+  Sla: {
+    label: "Sla",
+    color: "hsl(var(--chart-3))",
+  },
+  Wortelen: {
+    label: "Wortelen",
+    color: "hsl(var(--chart-4))",
+  },
+  Komkommers: {
+    label: "Komkommers",
+    color: "hsl(var(--chart-5))",
+  },
+
+  productionCost: {
+    label: 'Cost',
+    color: "hsl(var(--chart-5))",
+  },
 } satisfies ChartConfig;

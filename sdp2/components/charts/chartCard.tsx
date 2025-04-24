@@ -9,14 +9,15 @@ import {
 import { ReactNode } from "react";
 
 interface props {
-  children: ReactNode;
+  children: ReactNode,
+  title: string,
 }
 
-export default function ChartCard({ children }: props) {
+export default function ChartCard({ children, title }: props) {
   return (
-    <Card className="flex flex-col sm:w-full md:w-[45%] lg:w-[30%] bg-[var(--navy)] text-white border-[var(--lightestNavy)] shadow-xl rounded-b-lg">
+    <Card className="flex flex-col sm:w-full md:w-[45%] lg:w-[25%] aspect-video bg-[var(--navy)] text-white border-[var(--navy)] shadow-xl rounded-lg">
       <CardHeader className="bg-[var(--lightestNavy)] rounded-t-lg p-4">
-        Title
+        {title}
       </CardHeader>
       <CardContent className="flex-1 py-4 content-center">
         {children}

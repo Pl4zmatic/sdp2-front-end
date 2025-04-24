@@ -14,19 +14,27 @@ import ChartCard from "./chartCard";
 
 import { ChartContainer } from "@/components/ui/chart";
 import { chartConfig } from "./config";
+import { addFillFromConfig } from "./globalChartFunctions";
+import { useEffect } from "react";
 
 interface props {
-  chartData: any[];
-  dataName: string;
+  chartData: any[],
+  dataName: string,
+  dataKey: string;
+  title : string
 }
 
-export default function Component({ chartData, dataName }: props) {
+export default function Component({ chartData, dataName, title, dataKey }: props) {
+  useEffect(() => {
+    chartData = addFillFromConfig(chartData, dataKey);
+  })
+
   return chartData.map((obj, index) => (
-    <ChartCard key={index}>
+    <ChartCard key={index} title={title}>
       <ChartContainer config={chartConfig} className="size-full">
         <RadialBarChart
           data={[obj]}
-          endAngle={100}
+          endAngle={90}
           innerRadius={80}
           outerRadius={140}
         >
@@ -37,7 +45,7 @@ export default function Component({ chartData, dataName }: props) {
             className="first:fill-[var(--lightestNavy)] last:fill-[var(--lightNavy)]"
             polarRadius={[86, 74]}
           />
-          <RadialBar dataKey="data" background />
+          <RadialBar dataKey={dataKey} background />
           <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
             <Label
               content={({ viewBox }) => {
@@ -54,7 +62,7 @@ export default function Component({ chartData, dataName }: props) {
                         y={viewBox.cy}
                         className="fill-[white] text-4xl font-bold"
                       >
-                        {obj.data}
+                        {obj[dataKey]}
                       </tspan>
                       <tspan
                         x={viewBox.cx}

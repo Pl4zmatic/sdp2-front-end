@@ -33,7 +33,7 @@ export default function Component({ chartData, xAxisName }: props) {
 
   return (
     <ChartCard>
-      <ChartContainer config={chartConfig} className="mx-auto">
+      <ChartContainer config={chartConfig} className="mx-auto size-full">
         <RadarChart
           data={chartData}
           margin={{
@@ -45,7 +45,7 @@ export default function Component({ chartData, xAxisName }: props) {
             cursor={false}
             content={<ChartTooltipContent indicator="line" />}
           />
-          <PolarAngleAxis dataKey={xAxisName} />
+          <PolarAngleAxis dataKey={xAxisName} tick={{fontSize: '0.6rem'}}/>
           <PolarGrid />
 
           {valueKeys.map((key, index, arr) => {
