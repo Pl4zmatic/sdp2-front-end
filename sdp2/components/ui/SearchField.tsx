@@ -52,7 +52,7 @@ export default function SearchField({
           placeholder={placeholder}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 bg-delawareRed dark:bg-navy shadow-md dark:border-lightestNavy text-darkGray dark:text-white placeholder:text-white dark:placeholder:text-white focus:border-delawareRed focus-visible:ring-0 focus-visible:ring-offset-0 h-12"
+          className="pl-10 bg-delawareRed dark:bg-navy shadow-md dark:border-lightestNavy text-white placeholder:text-white dark:placeholder:text-white focus:border-delawareRed focus-visible:ring-0 focus-visible:ring-offset-0 h-12"
         />
       </div>
     </div>

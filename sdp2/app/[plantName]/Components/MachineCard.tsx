@@ -68,7 +68,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                       } w-5 h-5 rounded-[50%] mx-2 border-2 border-white `}
                     ></div>
                     <p className="">
-                      <span className="font-semibold text-2xl px-[20px] hover:underline text-nowrap">
+                      <span className="font-semibold text-2xl px-[20px] hover:no-underline text-nowrap">
                         {machine.name}
                       </span>
                       <span className="text-white/80 dark:text-[#999] text-sm text-nowrap ">

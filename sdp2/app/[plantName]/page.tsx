@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Span } from "next/dist/trace";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const PlantDetails = () => {
   const params = useParams();
@@ -15,17 +16,18 @@ const PlantDetails = () => {
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
 
   useEffect(() => {
-    const storedPlant = sessionStorage.getItem("selectedPlant");
-    if (storedPlant) {
-      setSelectedPlant(JSON.parse(storedPlant));
-    }
-
-    const plant = arrPlants.find((plant) => plant.name == plantName);
+    const plant = arrPlants.find((plant) => plant.name === plantName);
+  
     if (plant) {
       sessionStorage.setItem("selectedPlant", JSON.stringify(plant));
       setSelectedPlant(plant);
+    } else {
+      const storedPlant = sessionStorage.getItem("selectedPlant");
+      if (storedPlant) {
+        setSelectedPlant(JSON.parse(storedPlant));
+      }
     }
-  }, [plantName]);
+  }, [plantName, arrPlants]);
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
@@ -33,9 +35,12 @@ const PlantDetails = () => {
         <div className="flex items-center justify-center w-full mb-5">
           <h1 className="text-7xl font-bold text-white mb-5">
             {selectedPlant ? (
-              <span className="text-deepBlue dark:text-delawareRed">
-                {selectedPlant.name}
-              </span>
+              <div className="flex flex-col items-center">
+                <span className="text-deepBlue dark:text-delawareRed">
+                  {selectedPlant.name}
+                </span>
+                <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
+              </div>
             ) : (
               <span className="text-delawareRed">{"DetailsPage"}</span>
             )}
@@ -44,21 +49,21 @@ const PlantDetails = () => {
 
         {selectedPlant ? (
           <div className="flex-col items-center justify-center">
-            <MachineCard machines={selectedPlant.machines} />
             <PlantInfo
               plantName={selectedPlant.name}
               currentProduction={selectedPlant.currentProduction}
               efficiencyRate={selectedPlant.efficiencyRate}
               machines={selectedPlant.machines}
             />
+            <MachineCard machines={selectedPlant.machines} />
           </div>
         ) : (
           <div className="flex justify-center">
-            <a href="Site">
+            <Link href="Site">
               <Button className="bg-navy text-white hover:bg-lightestNavy hover:text-white">
                 Choose a plant
               </Button>
-            </a>
+            </Link>
           </div>
         )}
       </main>

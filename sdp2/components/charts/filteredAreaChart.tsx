@@ -48,7 +48,7 @@ export default function Component({ chartData }: props) {
   );
 
   return (
-    <Card className="w-full bg-transparent text-white border-transparent">
+    <Card className="w-full bg-[var(--navy)] text-white border-transparent">
       <CardHeader className="flex items-center">
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger

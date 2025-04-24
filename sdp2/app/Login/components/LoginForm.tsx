@@ -1,59 +1,83 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
-import { Eye, EyeOff } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
+import { post } from "@/api"
 
 export default function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // hier komt login logica
-    console.log("Login attempt with:", email, password)
+    setError("")
+    setIsLoading(true)
+
+    try {
+      const response = await post('login', {
+        arg: {
+          EMAIL: email,
+          PASSWORD: password
+        }
+      });
+
+      localStorage.setItem("token", response.token)
+      
+      // Redirect naar de landing page
+      router.push("/Landing")
+    } catch (err: any) {
+      setError(err.response?.data?.error || "An unexpected error occurred. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-      <div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
         <Input
+          id="email"
           type="email"
-          placeholder="example@email.com"
+          placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="bg-lightestNavy border-none text-white placeholder:text-gray-400 focus:ring-white focus:ring-2 focus:ring-offset-0 focus-visible:ring-white focus-visible:ring-offset-0"
+          className="bg-white dark:bg-navy text-darkGray dark:text-white"
         />
       </div>
-      <div className="relative">
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
         <Input
-          type={showPassword ? "text" : "password"}
+          id="password"
+          type="password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="bg-lightestNavy border-none text-white placeholder:text-gray-400 pr-10 focus:ring-white focus:ring-2 focus:ring-offset-0 focus-visible:ring-white focus-visible:ring-offset-0"
+          className="bg-white dark:bg-navy text-darkGray dark:text-white"
         />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"
-        >
-          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-        </button>
       </div>
-      <div className="flex justify-end">
-        <a href="#" className="text-sm text-gray-400 hover:text-delawareRed"> //forgot password link moet nog aangepast worden
-          Forgot Password
-        </a>
-      </div>
-      <Button type="submit" className="w-full bg-delawareRed hover:bg-delawareRedAccent text-white py-2 rounded">
-        Login
+      <Button
+        type="submit"
+        className="w-full bg-delawareRed hover:bg-[#F16776] text-white"
+        disabled={isLoading}
+      >
+        {isLoading ? "Logging in..." : "Login"}
       </Button>
     </form>
   )

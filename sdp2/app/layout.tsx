@@ -1,9 +1,11 @@
+
+
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
+import { AuthLayout } from "@/components/auth-layout"
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,15 +31,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen">
-            {/* Navbar */}
-            <Navbar />
-
-            {/* Main Content (rechts naast navbar) */}
-            <div className="flex-1 md:ml-64 transition-all duration-300 ease-in-out">
-              <main className="p-8 w-full">{children}</main>
-            </div>
-          </div>
+          <AuthLayout>{children}</AuthLayout>
         </ThemeProvider>
       </body>
     </html>
