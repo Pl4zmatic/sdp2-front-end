@@ -1,6 +1,6 @@
 "use client";
 
-import BarChart from "@/components/charts/barChart";
+import BarChart from "@/components/charts/barchart";
 import FilteredAreaChart from "@/components/charts/filteredAreaChart";
 import PieChart from "@/components/charts/pieChart";
 import RadarChart from "@/components/charts/radarChart";

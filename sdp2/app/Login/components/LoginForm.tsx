@@ -17,7 +17,7 @@ export default function LoginForm() {
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    /*e.preventDefault()
     setError("")
     setIsLoading(true)
 
@@ -37,7 +37,9 @@ export default function LoginForm() {
       setError(err.response?.data?.error || "An unexpected error occurred. Please try again.")
     } finally {
       setIsLoading(false)
-    }
+    }*/
+    localStorage.setItem("token", "123")
+   router.push("/Landing")
   }
 
   return (
