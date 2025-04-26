@@ -5,6 +5,6 @@ const axios = axiosRoot.create({
 
 export async function getCoordinates(id) {
   if(id && !isNaN(id)){
-    return await axios.get(`/sites/coordinates/${id}`)
+    return await axios.get(`/coordinates/${id}`)
   }
 }
