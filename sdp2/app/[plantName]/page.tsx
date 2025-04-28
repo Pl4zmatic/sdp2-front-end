@@ -1,12 +1,10 @@
 "use client";
 import { arrPlants } from "../Site/Mock";
 import { MachineCard } from "./Components/MachineCard";
-import PlantTable from "./Components/PlantTable";
 import PlantInfo from "./Components/PlantInfo";
 import { Plant } from "../types/Plant";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Span } from "next/dist/trace";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -59,11 +57,7 @@ const PlantDetails = () => {
           </div>
         ) : (
           <div className="flex justify-center">
-            <Link href="Site">
-              <Button className="bg-navy text-white hover:bg-lightestNavy hover:text-white">
-                Choose a plant
-              </Button>
-            </Link>
+            <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
           </div>
         )}
       </main>

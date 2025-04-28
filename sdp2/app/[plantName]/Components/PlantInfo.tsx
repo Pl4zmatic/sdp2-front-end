@@ -27,7 +27,6 @@ const PlantInfo = ({
         <div className="text-xl font-bold text-wrap">
           <div className="flex items-center">
             <h1 className="text-2xl text-white">Current Production</h1>
-            <div className="bg-[#3CEF3C] w-5 h-5 rounded-[50%] mx-2 border-2 border-white"></div>
           </div>
           <div className="mt-4">
             <p className=" text-5xl text-deepBlue dark:text-delawareRed">
@@ -68,10 +67,7 @@ const PlantInfo = ({
           <div className="mt-4">
             <div className="flex">
               <p className="text-5xl text-deepBlue dark:text-delawareRed">
-                {"" + activeMachines + "/" + length}
-              </p>
-              <p className="text-base text-deepBlue dark:text-delawareRed mt-5">
-                ({(activeMachines / length) * 100}%)
+              {(activeMachines / length) * 100}%
               </p>
             </div>
             <p className="text-sm font-normal text-white dark:text-gray">

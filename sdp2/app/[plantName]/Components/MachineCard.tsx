@@ -10,34 +10,46 @@ import {
 } from "@/components/ui/accordion";
 import SearchField from "@/components/ui/SearchField";
 import { useMemo, useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 interface MachineCardProps {
   machines: Machine[];
 }
 
 export const MachineCard = ({ machines }: MachineCardProps) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [showActive, setShowActive] = useState(false);
 
   const filteredMachines = useMemo(() => {
-    if (!searchTerm.trim()) return machines;
+    let filteredMachines = [...machines];
+    if(!showActive) {
+      filteredMachines = filteredMachines.filter((machine) => machine.status === "Running");
+    }
+    if (searchTerm.trim()){
+      const lowerCaseSearch = searchTerm.toLowerCase();
+      return filteredMachines.filter(
+        (machine) =>
+  
+          machine.name.toLowerCase().includes(lowerCaseSearch) ||
+          machine.machineCode.toLowerCase().includes(lowerCaseSearch) ||
+          machine.supervisor.toLowerCase().includes(lowerCaseSearch) ||
+          machine.technician.toLowerCase().includes(lowerCaseSearch)
+      );
+    }
+    return filteredMachines;
+  }, [machines, searchTerm, showActive]);
 
-    const lowerCaseSearch = searchTerm.toLowerCase();
-    return machines.filter(
-      (machine) =>
-        machine.name.toLowerCase().includes(lowerCaseSearch) ||
-        machine.machineCode.toLowerCase().includes(lowerCaseSearch) ||
-        machine.supervisor.toLowerCase().includes(lowerCaseSearch) ||
-        machine.technician.toLowerCase().includes(lowerCaseSearch)
-    );
-  }, [machines, searchTerm]);
 
   return (
     <div className="min-w-[25%]">
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
           placeholder="Zoek op naam, code, supervisor,..."
           onSearch={setSearchTerm}
         />
+        <Checkbox checked={showActive} onCheckedChange={(checked) => setShowActive(!!checked)} id="show-active-checkbox"/>
+        <Label htmlFor="show-active-checkbox" className="ml-2">Show non-active</Label>
       </div>
       <div className="flex flex-col h-auto mx-auto max-w-[65%] bg-delawareRed dark:bg-lightestNavy rounded-lg">
         <Accordion
@@ -48,14 +60,14 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
           {filteredMachines.length === 0 ? (
             <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
               <p>
-                Geen locaties gevonden die overeenkomen met je zoekopdracht.
+                Geen machines gevonden die overeenkomen met je zoekopdracht.
               </p>
             </div>
           ) : (
             <div>
               {filteredMachines.map((machine, index) => (
                 <AccordionItem
-                  value={`item-${index}`}
+                  value={machine.machineCode}
                   key={machine.machineCode}
                   className="min-h-[50px] border-0"
                 >
