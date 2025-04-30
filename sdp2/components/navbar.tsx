@@ -2,18 +2,42 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Compass, BarChart2, FileText, Users, Bell, Menu, X, ChartNoAxesCombined } from "lucide-react"
+import {
+  Compass,
+  BarChart2,
+  FileText,
+  Users,
+  Bell,
+  Menu,
+  X,
+  BarChartIcon as ChartNoAxesCombined,
+  LogOut,
+  User,
+  ChevronDown,
+} from "lucide-react"
 import Image from "next/image"
 import { ThemeToggle } from "./theme-toggle"
+import { useLogout } from "@/hooks/useLogout"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isProfileOpen, setIsProfileOpen] = useState(false)
+  const logout = useLogout()  
+
 
   // Verbieden scrollen wanneer hamburger menu open is
   const toggleMenu = () => {
     const newState = !isMenuOpen
     setIsMenuOpen(newState)
     document.body.style.overflow = newState ? "hidden" : "auto"
+  }
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen)
+  }
+
+  const handleLogout = () => {
+    logout()   
   }
 
   return (
@@ -38,7 +62,9 @@ export function Navbar() {
       >
         <div className="space-y-8">
           <div className="flex items-center justify-between">
-            <a href="Landing"><Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" /></a>
+            <a href="Landing">
+              <Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" />
+            </a>
             <ThemeToggle />
           </div>
 
@@ -90,13 +116,45 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 text-white hover:text-white/80 transition-colors cursor-pointer">
-          <Bell size={20} />
-          <span>Notifications</span>
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed">3</span>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer">
+            <Bell size={20} />
+            <span>Notifications</span>
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed ml-auto">
+              3
+            </span>
+          </div>
+
+          <div className="relative">
+            <div
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer"
+              onClick={toggleProfile}
+            >
+              <User size={20} />
+              <span>John Doe</span>
+              <ChevronDown size={16} className={`ml-auto transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
+            </div>
+
+            {isProfileOpen && (
+              <div className="absolute bottom-full mb-2 w-full bg-white dark:bg-slate-800 rounded-md shadow-lg overflow-hidden">
+                <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">John Doe</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">john.doe@example.com</p>
+                </div>
+                <div className="p-2">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 px-3 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+                  >
+                    <LogOut size={16} />
+                    <span>Log out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </aside>
     </>
   )
 }
-
