@@ -2,7 +2,7 @@ import { Machine } from "./Machine";
 
 export interface Plant {
   id: number;
-  name: string;
+  NAME: string;
   status: string;
   health: number;
   maintenance: number;
@@ -10,5 +10,5 @@ export interface Plant {
   currentProduction: number;
   efficiencyRate: number;
   verantwoordelijke: string;
-  machines: Machine[];
+  MACHINES: Machine[];
 }
