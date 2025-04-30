@@ -31,6 +31,5 @@ export async function save(url, { arg: { id, ...data } }) {
 
 export async function getAll(url) {
   const { data } = await axios.get(`${baseUrl}/${url}`); 
-
-  return data.items;
+  return Array.isArray(data) ? data : data.items;
 }
