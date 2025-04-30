@@ -1,15 +1,20 @@
 "use client";
+import useSWR from "swr";
 import { useState } from "react";
 import SiteCardList from "./Components/SiteCardsList";
 import { arrPlants } from "./Mock";
 import SiteMap from "./Components/Map";
+import {getAll} from "../../api/index";
+import { Plant } from "@/app/types/Plant";
 
 export default function Site() {
   const [search, setSearch] = useState("");
 
-  const filteredSites = arrPlants.filter((site) =>
-    site.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const { data: sites = [], error, isLoading } = useSWR("sites", () => getAll("sites")); 
+  !isLoading ? console.log(sites[0]) : console.log("loading");
+  const filteredSites = !isLoading ? sites.filter((site : Plant) =>
+    site.NAME.toLowerCase().includes(search.toLowerCase())
+  ) : [];
 
   return (
     <div className="flex min-h-screen justify-center items-center">

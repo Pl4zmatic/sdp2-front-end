@@ -41,7 +41,7 @@ export default function Markers({ sites }: MarkersProps) {
           setSelectedMarker({ lat: coord.lat, lng: coord.lng, site: sites[index] });
         }} />
       ))}
-      {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.name}</p>} className="min-h-1" 
+      {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.NAME}</p>} className="min-h-1" 
       position={selectedMarker} onCloseClick={() => setSelectedMarker(null)}>
         <p className="text-black">{selectedMarker.site.location}</p>
          </InfoWindow>}
