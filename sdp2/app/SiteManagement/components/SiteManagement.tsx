@@ -34,7 +34,7 @@ if(!isLoading && data) return (
           Add Plant
         </button>
       </div>
-      <SiteTable sites={...data}
+      <SiteTable sites={data}
       />
     </div>
   )
