@@ -11,7 +11,6 @@ export default function Site() {
   const [search, setSearch] = useState("");
 
   const { data: sites = [], error, isLoading } = useSWR("sites", () => getAll("sites")); 
-  !isLoading ? console.log(sites[0]) : console.log("loading");
   const filteredSites = !isLoading ? sites.filter((site : Plant) =>
     site.NAME.toLowerCase().includes(search.toLowerCase())
   ) : [];
