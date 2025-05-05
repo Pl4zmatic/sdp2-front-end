@@ -2,7 +2,6 @@ import React from "react";
 
 
     const SiteTable =  ({sites}) => {
-    console.log(sites)
 return(
   <div className="bg-gray-800 rounded-lg overflow-hidden overflow-x-auto hidden md:block">
     <div className="min-w-[600px]">
@@ -11,7 +10,8 @@ return(
         <div>NAME</div>
         <div>ADRESS</div>
         <div>VERANTWOORDELIJKE</div>
-        <div>MACHINES</div>
+        <div>EDIT</div>
+        <div>DELETE</div>
       </div>
       {sites.length > 0 ? (
         sites.map((site) => (
@@ -23,7 +23,6 @@ return(
               <div>{site.NAME}</div>
               <div>{site.ADDRESS}</div>
               <div>{site.VERANTWOORDELIJKE}</div>
-              {/* <div>{site.MACHINES.length}</div> */}
               <div>
                 <button
                   className="text-red-500 hover:text-red-400"

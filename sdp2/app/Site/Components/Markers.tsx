@@ -19,7 +19,7 @@ export default function Markers({ sites }: MarkersProps) {
             const fetchedCoordinates = await Promise.all(
               sites.map(async (site) => {
                 console.log(site)
-                const response = await getCoordinates(site.id);
+                const response = await getCoordinates(site.ID);
                 if(response){
                     return response.data; 
                 }
@@ -43,7 +43,7 @@ export default function Markers({ sites }: MarkersProps) {
       ))}
       {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.NAME}</p>} className="min-h-1" 
       position={selectedMarker} onCloseClick={() => setSelectedMarker(null)}>
-        <p className="text-black">{selectedMarker.site.location}</p>
+        <p className="text-black">{selectedMarker.site.ADDRESS}</p>
          </InfoWindow>}
 
       

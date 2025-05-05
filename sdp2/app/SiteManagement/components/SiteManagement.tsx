@@ -7,22 +7,26 @@ import SiteTable from "./SiteTable"
 import SearchField from "@/components/ui/SearchField"
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { User } from "@/types/user"
 
 const SiteManagement = () => {
-  const { data = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
+  const { data: data = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
+  const { data: verantwoordelijken, error: errorVerantwoordelijken, isLoading: isLoadingVerantwoordelijken } = useSWR("verantwoordelijken", () => getAll("verantwoordelijken"));
   const [searchTerm, setSearchTerm] = useState("");
   const [showStatusBar, setShowStatusBar] = useState<boolean>(false)
   const [showActivityBar, setShowActivityBar] = useState<boolean>(false)
   const [showPanel, setShowPanel] = useState<boolean>(false)
+  const [position, setPosition] = useState("")
   
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error loading plants: {error.message}</div>
+  if (isLoading || isLoadingVerantwoordelijken) return <div>Loading...</div>
+  if (error || errorVerantwoordelijken) return <div>Error loading plants: {error.message}</div>
 
   return (
     <div className="p-4 md:p-8">
@@ -44,24 +48,17 @@ const SiteManagement = () => {
         <DropdownMenu>
           <DropdownMenuTrigger>Filter</DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuCheckboxItem
-            checked={showStatusBar}
-            onCheckedChange={setShowStatusBar}
+           <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+           {verantwoordelijken.map((verantwoordelijke: User) => (
+            <DropdownMenuRadioItem 
+              key={verantwoordelijke.ID}
+              value={verantwoordelijke.ID.toString()}
             >
-              Status Bar
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-            checked={showActivityBar}
-            onCheckedChange={setShowActivityBar}
-            >
-              Activity Bar
-            </DropdownMenuCheckboxItem>
-            <DropdownMenuCheckboxItem
-            checked={showPanel}
-            onCheckedChange={setShowPanel}
-            >
-              Panel
-            </DropdownMenuCheckboxItem>
+              {verantwoordelijke.FIRSTNAME} {verantwoordelijke.LASTNAME}
+            </DropdownMenuRadioItem>
+))}
+            
+           </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
