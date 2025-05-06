@@ -4,6 +4,7 @@ import useSWR from "swr"
 import { getAll } from "../../../api/index"
 import { useState, useMemo } from "react"
 import SiteTable from "./SiteTable"
+import FilterDropdown from "./FilterDropdown"
 import SearchField from "@/components/ui/SearchField"
 import {
   DropdownMenu,
@@ -21,9 +22,6 @@ const SiteManagement = () => {
   const { data: data = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
   const { data: verantwoordelijken, error: errorVerantwoordelijken, isLoading: isLoadingVerantwoordelijken } = useSWR("verantwoordelijken", () => getAll("verantwoordelijken"));
   const [searchTerm, setSearchTerm] = useState("");
-  const [showStatusBar, setShowStatusBar] = useState<boolean>(false)
-  const [showActivityBar, setShowActivityBar] = useState<boolean>(false)
-  const [showPanel, setShowPanel] = useState<boolean>(false)
   const [position, setPosition] = useState("")
   
   const filteredSites = useMemo(() => {
@@ -32,7 +30,7 @@ const SiteManagement = () => {
       site.VERANTWOORDELIJKE?.toString() === position
     );
   }, [data, position]);
-  
+
   if (isLoading || isLoadingVerantwoordelijken) return <div>Loading...</div>
   if (error || errorVerantwoordelijken) return <div>Error loading plants: {error.message}</div>
 
@@ -55,23 +53,11 @@ const SiteManagement = () => {
             icon: "left-3 top-1/2 -translate-y-1/2 text-gray-400",
           }}
         />
-      <div className="border-black border-2 rounded p-2 mw-50 flex justify-center dark:border-white">
-        <DropdownMenu>
-          <DropdownMenuTrigger>{position == "" ? "Filter Verantwoordelijke" : position}</DropdownMenuTrigger>
-          <DropdownMenuContent>
-           <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-           {verantwoordelijken.map((verantwoordelijke: User) => (
-            <DropdownMenuRadioItem 
-              key={verantwoordelijke.ID}
-              value={verantwoordelijke.FIRSTNAME.toString() + " " + verantwoordelijke.LASTNAME.toString()}
-            >
-              {verantwoordelijke.FIRSTNAME} {verantwoordelijke.LASTNAME}
-            </DropdownMenuRadioItem>
-))}
-           </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      <FilterDropdown
+          position={position}
+          setPosition={setPosition}
+          verantwoordelijken={verantwoordelijken}
+        />
         <button
           className="w-full md:w-auto bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 flex items-center justify-center gap-2"
         >
