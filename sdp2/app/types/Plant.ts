@@ -1,14 +1,14 @@
 import { Machine } from "./Machine";
 
 export interface Plant {
-  id: number;
+  ID: number;
   NAME: string;
-  status: string;
-  health: number;
-  maintenance: number;
-  location: string;
-  currentProduction: number;
-  efficiencyRate: number;
-  verantwoordelijke: string;
+  STATUS: string;
+  HEALTH: number;
+  MAINTENANCE: number;
+  ADDRESS: string;
+  CURRENTPRODUCTION: number;
+  EFFICIENCYRATE: number;
+  VERANTWOORDELIJKE: string;
   MACHINES: Machine[];
 }
