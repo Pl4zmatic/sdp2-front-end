@@ -2,7 +2,7 @@
 
 import useSWR from "swr"
 import { getAll } from "../../../api/index"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import SiteTable from "./SiteTable"
 import SearchField from "@/components/ui/SearchField"
 import {
@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { User } from "@/types/user"
+import { Plant } from "@/app/types/Plant"
 
 const SiteManagement = () => {
   const { data: data = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
@@ -25,8 +26,18 @@ const SiteManagement = () => {
   const [showPanel, setShowPanel] = useState<boolean>(false)
   const [position, setPosition] = useState("")
   
+  const filteredSites = useMemo(() => {
+    if (position === "") return data;
+    return data.filter((site: Plant) => 
+      site.VERANTWOORDELIJKE?.toString() === position
+    );
+  }, [data, position]);
+  
   if (isLoading || isLoadingVerantwoordelijken) return <div>Loading...</div>
   if (error || errorVerantwoordelijken) return <div>Error loading plants: {error.message}</div>
+
+ 
+
 
   return (
     <div className="p-4 md:p-8">
@@ -44,7 +55,7 @@ const SiteManagement = () => {
             icon: "left-3 top-1/2 -translate-y-1/2 text-gray-400",
           }}
         />
-      <div className="border-2 border-white rounded p-2 mw-50 flex justify-center">
+      <div className="border-black border-2 rounded p-2 mw-50 flex justify-center dark:border-white">
         <DropdownMenu>
           <DropdownMenuTrigger>{position == "" ? "Filter Verantwoordelijke" : position}</DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -68,9 +79,7 @@ const SiteManagement = () => {
           Add Plant
         </button>
       </div>
-      <SiteTable sites={data.filter((site : any) => {
-        return site.VERANTWOORDELIJKE.FIRSTNAME + " " + site.VERANTWOORDELIJKE.LASTNAME == position
-      })}
+      <SiteTable sites={filteredSites}
       />
     </div>
   )
