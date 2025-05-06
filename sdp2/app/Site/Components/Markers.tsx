@@ -44,9 +44,7 @@ export default function Markers({ sites }: MarkersProps) {
       {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.NAME}</p>} className="min-h-1" 
       position={selectedMarker} onCloseClick={() => setSelectedMarker(null)}>
         <p className="text-black">{selectedMarker.site.ADDRESS}</p>
-         </InfoWindow>}
-
-      
+         </InfoWindow>}      
     </>
   );
 }

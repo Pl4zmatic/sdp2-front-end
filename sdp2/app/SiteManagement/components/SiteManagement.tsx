@@ -44,20 +44,19 @@ const SiteManagement = () => {
             icon: "left-3 top-1/2 -translate-y-1/2 text-gray-400",
           }}
         />
-      <div className="border-2 border-white rounded p-2 w-20 flex justify-center">
+      <div className="border-2 border-white rounded p-2 mw-50 flex justify-center">
         <DropdownMenu>
-          <DropdownMenuTrigger>Filter</DropdownMenuTrigger>
+          <DropdownMenuTrigger>{position == "" ? "Filter Verantwoordelijke" : position}</DropdownMenuTrigger>
           <DropdownMenuContent>
            <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
            {verantwoordelijken.map((verantwoordelijke: User) => (
             <DropdownMenuRadioItem 
               key={verantwoordelijke.ID}
-              value={verantwoordelijke.ID.toString()}
+              value={verantwoordelijke.FIRSTNAME.toString() + " " + verantwoordelijke.LASTNAME.toString()}
             >
               {verantwoordelijke.FIRSTNAME} {verantwoordelijke.LASTNAME}
             </DropdownMenuRadioItem>
 ))}
-            
            </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -69,7 +68,9 @@ const SiteManagement = () => {
           Add Plant
         </button>
       </div>
-      <SiteTable sites={data}
+      <SiteTable sites={data.filter((site : any) => {
+        return site.VERANTWOORDELIJKE.FIRSTNAME + " " + site.VERANTWOORDELIJKE.LASTNAME == position
+      })}
       />
     </div>
   )
