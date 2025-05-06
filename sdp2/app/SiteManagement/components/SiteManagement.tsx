@@ -1,7 +1,7 @@
 "use client"
 
 import useSWR from "swr"
-import { getAll } from "../../../api/index"
+import { getAll, save } from "../../../api/index"
 import { useState, useMemo } from "react"
 import SiteTable from "./SiteTable"
 import FilterDropdown from "./FilterDropdown"
@@ -23,6 +23,28 @@ const SiteManagement = () => {
   const { data: verantwoordelijken, error: errorVerantwoordelijken, isLoading: isLoadingVerantwoordelijken } = useSWR("verantwoordelijken", () => getAll("verantwoordelijken"));
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState("")
+  const [addingNew, setAddingNew] = useState(false)
+
+  const handleAddClick = () => {
+    setAddingNew(true)
+  }
+
+  const handleCancelEdit = () => {
+    setAddingNew(false)
+  }
+
+  const handleSubmit = async (formData: any, id?: number) => {
+    try {
+      await save("sites", { arg: { id: id ?? null, ...formData } });
+    } catch (error) {
+      console.error("Failed to save plant:", error);
+    }
+  };
+
+  const handleFormSubmit = async (data: any, id?: number) => {
+      await handleSubmit(data, id)
+      setAddingNew(false)
+    }
   
   const filteredSites = useMemo(() => {
     if (position === "") return data;
@@ -34,8 +56,9 @@ const SiteManagement = () => {
   if (isLoading || isLoadingVerantwoordelijken) return <div>Loading...</div>
   if (error || errorVerantwoordelijken) return <div>Error loading plants: {error.message}</div>
 
- 
-
+  function showForm(): void {
+    throw new Error("Function not implemented.")
+  }
 
   return (
     <div className="p-4 md:p-8">
@@ -60,12 +83,13 @@ const SiteManagement = () => {
         />
         <button
           className="w-full md:w-auto bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 flex items-center justify-center gap-2"
+          onClick={handleAddClick}
         >
           <span className="text-xl">+</span>
           Add Plant
         </button>
       </div>
-      <SiteTable sites={filteredSites}
+      <SiteTable sites={filteredSites} addingNew={addingNew} onFormSubmit={handleFormSubmit} onCancelEdit={handleCancelEdit} verantwoordelijkes={verantwoordelijken}
       />
     </div>
   )

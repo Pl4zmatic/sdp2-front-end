@@ -25,6 +25,12 @@ const FilterDropdown = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+        <DropdownMenuRadioItem
+              key={"cancel"}
+              value={""}
+            >
+              cancel filter
+            </DropdownMenuRadioItem>
           {verantwoordelijken.map((verantwoordelijke: User) => (
             <DropdownMenuRadioItem
               key={verantwoordelijke.ID}

@@ -1,7 +1,7 @@
 import React from "react";
+import SiteForm from "./SiteForm";
 
-
-    const SiteTable =  ({sites}) => {
+    const SiteTable =  ({sites, addingNew, onFormSubmit, onCancelEdit, verantwoordelijkes}) => {
 return(
   <div className="bg-gray-800 rounded-lg overflow-hidden overflow-x-auto hidden md:block">
     <div className="min-w-[600px]">
@@ -45,6 +45,16 @@ return(
           No plants found
         </div>
       )}
+      {addingNew && (
+              <div className="col-span-6 bg-gray-900 p-4 border-b border-gray-700">
+                <SiteForm
+                  onSubmit={onFormSubmit}
+                  onCancel={onCancelEdit}
+                  initialData={undefined}
+                  verantwoordelijkes={verantwoordelijkes}
+                />
+              </div>
+            )}
     </div>
   </div>
 )
