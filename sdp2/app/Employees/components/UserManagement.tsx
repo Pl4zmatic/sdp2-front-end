@@ -69,7 +69,7 @@ const UserManagement = () => {
           className="w-full md:w-[300px]"
           customStyles={{
             input:
-              "px-4 py-3 pl-10 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400",
+              "px-4 py-3 pl-10 bg-slate-100 dark:bg-slate-700 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400",
             icon: "left-3 top-1/2 -translate-y-1/2 text-gray-400",
           }}
         />
