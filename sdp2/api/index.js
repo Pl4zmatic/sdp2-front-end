@@ -2,34 +2,45 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:4000/api';
 
+const api = axios.create({
+  baseURL: baseUrl,
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export const post = async (url, { arg }) => {
-  const { data } = await axios.post(`${baseUrl}/${url}`, arg);
+  const { data } = await api.post(`/${url}`, arg);
   return data;
-}; 
+};
 
 export const deleteById = async (url, { arg: id }) => {
-  try
-  {
-    await axios.delete(`${baseUrl}/${url}/${id}`); 
-  } catch(error){
-    return {success: false, message: error.message}
+  try {
+    await api.delete(`/${url}/${id}`);
+  } catch (error) {
+    return { success: false, message: error.message };
   }
 };
 
 export const getById = async (url) => {
-  const { data } = await axios.get(`${baseUrl}/${url}`);
+  const { data } = await api.get(`/${url}`);
   return data;
 };
 
 export async function save(url, { arg: { id, ...data } }) {
-  await axios({
+  await api({
     method: id ? 'PUT' : 'POST',
-    url: `${baseUrl}/${url}/${id ?? ''}`,
+    url: `/${url}/${id ?? ''}`,
     data,
   });
 }
 
 export async function getAll(url) {
-  const { data } = await axios.get(`${baseUrl}/${url}`); 
+  const { data } = await api.get(`/${url}`);
   return Array.isArray(data) ? data : data.items;
 }
