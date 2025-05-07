@@ -3,6 +3,15 @@ import MachineInfo from "./MachineInfo";
 import { Machine } from "@/app/types/Machine";
 
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -12,6 +21,9 @@ import SearchField from "@/components/ui/SearchField";
 import { useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { machine } from "os";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 interface MachineCardProps {
   machines: Machine[];
 }
@@ -23,22 +35,21 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
   const filteredMachines = useMemo(() => {
     let filteredMachines = [...machines];
     if(!showActive) {
-      filteredMachines = filteredMachines.filter((machine) => machine.status === "Running");
+      filteredMachines = filteredMachines.filter((machine) => machine.CURRENTSTATESTRING === "Running");
     }
     if (searchTerm.trim()){
       const lowerCaseSearch = searchTerm.toLowerCase();
       return filteredMachines.filter(
         (machine) =>
-  
-          machine.name.toLowerCase().includes(lowerCaseSearch) ||
-          machine.machineCode.toLowerCase().includes(lowerCaseSearch) ||
+          machine.CODE.toLowerCase().includes(lowerCaseSearch) ||
           machine.supervisor.toLowerCase().includes(lowerCaseSearch) ||
-          machine.technician.toLowerCase().includes(lowerCaseSearch)
+          machine.technieker_naam.toLowerCase().includes(lowerCaseSearch)
       );
     }
     return filteredMachines;
   }, [machines, searchTerm, showActive]);
 
+  const displayFiveMachines = filteredMachines.slice(0, 5);
 
   return (
     <div className="min-w-[25%]">
@@ -65,40 +76,39 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
             </div>
           ) : (
             <div>
-              {filteredMachines.map((machine, index) => (
+              {displayFiveMachines.map((machine, index) => (
                 <AccordionItem
-                  value={machine.machineCode}
-                  key={machine.machineCode}
+                  value={machine.CODE}
+                  key={machine.CODE}
                   className="min-h-[50px] border-0"
                 >
                   <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#d13a32] dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
                     <div
                       className={`${
-                        machine.status == "Running"
+                        machine.CURRENTSTATESTRING == "Running"
                           ? "bg-[#3CEF3C]"
                           : "bg-rancidRed dark:bg-delawareRed"
                       } w-5 h-5 rounded-[50%] mx-2 border-2 border-white `}
                     ></div>
                     <p className="">
                       <span className="font-semibold text-2xl px-[20px] hover:no-underline text-nowrap">
-                        {machine.name}
+                        {`Machine ${index + 1}`}
                       </span>
                       <span className="text-white/80 dark:text-[#999] text-sm text-nowrap ">
-                        ({machine.machineCode})
+                        ({machine.CODE})
                       </span>
                     </p>
                     <div>
-                      <FileText className="ml-3 text-white" />
+                      <FileText className="ml-3 text-white"/>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-white dark:text-white text-base">
                     <MachineInfo
-                      supervisor={machine.supervisor}
-                      nameTechnician={machine.technician}
-                      status={machine.status}
-                      uptime={machine.uptime}
-                      lastMaintenance={machine.lastMaintenance}
-                      nextMaintenance={machine.nextMaintenance}
+                      nameTechnician={machine.technieker_naam}
+                      status={machine.CURRENTSTATESTRING}
+                      uptime={machine.UPTIMEINHOURS}
+                      lastMaintenance={new Date(machine.laatste_onderhoud_datum).toLocaleDateString()}
+                      nextMaintenance={new Date(machine.datum_toekomstige_onderhoud).toLocaleDateString()}
                     />
                   </AccordionContent>
                 </AccordionItem>

@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import DeleteConfirmation from "./DeleteConfirmation"
 import Toast from "./ToastNotification"
-import type { CreateUserBody } from "@/types/user"
+import type { CreateUserBody, User } from "@/types/user"
 import UserTable from "./UserTable"
 import UserListMobile from "./UserListMobile"
 import useUserManagement from "./useUserManagement"
@@ -50,6 +50,17 @@ const UserManagement = () => {
     setAddingNew(false)
   }
 
+  const filteredUsers = useMemo(() => {
+        const lowerCaseSearch = searchTerm.toLowerCase();
+      
+        return users.filter((user : User) => {
+          const fullName = `${user.FIRSTNAME} ${user.LASTNAME}`.toLowerCase()
+          return (
+            fullName.includes(lowerCaseSearch)
+          )
+        })
+        }, [users, searchTerm]);
+
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error loading users: {error.message}</div>
 
@@ -82,7 +93,7 @@ const UserManagement = () => {
         </button>
       </div>
       <UserTable
-        users={users}
+        users={filteredUsers}
         roles={roles}
         onEdit={handleEdit}
         onDelete={handleDeleteClick}
@@ -91,7 +102,7 @@ const UserManagement = () => {
         onCancelEdit={handleCancelEdit}
         addingNew={addingNew}
       />
-      <UserListMobile users={users} roles={roles} onEdit={handleEdit} onDelete={handleDeleteClick} />
+      <UserListMobile users={filteredUsers} roles={roles} onEdit={handleEdit} onDelete={handleDeleteClick} />
       <DeleteConfirmation
         isOpen={showDeleteConfirmation}
         onClose={() => setShowDeleteConfirmation(false)}

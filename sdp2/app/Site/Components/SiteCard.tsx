@@ -11,6 +11,7 @@ import { MapPin, Factory, User } from "lucide-react";
 import Link from "next/link";
 
 interface SiteCardProps {
+  siteId: number;
   siteNaam?: string;
   siteAdres?: string;
   aantalMachines?: number;
@@ -18,6 +19,7 @@ interface SiteCardProps {
 }
 
 export default function SiteCard({
+  siteId,
   siteNaam = "Antwerpen",
   siteAdres = "Antwerpen 23, 9140 Elversele",
   aantalMachines = 0,
@@ -57,8 +59,8 @@ export default function SiteCard({
         </div>
       </CardContent>
       <CardFooter className="pt-0">
-        <Link href={`${siteNaam}`}>
-          <Button className="bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant text-white border-0 transition-colors w-full">
+        <Link href={`${siteId}`}>
+          <Button className="bg-white hover:bg-white/90 dark:bg-lightestNavy dark:hover:bg-blueTransparant text-delawareRed dark:text-white border-0 transition-colors w-full">
             Select Plant
           </Button>
         </Link>

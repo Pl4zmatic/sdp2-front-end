@@ -1,7 +1,7 @@
 import React from "react";
 import SiteForm from "./SiteForm";
 
-    const SiteTable =  ({sites, addingNew, onFormSubmit, onCancelEdit, verantwoordelijkes}) => {
+    const SiteTable =  ({sites, addingNew, onFormSubmit, onCancelEdit, verantwoordelijkes, onDelete, onEdit, editingPlant}) => {
 return(
   <div className="bg-gray-800 rounded-lg overflow-hidden overflow-x-auto hidden md:block">
     <div className="min-w-[600px]">
@@ -21,11 +21,12 @@ return(
             >
               <div>{site.ID}</div>
               <div>{site.NAME}</div>
-              <div>{site.ADDRESS}</div>
+              <div className="w-40">{site.ADDRESS}</div>
               <div>{site.VERANTWOORDELIJKE}</div>
               <div>
                 <button
                   className="text-red-500 hover:text-red-400"
+                  onClick={() => onEdit(site)}
                 >
                   ✏️
                 </button>
@@ -33,11 +34,22 @@ return(
               <div>
                 <button
                   className="text-red-500 hover:text-red-400"
+                  onClick={() => onDelete(site)}
                 >
                   🗑️
                 </button>
               </div>
             </div>
+            {editingPlant?.ID === site.ID && (
+                          <div className="col-span-6 bg-gray-900 p-4 border-b border-gray-700">
+                            <SiteForm
+                              onSubmit={onFormSubmit}
+                              onCancel={onCancelEdit}
+                              initialData={editingPlant}
+                              verantwoordelijkes={verantwoordelijkes}
+                            />
+                          </div>
+                        )}
           </React.Fragment>
         ))
       ) : (
