@@ -70,14 +70,25 @@ const SiteManagement = () => {
   const handleFormSubmit = async (data: any, id?: number) => {
       await handleSubmit(data, id)
       setAddingNew(false)
+      setEditingPlant(null)
     }
   
-  const filteredSites = useMemo(() => {
-    if (position === "") return data;
-    return data.filter((site: Plant) => 
-      site.VERANTWOORDELIJKE?.toString() === position
-    );
-  }, [data, position]);
+    const filteredSites = useMemo(() => {
+      const lowerCaseSearch = searchTerm.toLowerCase();
+    
+      return data.filter((site: Plant) => {
+        const matchesPosition =
+          position === "" || site.VERANTWOORDELIJKE?.toString() === position;
+
+        const matchesSearch =
+          searchTerm === "" ||
+          site.NAME.toLowerCase().includes(lowerCaseSearch) ||
+          site.ADDRESS.toLowerCase().includes(lowerCaseSearch) ||
+          site.VERANTWOORDELIJKE.toLowerCase().includes(lowerCaseSearch);
+    
+        return matchesPosition && matchesSearch;
+      });
+    }, [data, position, searchTerm]);
 
   if (isLoading || isLoadingVerantwoordelijken) return <div>Loading...</div>
   if (error || errorVerantwoordelijken) return <div>Error loading plants: {error.message}</div>
