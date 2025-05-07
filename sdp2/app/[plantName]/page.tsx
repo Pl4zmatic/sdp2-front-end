@@ -1,21 +1,35 @@
 "use client";
-import { arrPlants } from "../Site/Mock";
+import useSWR from 'swr'
+import { getAll, getById } from '../../api/index'
 import { MachineCard } from "./Components/MachineCard";
 import PlantInfo from "./Components/PlantInfo";
-import { Plant } from "../types/Plant";
-import { useEffect, useState } from "react";
+import type { Plant } from "../types/Plant";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const PlantDetails = () => {
   const params = useParams();
-  const plantName = decodeURIComponent(String(params.plantName));
+  const paramId = params?.plantName;
+  const plantId = paramId && !isNaN(Number(paramId)) ? Number(decodeURIComponent(String(paramId))) : null;
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
 
-  useEffect(() => {
-    const plant = arrPlants.find((plant) => plant.name === plantName);
+  const {
+    data: plant,
+    isLoading,
+    error,
+  } = useSWR(`sites/${selectedPlant ? selectedPlant.ID : plantId}`, getById)
   
+  
+  
+  const {
+    data: machines = [],
+    isLoading: isLoadingMachines,
+    error: errorMachines,
+  } = useSWR(`sites/${selectedPlant?.NAME}/machines`, getById)
+
+  useEffect(() => {  
     if (plant) {
       sessionStorage.setItem("selectedPlant", JSON.stringify(plant));
       setSelectedPlant(plant);
@@ -25,19 +39,31 @@ const PlantDetails = () => {
         setSelectedPlant(JSON.parse(storedPlant));
       }
     }
-  }, [plantName, arrPlants]);
+  }, [plantId, plant]);
+
+  useEffect(() => {
+    if (machines) {
+      console.log(`machines: ${JSON.stringify(machines)}`);
+    }
+  }, [machines]);
+
+  const hasValidPlant = selectedPlant;
+
+  if (isLoading) return <div>Loading...</div>
+  if(!plant) return <div>no plant found</div>
+  if(error) return <div>${error}</div>
 
   return (
     <div className="flex min-h-screen w-full items-center justify-center">
       <main className="flex-1 p-8 w-full">
         <div className="flex items-center justify-center w-full mb-5">
           <h1 className="text-7xl font-bold text-white mb-5">
-            {selectedPlant ? (
+            {hasValidPlant ? (
               <div className="flex flex-col items-center">
                 <span className="text-deepBlue dark:text-delawareRed">
-                  {selectedPlant.name}
+                  {plant.NAME}
                 </span>
-                <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
+                <Button className="w-auto bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
               </div>
             ) : (
               <span className="text-delawareRed">{"DetailsPage"}</span>
@@ -45,15 +71,15 @@ const PlantDetails = () => {
           </h1>
         </div>
 
-        {selectedPlant ? (
+        {hasValidPlant ? (
           <div className="flex-col items-center justify-center">
             <PlantInfo
-              plantName={selectedPlant.name}
-              currentProduction={selectedPlant.currentProduction}
-              efficiencyRate={selectedPlant.efficiencyRate}
-              machines={selectedPlant.machines}
+              plantName={plant.NAME}
+              currentProduction={plant.CURRENTPRODUCTION}
+              efficiencyRate={plant.EFFICIENCYRATE}
+              machines={machines}
             />
-            <MachineCard machines={selectedPlant.machines} />
+            <MachineCard machines={machines} />
           </div>
         ) : (
           <div className="flex justify-center">
