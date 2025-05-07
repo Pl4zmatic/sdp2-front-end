@@ -5,6 +5,9 @@ export const isDate = function (date) {
 };
 
 export function mergeObjectsByKey(objects, key) {
+  console.log('in merge')
+  console.log(objects)
+
   const uniqueKeys = new Set(objects.map((obj) => obj[key]));
   let mergedObjects = [];
   for (const uniqueKey of uniqueKeys) {
@@ -14,31 +17,35 @@ export function mergeObjectsByKey(objects, key) {
         (prev, current) => {
           return {
             date: null,
-            site: null,
-            product: null,
+            siteName: null,
+            productName: null,
+            machineCode: null,
             uptime: current.uptime + prev.uptime,
             produced: current.produced + prev.produced,
             target: current.target + prev.target,
             maintenances: current.maintenances + prev.maintenances,
-            maintenanceCost: current.maintenanceCost * current.maintenances + prev.maintenanceCost,
-            productionCost: current.productionCost * current.produced + prev.productionCost,
+            averageCost: current.averageCost * current.maintenances,
+            productionCost: parseFloat(current.productionCost) * current.produced + parseFloat(prev.productionCost),
           };
         },
         {
           date: null,
-          site: null,
-          product: null,
+          siteName: null,
+          productName: null,
+          machineCode: null,
           uptime: 0,
           produced: 0,
           target: 0,
           maintenances: 0,
-          maintenanceCost: 0,
+          averageCost: 0,
           productionCost: 0,
         }
       );
     mergedObject[key] = uniqueKey;
     mergedObjects.push(mergedObject);
   }
+  console.log('out merge')
+  console.log(mergedObjects)
   return mergedObjects;
 }
 
@@ -73,7 +80,7 @@ export function getUniqueValuesByKey(objects, key) {
 
 export function addFillFromConfig(chartData, key) {
   return chartData.map(obj => {
-    obj['fill'] = chartConfig[obj[key]] == null || chartConfig[obj[key]] == undefined ? 'gray' : chartConfig[obj[key]].color
+    obj['fill'] = chartConfig[obj[key]] == null || chartConfig[obj[key]] == undefined ? `hsl(var(--chart-${Math.floor(Math.random() * 6)}))` : chartConfig[obj[key]].color
     return obj
   })
 }

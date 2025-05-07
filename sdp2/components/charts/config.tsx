@@ -26,7 +26,7 @@ export const chartConfig = {
     label: "Total",
     color: "hsl(var(--chart-2))",
   },
-  maintenanceCost: {
+  averageCost: {
     label: "Costs",
     color: "hsl(var(--chart-4))",
   },
