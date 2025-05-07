@@ -7,6 +7,9 @@ import SiteTable from "./SiteTable"
 import FilterDropdown from "./FilterDropdown"
 import SearchField from "@/components/ui/SearchField"
 import { Plant } from "@/app/types/Plant"
+import DeleteConfirmation from "./DeleteConfirmation"
+import { deleteById } from "../../../api/index"
+import { mutate } from "swr";
 
 const SiteManagement = () => {
   const { data: data = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
@@ -14,6 +17,9 @@ const SiteManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState("")
   const [addingNew, setAddingNew] = useState(false)
+    const [deletePlant, setDeletePlant] = useState<Plant | null>(null);
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
   const handleAddClick = () => {
     setAddingNew(true)
@@ -22,6 +28,30 @@ const SiteManagement = () => {
   const handleCancelEdit = () => {
     setAddingNew(false)
   }
+
+   const handleDeleteClick = (site: Plant) => {
+      setShowDeleteConfirmation(true);
+      setDeletePlant(site);
+    };
+
+  const handleDeleteConfirm = async () => {
+    const siteId = deletePlant?.ID;
+    if (!siteId) {
+      setShowDeleteConfirmation(false);
+      return;
+    }
+    setIsDeleting(true);
+    try {
+      await deleteById("sites", { arg: siteId });
+      mutate("sites");
+    } catch (error) {
+      console.log("fail")
+    } finally {
+      setIsDeleting(false);
+      setShowDeleteConfirmation(false);
+      setDeletePlant(null);
+    }
+  };
 
   const handleSubmit = async (formData: any, id?: number) => {
     try {
@@ -79,8 +109,17 @@ const SiteManagement = () => {
           Add Plant
         </button>
       </div>
-      <SiteTable sites={filteredSites} addingNew={addingNew} onFormSubmit={handleFormSubmit} onCancelEdit={handleCancelEdit} verantwoordelijkes={verantwoordelijken}
+      <SiteTable sites={filteredSites} addingNew={addingNew} onFormSubmit={handleFormSubmit} onCancelEdit={handleCancelEdit} verantwoordelijkes={verantwoordelijken} onDelete={handleDeleteClick}
       />
+      <DeleteConfirmation
+              isOpen={showDeleteConfirmation}
+              onClose={() => setShowDeleteConfirmation(false)}
+              onConfirm={handleDeleteConfirm}
+              title="Delete Plant"
+              message={`Are you sure you want to delete ${deletePlant?.NAME}? This action cannot be undone.`}
+              highlightedText={deletePlant?.NAME}
+              isDeleting={isDeleting}
+            />
     </div>
   )
 }
