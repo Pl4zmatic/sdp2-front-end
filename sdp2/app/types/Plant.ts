@@ -12,3 +12,13 @@ export interface Plant {
   VERANTWOORDELIJKE: string;
   MACHINES: Machine[];
 }
+
+export interface CreatePlantBody {
+  NAME: string;
+  STATUS: string;
+  HEALTH: number;
+  ADDRESS: string;
+  CURRENTPRODUCTION: number;
+  EFFICIENCYRATE: number;
+  VERANTWOORDELIJKE: string;
+} 
