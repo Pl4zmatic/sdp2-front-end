@@ -6,16 +6,6 @@ import { useState, useMemo } from "react"
 import SiteTable from "./SiteTable"
 import FilterDropdown from "./FilterDropdown"
 import SearchField from "@/components/ui/SearchField"
-import {
-  DropdownMenu,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { User } from "@/types/user"
 import { Plant } from "@/app/types/Plant"
 
 const SiteManagement = () => {
