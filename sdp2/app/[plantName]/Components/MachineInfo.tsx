@@ -34,6 +34,8 @@ const MachineInfo = ({
 }: MachineInfoProps) => {
   const [otherChecked, setOtherChecked] = useState(false)
 
+  console.log(`Datum: ${lastMaintenance}`)
+
   return (
     <div className="flex py-[10px] ml-2 mt-2 border-l-4">
       <div className="flex-col flex-1 px-[20px]">
@@ -47,7 +49,7 @@ const MachineInfo = ({
           <span className="font-bold">Status</span>: {status}
         </p>
         <p>
-          <span className="font-bold">Uptime</span>: {uptime}s
+          <span className="font-bold">Uptime</span>: {uptime}h
         </p>
         <p>
           <span className="font-bold">Last maintenance</span>: {lastMaintenance}

@@ -1,10 +1,15 @@
 export interface Machine {
-  name: string;
-  machineCode: string;
-  status: string;
+  ID: number;
+  CODE: string;
+  CURRENTSTATESTRING: string;
+  datum_toekomstige_onderhoud: Date;
+  DELETED: number;
+  laatste_onderhoud_beschrijving: string;
+  laatste_onderhoud_datum: Date;
+  LOCATIE: string;
+  PRODUCTINFO: string;
+  PRODUCTIESTATUS: string;
+  technieker_naam: string;
+  UPTIMEINHRS: number;
   supervisor: string;
-  technician: string;
-  uptime: number;
-  lastMaintenance: string;
-  nextMaintenance: string;
 }

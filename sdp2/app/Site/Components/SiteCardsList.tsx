@@ -19,8 +19,8 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
     return sites.filter(
       (site) =>
         site.NAME.toLowerCase().includes(lowerCaseSearch) ||
-        site.location.toLowerCase().includes(lowerCaseSearch) ||
-        site.verantwoordelijke.toLowerCase().includes(lowerCaseSearch)
+        site.ADDRESS.toLowerCase().includes(lowerCaseSearch) ||
+        site.VERANTWOORDELIJKE.toLowerCase().includes(lowerCaseSearch)
     );
   }, [sites, searchTerm]);
 
@@ -42,11 +42,12 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
         <div className="flex flex-wrap gap-4 w-full">
           {filteredSites.map((site) => (
             <SiteCard
+              siteId={site.ID}
               key={site.NAME}
               siteNaam={site.NAME}
-              siteAdres={site.location}
-              // aantalMachines={site.MACHINES.length}
-              verantwoordelijke={site.verantwoordelijke}
+              siteAdres={site.ADDRESS}
+              //aantalMachines={site.MACHINES.length}
+              verantwoordelijke={site.VERANTWOORDELIJKE}
             />
           ))}
         </div>
