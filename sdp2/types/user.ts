@@ -4,13 +4,19 @@ export interface User {
     FIRSTNAME: string;
     EMAIL: string;
     ROL: number;
-    ADRES: string;
+    STREET: string;
+    CITY: string;
+    POSTAL_CODE: string;
+    HOUSE_NUMBER: string;
     BIRTHDATE: string;
     GSMNUMMER: string;
 }
 
 export interface CreateUserBody {
-    ADRES: string;
+    STREET: string;
+    CITY: string;
+    POSTAL_CODE: string;
+    HOUSE_NUMBER: string;
     BIRTHDATE: string;
     EMAIL: string;
     FIRSTNAME: string;

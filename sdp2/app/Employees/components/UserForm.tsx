@@ -17,7 +17,10 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     FIRSTNAME: "",
     EMAIL: "",
     ROL: 0,
-    ADRES: "",
+    STREET: "",
+    HOUSE_NUMBER: "",
+    POSTAL_CODE: "",
+    CITY: "",
     BIRTHDATE: "",
     GSMNUMMER: "",
     PASSWORD: "",
@@ -40,7 +43,10 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
         FIRSTNAME: initialData.FIRSTNAME,
         EMAIL: initialData.EMAIL,
         ROL: initialData.ROL,
-        ADRES: initialData.ADRES || "",
+        STREET: initialData.STREET || "",
+        HOUSE_NUMBER: initialData.HOUSE_NUMBER || "",
+        POSTAL_CODE: initialData.POSTAL_CODE || "",
+        CITY: initialData.CITY || "",
         BIRTHDATE: initialData.BIRTHDATE || "",
         GSMNUMMER: initialData.GSMNUMMER || "",
         PASSWORD: "",
@@ -48,13 +54,15 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     }
   }, [initialData])
 
-  // Check if phone number is required based on role
-  const isPhoneRequired = formData.ROL === 2 // 2 is Technician
+  const isPhoneRequired = formData.ROL === 2
+
+  const getFullAddress = () => {
+    return `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY}`.trim()
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    // Validate phone number if role is Technician
     const errors: Record<string, string> = {}
 
     if (isPhoneRequired && !formData.GSMNUMMER) {
@@ -142,19 +150,63 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
           />
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex-1 space-y-2">
-            <label className="block text-sm font-medium text-gray-300">
-              Address <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.ADRES}
-              onChange={(e) => setFormData({ ...formData, ADRES: e.target.value })}
-              required
-            />
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-gray-300">
+            Address <span className="text-red-500">*</span>
+          </label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="block text-xs font-medium text-gray-400">
+                Street <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                value={formData.STREET}
+                onChange={(e) => setFormData({ ...formData, STREET: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-xs font-medium text-gray-400">
+                House Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                value={formData.HOUSE_NUMBER}
+                onChange={(e) => setFormData({ ...formData, HOUSE_NUMBER: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-xs font-medium text-gray-400">
+                Postal Code <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                value={formData.POSTAL_CODE}
+                onChange={(e) => setFormData({ ...formData, POSTAL_CODE: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-xs font-medium text-gray-400">
+                City <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+                value={formData.CITY}
+                onChange={(e) => setFormData({ ...formData, CITY: e.target.value })}
+                required
+              />
+            </div>
           </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
               Birth Date <span className="text-red-500">*</span>
@@ -167,9 +219,6 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               required
             />
           </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
               Phone Number {isPhoneRequired && <span className="text-red-500">*</span>}
@@ -190,6 +239,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
             />
             {formErrors.GSMNUMMER && <p className="text-red-500 text-xs mt-1">{formErrors.GSMNUMMER}</p>}
           </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
               Role <span className="text-red-500">*</span>
