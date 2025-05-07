@@ -127,7 +127,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 </label>
                 <input
                   type="text"
-                  className="input-class"
+                  className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                   value={formData.STREET}
                   onChange={(e) => setFormData({ ...formData, STREET: e.target.value })}
                   required
@@ -139,7 +139,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 </label>
                 <input
                   type="text"
-                  className="input-class"
+                  className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                   value={formData.NUMBER}
                   onChange={(e) => setFormData({ ...formData, NUMBER: e.target.value })}
                   required
@@ -151,7 +151,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 </label>
                 <input
                   type="text"
-                  className="input-class"
+                  className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                   value={formData.CITY}
                   onChange={(e) => setFormData({ ...formData, CITY: e.target.value })}
                   required
@@ -163,7 +163,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 </label>
                 <input
                   type="text"
-                  className="input-class"
+                  className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                   value={formData.POSTALCODE}
                   onChange={(e) => setFormData({ ...formData, POSTALCODE: e.target.value })}
                   required
