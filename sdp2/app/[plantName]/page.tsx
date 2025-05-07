@@ -11,15 +11,14 @@ import Link from "next/link";
 
 const PlantDetails = () => {
   const params = useParams();
-  const paramId = params?.plantName;
-  const plantId = paramId && !isNaN(Number(paramId)) ? Number(decodeURIComponent(String(paramId))) : null;
+  const plantId = params.plantName;
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
 
   const {
     data: plant,
     isLoading,
     error,
-  } = useSWR(`sites/${selectedPlant ? selectedPlant.ID : plantId}`, getById)
+  } = useSWR(`sites/${plantId}`, getById)
   
   
   
