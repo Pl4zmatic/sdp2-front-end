@@ -62,7 +62,7 @@ export default function Kpi({}) {
 
   return (
     <Tabs
-      defaultValue="account"
+      defaultValue="all"
       className="bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
     >
       <TabsList className="grid w-full grid-cols-3 bg-[var(--navy)]">
