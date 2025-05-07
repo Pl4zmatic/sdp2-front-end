@@ -1,24 +1,19 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import type { FormEvent } from "react";
-import { X, Eye, EyeOff, RefreshCw } from "lucide-react";
-import { Plant, CreatePlantBody } from "@/app/types/Plant";
-import { User } from "@/types/user";
+import { useState, useEffect } from "react"
+import type { FormEvent } from "react"
+import { X } from "lucide-react"
+import type { Plant, CreatePlantBody } from "@/app/types/Plant"
+import type { User } from "@/types/user"
 
 interface PlantFormProps {
-  onSubmit: (data: CreatePlantBody, id?: number) => Promise<void>;
-  onCancel: () => void;
-  initialData?: Plant | null;
-  verantwoordelijkes: User[];
+  onSubmit: (data: CreatePlantBody, id?: number) => Promise<void>
+  onCancel: () => void
+  initialData?: Plant | null
+  verantwoordelijkes: User[]
 }
 
-export default function UserForm({
-  onSubmit,
-  onCancel,
-  initialData,
-  verantwoordelijkes,
-}: PlantFormProps) {
+export default function UserForm({ onSubmit, onCancel, initialData, verantwoordelijkes }: PlantFormProps) {
   const [formData, setFormData] = useState({
     NAME: "",
     STATUS: "",
@@ -30,12 +25,13 @@ export default function UserForm({
     CURRENTPRODUCTION: 0,
     EFFICIENCYRATE: 0,
     VERANTWOORDELIJKE: "",
-  });
+  })
 
   useEffect(() => {
     if (initialData) {
-      const [street = "", number = "", city = "", postalCode = ""] =
-        initialData.ADDRESS.split(",").map((part) => part.trim());
+      const [street = "", number = "", city = "", postalCode = ""] = initialData.ADDRESS.split(",").map((part) =>
+        part.trim(),
+      )
 
       setFormData({
         NAME: initialData.NAME,
@@ -48,31 +44,29 @@ export default function UserForm({
         CURRENTPRODUCTION: initialData.CURRENTPRODUCTION,
         EFFICIENCYRATE: initialData.EFFICIENCYRATE,
         VERANTWOORDELIJKE: initialData.VERANTWOORDELIJKE,
-      });
+      })
     }
-  }, [initialData]);
+  }, [initialData])
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const combinedAddress = `${formData.STREET} ${formData.NUMBER}, ${formData.POSTALCODE} ${formData.CITY} `;
+    e.preventDefault()
+    const combinedAddress = `${formData.STREET} ${formData.NUMBER}, ${formData.POSTALCODE} ${formData.CITY} `
 
     const submissionData: CreatePlantBody = {
       ...formData,
       ADDRESS: combinedAddress,
-    };
+    }
 
     console.log("user:", submissionData.VERANTWOORDELIJKE)
 
-    await onSubmit(submissionData, initialData?.ID);
-  };
+    await onSubmit(submissionData, initialData?.ID)
+  }
 
   return (
     <div className="bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
       {/* Form Header */}
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
-        <h2 className="text-xl font-bold text-white">
-          {initialData ? "Edit Plant" : "Add New Plant"}
-        </h2>
+        <h2 className="text-xl font-bold text-white">{initialData ? "Edit Plant" : "Add New Plant"}</h2>
         <button
           type="button"
           onClick={onCancel}
@@ -93,9 +87,7 @@ export default function UserForm({
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.NAME}
-              onChange={(e) =>
-                setFormData({ ...formData, NAME: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, NAME: e.target.value })}
               required
             />
           </div>
@@ -107,9 +99,7 @@ export default function UserForm({
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.STATUS}
-              onChange={(e) =>
-                setFormData({ ...formData, STATUS: e.target.value })
-              }
+              onChange={(e) => setFormData({ ...formData, STATUS: e.target.value })}
               required
             />
           </div>
@@ -123,9 +113,7 @@ export default function UserForm({
             type="text"
             className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
             value={formData.HEALTH}
-            onChange={(e) =>
-              setFormData({ ...formData, HEALTH: Number(e.target.value) })
-            }
+            onChange={(e) => setFormData({ ...formData, HEALTH: Number(e.target.value) })}
             required
           />
         </div>
@@ -141,9 +129,7 @@ export default function UserForm({
                   type="text"
                   className="input-class"
                   value={formData.STREET}
-                  onChange={(e) =>
-                    setFormData({ ...formData, STREET: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, STREET: e.target.value })}
                   required
                 />
               </div>
@@ -155,9 +141,7 @@ export default function UserForm({
                   type="text"
                   className="input-class"
                   value={formData.NUMBER}
-                  onChange={(e) =>
-                    setFormData({ ...formData, NUMBER: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, NUMBER: e.target.value })}
                   required
                 />
               </div>
@@ -169,9 +153,7 @@ export default function UserForm({
                   type="text"
                   className="input-class"
                   value={formData.CITY}
-                  onChange={(e) =>
-                    setFormData({ ...formData, CITY: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, CITY: e.target.value })}
                   required
                 />
               </div>
@@ -183,9 +165,7 @@ export default function UserForm({
                   type="text"
                   className="input-class"
                   value={formData.POSTALCODE}
-                  onChange={(e) =>
-                    setFormData({ ...formData, POSTALCODE: e.target.value })
-                  }
+                  onChange={(e) => setFormData({ ...formData, POSTALCODE: e.target.value })}
                   required
                 />
               </div>
@@ -223,7 +203,7 @@ export default function UserForm({
                 setFormData({
                   ...formData,
                   EFFICIENCYRATE: Number(e.target.value),
-                });
+                })
               }}
             />
           </div>
@@ -233,17 +213,19 @@ export default function UserForm({
             </label>
             <select
               value={formData.VERANTWOORDELIJKE}
-              onChange={(e) =>
-                setFormData({ ...formData, VERANTWOORDELIJKE: e.target.value})
-              }
+              onChange={(e) => setFormData({ ...formData, VERANTWOORDELIJKE: e.target.value })}
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             >
-              {verantwoordelijkes.map((ver) => (
-                <option key={`${ver.FIRSTNAME} ${ver.LASTNAME}`} value={`${ver.FIRSTNAME} ${ver.LASTNAME}`}>
-                  {ver.FIRSTNAME + " " + ver.LASTNAME}
-                </option>
-              ))}
+              <option value="">Select a responsible person</option>
+              {verantwoordelijkes.map((ver) => {
+                const fullName = `${ver.FIRSTNAME} ${ver.LASTNAME}`
+                return (
+                  <option key={ver.ID} value={fullName}>
+                    {fullName}
+                  </option>
+                )
+              })}
             </select>
           </div>
         </div>
@@ -265,5 +247,5 @@ export default function UserForm({
         </div>
       </form>
     </div>
-  );
+  )
 }
