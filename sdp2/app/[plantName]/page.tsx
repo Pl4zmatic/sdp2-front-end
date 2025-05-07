@@ -63,7 +63,7 @@ const PlantDetails = () => {
                 <span className="text-deepBlue dark:text-delawareRed">
                   {plant.NAME}
                 </span>
-                <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
+                <Button className="w-auto bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
               </div>
             ) : (
               <span className="text-delawareRed">{"DetailsPage"}</span>

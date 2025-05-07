@@ -3,6 +3,15 @@ import MachineInfo from "./MachineInfo";
 import { Machine } from "@/app/types/Machine";
 
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -12,6 +21,9 @@ import SearchField from "@/components/ui/SearchField";
 import { useMemo, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { machine } from "os";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 interface MachineCardProps {
   machines: Machine[];
 }
@@ -36,6 +48,8 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
     }
     return filteredMachines;
   }, [machines, searchTerm, showActive]);
+
+  const displayFiveMachines = filteredMachines.slice(0, 5);
 
   return (
     <div className="min-w-[25%]">
@@ -62,7 +76,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
             </div>
           ) : (
             <div>
-              {filteredMachines.map((machine, index) => (
+              {displayFiveMachines.map((machine, index) => (
                 <AccordionItem
                   value={machine.CODE}
                   key={machine.CODE}
@@ -85,17 +99,16 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                       </span>
                     </p>
                     <div>
-                      <FileText className="ml-3 text-white" />
+                      <FileText className="ml-3 text-white"/>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-white dark:text-white text-base">
                     <MachineInfo
-                      supervisor={machine.supervisor}
                       nameTechnician={machine.technieker_naam}
                       status={machine.CURRENTSTATESTRING}
-                      uptime={machine.UPTIMEINHRS}
-                      lastMaintenance={"2025-12-12"}
-                      nextMaintenance={"2025-12-12"}
+                      uptime={machine.UPTIMEINHOURS}
+                      lastMaintenance={new Date(machine.laatste_onderhoud_datum).toLocaleDateString()}
+                      nextMaintenance={new Date(machine.datum_toekomstige_onderhoud).toLocaleDateString()}
                     />
                   </AccordionContent>
                 </AccordionItem>
