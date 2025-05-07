@@ -1,5 +1,5 @@
 "use client";
-
+import useSWRMutation from "swr/mutation";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 import {
@@ -27,6 +27,12 @@ interface Notification {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+const markAsRead = async (url: string) => {
+  const res = await fetch(url, { method: "PATCH" });
+  if (!res.ok) throw new Error("Failed to mark as read");
+  return res.json();
+};
+
 export default function NotificationsPage() {
   const [selectedNotification, setSelectedNotification] =
     useState<Notification | null>(null);
@@ -49,31 +55,20 @@ export default function NotificationsPage() {
     setSelectedNotification(notification);
     setIsModalOpen(true);
 
-    // Only mark as read if it's not already read
-    if (!notification.ISREAD) {
-      try {
-        // const response = await fetch(
-        //   `http://localhost:4000/api/notifications/${notification.ID}/read`,
-        //   {
-        //     method: "PUT",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //   },
-        // );
+    const url = `http://localhost:4000/api/notifications/${notification.user_id}/${notification.notification_id}`;
 
-        // if (response.ok) {
-        // Update the local data to reflect the change
-        mutate(
-          `http://localhost:4000/api/notifications/user/3`,
-          notifications?.map((n) =>
-            n.ID === notification.ID ? { ...n, ISREAD: true } : n,
-          ),
-          false,
-        );
-      } catch (error) {
-        console.error("Failed to mark notification as read:", error);
-      }
+    try {
+      await fetch(url, { method: "PATCH" });
+
+      mutate(
+        `http://localhost:4000/api/notifications/user/3`,
+        notifications?.map((n) =>
+          n.ID === notification.ID ? { ...n, ISREAD: true } : n,
+        ),
+        false,
+      );
+    } catch (error) {
+      console.error("Failed to mark notification as read:", error);
     }
   };
 
