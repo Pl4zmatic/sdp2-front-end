@@ -31,6 +31,7 @@ const SiteManagement = () => {
 
    const handleDeleteClick = (site: Plant) => {
       setShowDeleteConfirmation(true);
+      setDeletePlant(site);
     };
 
   const handleDeleteConfirm = async () => {

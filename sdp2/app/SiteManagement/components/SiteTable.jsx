@@ -33,6 +33,7 @@ return(
               <div>
                 <button
                   className="text-red-500 hover:text-red-400"
+                  onClick={() => onDelete(site)}
                 >
                   🗑️
                 </button>
