@@ -79,12 +79,12 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="PlantDetails"
+              href="/SiteManagement"
               className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               <BarChart2 size={20} />
-              <span>Plant Details</span>
+              <span>Plant Management</span>
             </Link>
 
             <Link
