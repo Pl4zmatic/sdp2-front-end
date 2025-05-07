@@ -1,7 +1,8 @@
-"use client"
-
-import { useState } from "react"
-import Link from "next/link"
+"use client";
+import useSWR from "swr";
+import { Fetcher } from "swr";
+import { useState } from "react";
+import Link from "next/link";
 import {
   Compass,
   BarChart2,
@@ -14,31 +15,41 @@ import {
   LogOut,
   User,
   ChevronDown,
-} from "lucide-react"
-import Image from "next/image"
-import { ThemeToggle } from "./theme-toggle"
-import { useLogout } from "@/hooks/useLogout"
+} from "lucide-react";
+import Image from "next/image";
+import { ThemeToggle } from "./theme-toggle";
+import { useLogout } from "@/hooks/useLogout";
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const logout = useLogout()  
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const logout = useLogout();
 
   // Verbieden scrollen wanneer hamburger menu open is
   const toggleMenu = () => {
-    const newState = !isMenuOpen
-    setIsMenuOpen(newState)
-    document.body.style.overflow = newState ? "hidden" : "auto"
-  }
+    const newState = !isMenuOpen;
+    setIsMenuOpen(newState);
+    document.body.style.overflow = newState ? "hidden" : "auto";
+  };
+
+  const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+  const { data, error, isLoading } = useSWR<{ unreadCount: number }>(
+    `http://localhost:4000/api/notifications/user/3/count`, // Update the endpoint to match the new route
+    fetcher,
+    {
+      refreshInterval: 30000,
+      revalidateOnFocus: true,
+    },
+  );
 
   const toggleProfile = () => {
-    setIsProfileOpen(!isProfileOpen)
-  }
+    setIsProfileOpen(!isProfileOpen);
+  };
 
   const handleLogout = () => {
-    logout()   
-  }
+    logout();
+  };
 
   return (
     <>
@@ -52,7 +63,12 @@ export function Navbar() {
       </button>
 
       {/* Mobile navbar */}
-      {isMenuOpen && <div className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" onClick={toggleMenu} />}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+          onClick={toggleMenu}
+        />
+      )}
 
       {/* Navbar */}
       <aside
@@ -63,7 +79,13 @@ export function Navbar() {
         <div className="space-y-8">
           <div className="flex items-center justify-between">
             <a href="Landing">
-              <Image src="/logo.svg" width={120} height={40} alt="Logo" className="w-auto h-auto" />
+              <Image
+                src="/logo.svg"
+                width={120}
+                height={40}
+                alt="Logo"
+                className="w-auto h-auto"
+              />
             </a>
             <ThemeToggle />
           </div>
@@ -117,13 +139,16 @@ export function Navbar() {
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer">
+          <Link
+            href="notifications"
+            className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer"
+          >
             <Bell size={20} />
             <span>Notifications</span>
             <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed ml-auto">
-              3
+              {data?.unreadCount}
             </span>
-          </div>
+          </Link>
 
           <div className="relative">
             <div
@@ -132,14 +157,21 @@ export function Navbar() {
             >
               <User size={20} />
               <span>John Doe</span>
-              <ChevronDown size={16} className={`ml-auto transition-transform ${isProfileOpen ? "rotate-180" : ""}`} />
+              <ChevronDown
+                size={16}
+                className={`ml-auto transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
+              />
             </div>
 
             {isProfileOpen && (
               <div className="absolute bottom-full mb-2 w-full bg-white dark:bg-slate-800 rounded-md shadow-lg overflow-hidden">
                 <div className="p-3 border-b border-gray-200 dark:border-gray-700">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">John Doe</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">john.doe@example.com</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    John Doe
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    john.doe@example.com
+                  </p>
                 </div>
                 <div className="p-2">
                   <button
@@ -156,5 +188,5 @@ export function Navbar() {
         </div>
       </aside>
     </>
-  )
+  );
 }

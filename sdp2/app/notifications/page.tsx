@@ -1,5 +1,7 @@
 "use client";
 import useSWRMutation from "swr/mutation";
+
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import useSWR, { mutate } from "swr";
 import {
@@ -11,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Bell } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Notification {
   ID: string;
@@ -27,13 +30,8 @@ interface Notification {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const markAsRead = async (url: string) => {
-  const res = await fetch(url, { method: "PATCH" });
-  if (!res.ok) throw new Error("Failed to mark as read");
-  return res.json();
-};
-
 export default function NotificationsPage() {
+  const [visibleCount, setVisibleCount] = useState(5);
   const [selectedNotification, setSelectedNotification] =
     useState<Notification | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,6 +48,24 @@ export default function NotificationsPage() {
       revalidateOnFocus: false,
     },
   );
+  const reversedNotifications = notifications
+    ? [...notifications].reverse()
+    : [];
+
+  const handleDeleteNotification = async (notification: Notification) => {
+    const url = `http://localhost:4000/api/notifications/${notification.ID}`;
+    try {
+      await fetch(url, { method: "DELETE" });
+
+      mutate(
+        `http://localhost:4000/api/notifications/user/3`,
+        notifications?.filter((n) => n.ID !== notification.ID),
+        false,
+      );
+    } catch (error) {
+      console.error("Failed to delete notification:", error);
+    }
+  };
 
   const handleNotificationClick = async (notification: Notification) => {
     setSelectedNotification(notification);
@@ -95,22 +111,20 @@ export default function NotificationsPage() {
         Notifications
       </h1>
 
-      {!notifications || notifications.length === 0 ? (
+      {!reversedNotifications || reversedNotifications.length === 0 ? (
         <div className="text-center text-gray-500 p-8 border border-dashed rounded-lg">
           No notifications found
         </div>
       ) : (
         <div className="space-y-4">
-          {notifications.map((notification) => (
+          {reversedNotifications.slice(0, visibleCount).map((notification) => (
             <div
               key={notification.ID}
-              className={`p-4 rounded-lg shadow hover:shadow-md bg-navy transition-all cursor-pointer ${
-                notification.ISREAD ? "text-slate-500" : ""
-              }`}
+              className={`p-4 rounded-lg shadow hover:shadow-md ${notification.ISREAD ? "text-slate-500" : ""} bg-navy transition-all cursor-pointer relative group`}
               onClick={() => handleNotificationClick(notification)}
             >
               <div className="flex justify-between items-start">
-                <div>
+                <div className="flex-1 pr-16">
                   <h3 className="font-semibold text-lg">
                     {notification.notification.TITLE}
                   </h3>
@@ -118,17 +132,42 @@ export default function NotificationsPage() {
                     {notification.notification.MESSAGE}
                   </p>
                 </div>
-                {!notification.ISREAD && (
-                  <Badge
-                    variant="secondary"
-                    className="bg-blue-100 text-blue-800 hover:bg-blue-200"
+                <div className="absolute top-3 right-3 flex items-center gap-2">
+                  {!notification.ISREAD && (
+                    <Badge
+                      variant="secondary"
+                      className="bg-blue-100 text-blue-800 hover:bg-blue-200"
+                    >
+                      New
+                    </Badge>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteNotification(notification);
+                    }}
+                    aria-label="Delete notification"
                   >
-                    New
-                  </Badge>
-                )}
+                    <Trash2 className="h-4 w-4 text-gray-500 hover:text-red-500" />
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
+
+          {visibleCount < reversedNotifications.length && (
+            <div className="text-center">
+              <button
+                onClick={() => setVisibleCount((prev) => prev + 5)}
+                className="mt-4 px-4 py-2 bg-delawareRed text-white rounded-md hover:bg-blue-700 transition"
+              >
+                Show More
+              </button>
+            </div>
+          )}
         </div>
       )}
 
