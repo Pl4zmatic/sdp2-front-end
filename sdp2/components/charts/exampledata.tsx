@@ -279,10 +279,3 @@ export const chartData = [
     productionCost: 2.1,
   },
 ];
-
-export const chartDataPie = [
-  { name: "site1", data: 1754, fill: "var(--color-site1)" },
-  { name: "site2", data: 2094, fill: "var(--color-site2)" },
-  // { name: "site3", data: 3456, fill: "var(--color-site3)" },
-  // { name: "site4", data: 4712, fill: "var(--color-site4)"},
-];
