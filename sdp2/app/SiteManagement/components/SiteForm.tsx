@@ -86,7 +86,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
             <input
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.NAME}
+              value={formData.NAME ?? ""}
               onChange={(e) => setFormData({ ...formData, NAME: e.target.value })}
               required
             />
@@ -98,7 +98,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
             <input
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.STATUS}
+              value={formData.STATUS ?? ""}
               onChange={(e) => setFormData({ ...formData, STATUS: e.target.value })}
               required
             />
@@ -112,7 +112,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
           <input
             type="text"
             className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-            value={formData.HEALTH}
+            value={formData.HEALTH ?? ""}
             onChange={(e) => setFormData({ ...formData, HEALTH: Number(e.target.value) })}
             required
           />
@@ -128,7 +128,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 <input
                   type="text"
                   className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-                  value={formData.STREET}
+                  value={formData.STREET ?? ""}
                   onChange={(e) => setFormData({ ...formData, STREET: e.target.value })}
                   required
                 />
@@ -140,7 +140,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 <input
                   type="text"
                   className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-                  value={formData.NUMBER}
+                  value={formData.NUMBER ?? ""}
                   onChange={(e) => setFormData({ ...formData, NUMBER: e.target.value })}
                   required
                 />
@@ -152,7 +152,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 <input
                   type="text"
                   className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-                  value={formData.CITY}
+                  value={formData.CITY ?? ""}
                   onChange={(e) => setFormData({ ...formData, CITY: e.target.value })}
                   required
                 />
@@ -164,7 +164,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
                 <input
                   type="text"
                   className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-                  value={formData.POSTALCODE}
+                  value={formData.POSTALCODE ?? ""}
                   onChange={(e) => setFormData({ ...formData, POSTALCODE: e.target.value })}
                   required
                 />
@@ -178,7 +178,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
             <input
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.CURRENTPRODUCTION}
+              value={formData.CURRENTPRODUCTION ?? ""}
               onChange={(e) =>
                 setFormData({
                   ...formData,
@@ -198,7 +198,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
             <input
               type="text"
               className={`w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400`}
-              value={formData.EFFICIENCYRATE}
+              value={formData.EFFICIENCYRATE ?? ""}
               onChange={(e) => {
                 setFormData({
                   ...formData,
@@ -212,7 +212,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
               Verantwoordelijke <span className="text-red-500">*</span>
             </label>
             <select
-              value={formData.VERANTWOORDELIJKE}
+              value={formData.VERANTWOORDELIJKE ?? ""}
               onChange={(e) => setFormData({ ...formData, VERANTWOORDELIJKE: e.target.value })}
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required

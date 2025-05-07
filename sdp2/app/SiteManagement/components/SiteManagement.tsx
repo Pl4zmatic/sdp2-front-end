@@ -17,9 +17,10 @@ const SiteManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState("")
   const [addingNew, setAddingNew] = useState(false)
-    const [deletePlant, setDeletePlant] = useState<Plant | null>(null);
-    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+  const [deletePlant, setDeletePlant] = useState<Plant | null>(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [editingPlant, setEditingPlant] = useState<Plant | null>(null);
 
   const handleAddClick = () => {
     setAddingNew(true)
@@ -27,7 +28,12 @@ const SiteManagement = () => {
 
   const handleCancelEdit = () => {
     setAddingNew(false)
+    setEditingPlant(null)
   }
+
+  const handleEdit = (site: Plant) => {
+      setEditingPlant(site);
+    };
 
    const handleDeleteClick = (site: Plant) => {
       setShowDeleteConfirmation(true);
@@ -109,7 +115,15 @@ const SiteManagement = () => {
           Add Plant
         </button>
       </div>
-      <SiteTable sites={filteredSites} addingNew={addingNew} onFormSubmit={handleFormSubmit} onCancelEdit={handleCancelEdit} verantwoordelijkes={verantwoordelijken} onDelete={handleDeleteClick}
+      <SiteTable 
+        sites={filteredSites} 
+        addingNew={addingNew} 
+        onFormSubmit={handleFormSubmit} 
+        onCancelEdit={handleCancelEdit} 
+        verantwoordelijkes={verantwoordelijken} 
+        onDelete={handleDeleteClick}
+        onEdit={handleEdit}
+        editingPlant={editingPlant}
       />
       <DeleteConfirmation
               isOpen={showDeleteConfirmation}
