@@ -22,6 +22,7 @@ const SiteManagement = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingPlant, setEditingPlant] = useState<Plant | null>(null);
 
+  console.log("verantwoordelijken", verantwoordelijken);
   const handleAddClick = () => {
     setAddingNew(true)
   }
