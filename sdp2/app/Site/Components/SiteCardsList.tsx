@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import SiteCard from "./SiteCard";
 import SearchField from "@/components/ui/SearchField";
 import { Plant } from "@/app/types/Plant";
+import useSWR from "swr";
 
 interface SiteCardsListProps {
   sites: Plant[];
@@ -42,11 +43,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
         <div className="flex flex-wrap gap-4 w-full">
           {filteredSites.map((site) => (
             <SiteCard
-              siteId={site.ID}
-              key={site.NAME}
-              siteNaam={site.NAME}
-              siteAdres={site.ADDRESS}
-              //aantalMachines={site.MACHINES.length}
+              site={site}
               verantwoordelijke={site.VERANTWOORDELIJKE}
             />
           ))}
