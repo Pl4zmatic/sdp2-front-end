@@ -15,7 +15,7 @@ const PlantInfo = ({
 }: PlantInfoProps) => {
   const length = machines.length;
   const activeMachines = machines.filter(
-    (machine) => machine.CURRENTSTATESTRING == "Running"
+    (machine) => machine.CURRENTSTATESTRING == "running"
   ).length;
 
   return (

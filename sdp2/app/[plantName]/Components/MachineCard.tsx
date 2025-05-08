@@ -28,6 +28,13 @@ interface MachineCardProps {
   machines: Machine[];
 }
 
+function debug(msg: any) {
+  console.log(msg)
+  return (
+    <></>  
+  )
+}
+
 export const MachineCard = ({ machines }: MachineCardProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showActive, setShowActive] = useState(false);
@@ -35,15 +42,18 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
   const filteredMachines = useMemo(() => {
     let filteredMachines = [...machines];
     if(!showActive) {
-      filteredMachines = filteredMachines.filter((machine) => machine.CURRENTSTATESTRING === "Running");
+      filteredMachines = filteredMachines.filter((machine) => machine.CURRENTSTATESTRING === "running");
     }
     if (searchTerm.trim()){
       const lowerCaseSearch = searchTerm.toLowerCase();
       return filteredMachines.filter(
-        (machine) =>
-          machine.CODE.toLowerCase().includes(lowerCaseSearch) ||
-          machine.supervisor.toLowerCase().includes(lowerCaseSearch) ||
-          machine.technieker_naam.toLowerCase().includes(lowerCaseSearch)
+        (machine) => {
+          for(const [key, value] of Object.entries(machine)) {
+            if(value != null && `${value}`.toLowerCase().includes(lowerCaseSearch))
+              return true;
+          }
+          return false;
+        }
       );
     }
     return filteredMachines;
@@ -83,9 +93,10 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                   className="min-h-[50px] border-0"
                 >
                   <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#d13a32] dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
+                    {debug(displayFiveMachines)}
                     <div
                       className={`${
-                        machine.CURRENTSTATESTRING == "Running"
+                        machine.CURRENTSTATESTRING === "running"
                           ? "bg-[#3CEF3C]"
                           : "bg-rancidRed dark:bg-delawareRed"
                       } w-5 h-5 rounded-[50%] mx-2 border-2 border-white `}

@@ -42,7 +42,7 @@ const PlantDetails = () => {
 
   useEffect(() => {
     if (machines) {
-      console.log(`machines: ${JSON.stringify(machines)}`);
+      console.log(machines);
     }
   }, [machines]);
 
