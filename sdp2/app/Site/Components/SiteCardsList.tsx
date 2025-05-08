@@ -43,6 +43,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
         <div className="flex flex-wrap gap-4 w-full">
           {filteredSites.map((site) => (
             <SiteCard
+              key={site.ID}
               site={site}
               verantwoordelijke={site.VERANTWOORDELIJKE}
             />
