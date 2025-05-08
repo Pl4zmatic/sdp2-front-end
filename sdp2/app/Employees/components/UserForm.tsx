@@ -12,7 +12,7 @@ interface UserFormProps {
 }
 
 export default function UserForm({ onSubmit, onCancel, initialData }: UserFormProps) {
-  const [formData, setFormData] = useState<CreateUserBody>({
+  const [formData, setFormData] = useState({
     LASTNAME: "",
     FIRSTNAME: "",
     EMAIL: "",
@@ -38,15 +38,18 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
 
   useEffect(() => {
     if (initialData) {
+      const [street = "", number = "", city = "", postalCode = ""] = initialData.ADRES.split(",").map((part) =>
+        part.trim(),
+      )
       setFormData({
         LASTNAME: initialData.LASTNAME,
         FIRSTNAME: initialData.FIRSTNAME,
         EMAIL: initialData.EMAIL,
         ROL: initialData.ROL,
-        STREET: initialData.STREET || "",
-        HOUSE_NUMBER: initialData.HOUSE_NUMBER || "",
-        POSTAL_CODE: initialData.POSTAL_CODE || "",
-        CITY: initialData.CITY || "",
+        STREET: street,
+        HOUSE_NUMBER: number,
+        POSTAL_CODE: postalCode,
+        CITY: city,
         BIRTHDATE: initialData.BIRTHDATE || "",
         GSMNUMMER: initialData.GSMNUMMER || "",
         PASSWORD: "",
@@ -64,7 +67,12 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     e.preventDefault()
 
     const errors: Record<string, string> = {}
+    const combinedAddress = `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY} `
 
+    const submisionData: CreateUserBody = {
+      ...formData,
+      ADRES: combinedAddress,
+    }
     if (isPhoneRequired && !formData.GSMNUMMER) {
       errors.GSMNUMMER = "Phone number is required for Technicians"
       setFormErrors(errors)
@@ -72,7 +80,7 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     }
 
     setFormErrors({})
-    await onSubmit(formData, initialData?.ID)
+    await onSubmit(submisionData, initialData?.ID)
   }
 
   const generatePassword = () => {
