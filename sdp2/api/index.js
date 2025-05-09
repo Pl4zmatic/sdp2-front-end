@@ -41,7 +41,6 @@ export async function save(url, { arg: { id, ...data } }) {
 }
 
 export async function getAll(url) {
-  console.log('getAll ' + url )
   const { data } = await api.get(`/${url}`);
   return Array.isArray(data) ? data : data.items;
 }

@@ -8,7 +8,6 @@ import RadialChart from "@/components/charts/radialChart";
 import LineChart from "@/components/charts/lineChart";
 import { getAll } from "../../api/index.js";
 import SiteMap from "../Kpi/Components/Map";
-import useSWR from "swr";
 
 import {
   Card,
@@ -24,17 +23,10 @@ import {
   rotateValueToKeyMergeByKey,
   addFillFromConfig,
 } from "@/components/charts/globalChartFunctions.js";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useEffect, useMemo, useState } from "react";
+import { TotalProduced, TotalMaintenanceCost, TotalDefectsOverTime, TotalDefectsBySite, AverageCostsBySite } from "./Components/charts/AllSiteCharts.jsx";
 
 // interface props {}
 
@@ -75,75 +67,11 @@ export default function Kpi({}) {
         value="all"
         className="flex flex-wrap pb-2 gap-4 justify-center rounded-lg"
       >
-        {chartData == null ? (
-          <div className="text-white">Loading...</div>
-        ) : (
-          <>
-            <BarChart
-              title="Produced Items"
-              chartData={mergeObjectsByKey(chartData, "productName")}
-              axisName={"productName"}
-              valueKeys={["produced"]}
-              horizontal={false}
-            />
-
-            <PieChart
-              title="Produced Items by Site"
-              chartData={mergeObjectsByKey(chartData, "siteName")}
-              nameKey={"siteName"}
-              dataKey="produced"
-            ></PieChart>
-
-            <BarChart
-              title="Total Maintenance Costs By Site"
-              chartData={mergeObjectsByKey(chartData, "siteName")}
-              axisName={"siteName"}
-              valueKeys={["averageCost"]}
-              horizontal={true}
-            />
-
-            <LineChart
-              title="Defects Per Site"
-              chartData={rotateValueToKeyMergeByKey(
-                chartData
-                  .sort(
-                    (obj1, obj2) =>
-                      new Date(obj1.date).getTime() -
-                      new Date(obj2.date).getTime()
-                  )
-                  .map((obj) => {
-                    obj.date = `${new Date(obj.date).getFullYear()}`;
-                    return obj;
-                  }),
-                "siteName",
-                "maintenances",
-                "date"
-              )}
-              axisName={"date"}
-              // valueKeys={['Brussel']}
-              horizontal={false}
-            />
-
-            <BarChart
-              title="Defect Rate in % by Site"
-              chartData={mergeObjectsByKey(chartData, "siteName").map((obj) => {
-                obj["defectRate"] = (obj.maintenances / obj.produced) * 100;
-                return obj;
-              })}
-              axisName={"siteName"}
-              valueKeys={["defectRate"]}
-              horizontal={false}
-            />
-
-            {/* <BarChart
-            title="Average Production Cost Per Product by Site"
-            chartData={}
-            axisName={"site"}
-            valueKeys={["averageProductionCost"]}
-            horizontal={false}
-          /> */}
-          </>
-        )}
+        <TotalProduced />
+        <TotalDefectsOverTime/>
+        <TotalDefectsBySite/>
+        <AverageCostsBySite/>
+        <TotalMaintenanceCost/>
       </TabsContent>
 
       <TabsContent
@@ -215,7 +143,11 @@ export default function Kpi({}) {
             {chartData
               .filter((obj) => obj.siteName == site)
               .map((obj, index) => (
-                <div className="hover:cursor-pointer w-[24%]" onClick={() => setMachine(obj.machineCode)} key={index}>
+                <div
+                  className="hover:cursor-pointer w-[24%]"
+                  onClick={() => setMachine(obj.machineCode)}
+                  key={index}
+                >
                   <Card className="border-[var(--navy)] bg-[var(--navy)] rounded-t-lg size-full">
                     <CardHeader className="bg-[var(--lightestNavy)] rounded-t-lg p-2">
                       {obj.machineCode}
@@ -235,69 +167,82 @@ export default function Kpi({}) {
           <>
             <RadialChart
               title="Total Produced"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine), 'machineCode')}
-              dataName={'Items'}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                ),
+                "machineCode"
+              )}
+              dataName={"Items"}
               dataKey="produced"
             ></RadialChart>
             <RadialChart
               title="Throughput Rate"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine)).map(
-                (obj, index, array) => {
-                  obj["throughputRate"] = Math.round(obj.produced / obj.uptime);
-                  return obj;
-                }
-              )}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                )
+              ).map((obj, index, array) => {
+                obj["throughputRate"] = Math.round(obj.produced / obj.uptime);
+                return obj;
+              })}
               dataName={`Items / h`}
               dataKey="throughputRate"
             ></RadialChart>
             <RadialChart
               title="Attainment (Produced / Target) %"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine)).map(
-                (obj, index, array) => {
-                  obj["attainment"] =
-                    Math.round(obj.produced / obj.target) * 100;
-                  return obj;
-                }
-              )}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                )
+              ).map((obj, index, array) => {
+                obj["attainment"] = Math.round(obj.produced / obj.target) * 100;
+                return obj;
+              })}
               dataName={`Percent`}
               dataKey="attainment"
             ></RadialChart>
             <RadialChart
               title="Unit Maintenance Cost %"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine)).map(
-                (obj, index, array) => {
-                  obj["unitMaintenanceCost"] = Math.round(
-                    ((obj.averageCost) / obj.produced) *
-                      100
-                  );
-                  return obj;
-                }
-              )}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                )
+              ).map((obj, index, array) => {
+                obj["unitMaintenanceCost"] = Math.round(
+                  (obj.averageCost / obj.produced) * 100
+                );
+                return obj;
+              })}
               dataName={`Percent`}
               dataKey="unitMaintenanceCost"
             ></RadialChart>
             <RadialChart
               title="Defect Rate %"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine)).map(
-                (obj, index, array) => {
-                  obj["defectRate"] = (
-                    (obj.maintenances / obj.produced) *
-                    100
-                  ).toFixed(3);
-                  return obj;
-                }
-              )}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                )
+              ).map((obj, index, array) => {
+                obj["defectRate"] = (
+                  (obj.maintenances / obj.produced) *
+                  100
+                ).toFixed(3);
+                return obj;
+              })}
               dataName={`Percent`}
               dataKey="defectRate"
             ></RadialChart>
             <RadialChart
               title="Total Production Cost"
-              chartData={mergeObjectsByKey(chartData.filter(obj => obj.siteName == site && obj.machineCode == machine)).map(
-                (obj, index, array) => {
-                  obj["totalProductionCost"] = obj.productionCost;
-                  return obj;
-                }
-              )}
+              chartData={mergeObjectsByKey(
+                chartData.filter(
+                  (obj) => obj.siteName == site && obj.machineCode == machine
+                )
+              ).map((obj, index, array) => {
+                obj["totalProductionCost"] = obj.productionCost;
+                return obj;
+              })}
               dataName={`Euro`}
               dataKey="totalProductionCost"
             ></RadialChart>
