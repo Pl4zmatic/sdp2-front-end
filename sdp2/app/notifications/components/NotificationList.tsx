@@ -103,7 +103,7 @@ export default function NotificationsList({ userId }: { userId: string }) {
   return (
     <>
       {!reversedNotifications.length ? (
-        <div className="text-center text-gray-500 p-8 border border-dashed rounded-lg">
+        <div className="text-center text-gray-500 p-8 dark:bg-lightestNavy border-neutral-500 dark:border-slate-900 bg-neutral-100 border border-dashed rounded-lg">
           No notifications found
         </div>
       ) : (

@@ -85,13 +85,25 @@ export function Navbar() {
         <div className="space-y-8">
           <div className="flex items-center justify-between pt-6 pl-6">
             <a href="Landing">
-              <Image
-                src="/logo.svg"
-                width={120}
-                height={40}
-                alt="Logo"
-                className="w-auto h-auto bg-delawareRed dark:bg-transparent rounded-md px-4 "
-              />
+              <div className="relative">
+                {/* Light mode image */}
+                <Image
+                  src="/delawareLight.svg"
+                  width={160}
+                  height={80}
+                  alt="Logo"
+                  className="w-auto h-full block dark:hidden px-4"
+                />
+
+                {/* Dark mode image */}
+                <Image
+                  src="/logo.svg"
+                  width={160}
+                  height={80}
+                  alt="Logo (Dark)"
+                  className="w-auto h-full hidden dark:block px-4"
+                />
+              </div>
             </a>
             <ThemeToggle />
           </div>
