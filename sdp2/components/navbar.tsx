@@ -25,6 +25,7 @@ import { ROLES } from "@/types/roles";
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
   const logout = useLogout();
   const { user } = useAuth();
 
@@ -37,8 +38,10 @@ export function Navbar() {
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-  const { data, error, isLoading } = useSWR<{ unreadCount: number }>(
-    `http://localhost:4000/api/notifications/user/3/count`, 
+  const { data } = useSWR<{ unreadCount: number }>(
+    user?.id
+      ? `http://localhost:4000/api/notifications/user/${user.id}/count`
+      : null,
     fetcher,
     {
       refreshInterval: 30000,
@@ -75,40 +78,54 @@ export function Navbar() {
 
       {/* Navbar */}
       <aside
-        className={`fixed top-0 h-screen w-64 flex-col justify-between bg-delawareRed dark:bg-navy p-6 transition-all duration-300 ease-in-out z-50 md:flex md:left-0 ${
+        className={`fixed top-0 h-screen w-[17.5rem] flex-col justify-between bg-neutral-100 dark:bg-navy transition-all duration-300 ease-in-out z-50 md:flex md:left-0 ${
           isMenuOpen ? "left-0 flex" : "-left-64 hidden"
         }`}
       >
         <div className="space-y-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pt-6 pl-6">
             <a href="Landing">
               <Image
                 src="/logo.svg"
                 width={120}
                 height={40}
                 alt="Logo"
-                className="w-auto h-auto"
+                className="w-auto h-auto bg-delawareRed dark:bg-transparent rounded-md px-4 "
               />
             </a>
             <ThemeToggle />
           </div>
 
-          <nav className="space-y-6">
-            {(user.role === ROLES.MANAGER || user.role === ROLES.VERANTWOORDELIJKE || user.role === ROLES.TECHNIEKER) && (
-              <Link href="/Site" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
-                <Compass size={20} />
+          <nav className="space-y-6 px-6">
+            {(user.role === ROLES.MANAGER ||
+              user.role === ROLES.VERANTWOORDELIJKE ||
+              user.role === ROLES.TECHNIEKER) && (
+              <Link
+                href="/Site"
+                className="flex  items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed/80 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Compass size={20} className="" />
                 <span>Plant Overview</span>
               </Link>
             )}
 
             {user.role === ROLES.MANAGER && (
               <>
-                <Link href="/SiteManagement" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/SiteManagement"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed/80 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <BarChart2 size={20} />
                   <span>Plant Management</span>
                 </Link>
 
-                <Link href="/Kpi" className="flex items-center gap-3 text-white hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/Kpi"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <ChartNoAxesCombined size={20} />
                   <span>KPI Dashboard</span>
                 </Link>
@@ -117,12 +134,20 @@ export function Navbar() {
 
             {user.role === ROLES.VERANTWOORDELIJKE && (
               <>
-                <Link href="/Employees" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/Employees"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <Users size={20} />
                   <span>Employees</span>
                 </Link>
 
-                <Link href="/" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <FileText size={20} />
                   <span>Report</span>
                 </Link>
@@ -131,7 +156,11 @@ export function Navbar() {
 
             {user.role === ROLES.ADMIN && (
               <>
-                <Link href="/Employees" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href="/Employees"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <Users size={20} />
                   <span>Gebruikersbeheer</span>
                 </Link>
@@ -140,28 +169,30 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 px-6 pb-6">
           <Link
             href="notifications"
-            className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer"
+            className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors cursor-pointer"
           >
             <Bell size={20} />
             <span>Notifications</span>
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-xs text-delawareRed ml-auto">
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-delawareRed text-xs text-white ml-auto">
               {data?.unreadCount}
             </span>
           </Link>
 
           <div className="relative">
             <div
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors cursor-pointer"
+              className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors cursor-pointer"
               onClick={toggleProfile}
             >
-              <User size={20} />
-              <span>{user.firstName} {user.lastName}</span>
+              <User size={24} />
+              <span>
+                {user.firstName} {user.lastName}
+              </span>
               <ChevronDown
-                size={16}
-                className={`ml-auto transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
+                size={24}
+                className={`hover:bg-neutral-200  bg-transparent dark:hover:bg-lightestNavy transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
               />
             </div>
 
