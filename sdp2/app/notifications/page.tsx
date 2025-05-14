@@ -45,7 +45,7 @@ export default function NotificationsPage() {
     fetcher,
     {
       refreshInterval: 0,
-      revalidateOnFocus: false,
+      revalidateOnFocus: true,
     },
   );
   const reversedNotifications = notifications
@@ -120,7 +120,7 @@ export default function NotificationsPage() {
           {reversedNotifications.slice(0, visibleCount).map((notification) => (
             <div
               key={notification.ID}
-              className={`p-4 rounded-lg shadow hover:shadow-md ${notification.ISREAD ? "text-slate-500" : ""} bg-navy transition-all cursor-pointer relative group`}
+              className={`p-4 rounded-lg shadow hover:shadow-md ${notification.ISREAD ? "text-slate-500 " : ""} bg-navy transition-all cursor-pointer relative group`}
               onClick={() => handleNotificationClick(notification)}
             >
               <div className="flex justify-between items-start">
