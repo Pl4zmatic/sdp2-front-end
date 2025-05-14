@@ -57,10 +57,11 @@ const PlantDetails = () => {
           <h1 className="text-7xl font-bold text-white mb-5">
             {hasValidPlant ? (
               <div className="flex flex-col items-center">
-                <span className="text-deepBlue dark:text-delawareRed">
-                </span>
+                <span className="text-darkGray dark:text-white">
+                
                   {plant.NAME}
-                <Button className="w-auto bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
+                  </span>
+                <Button className="w-auto text-darkGray bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors dark:text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
               </div>
             ) : (
               <span className="text-delawareRed">{"DetailsPage"}</span>

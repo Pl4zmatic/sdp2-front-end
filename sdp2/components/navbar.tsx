@@ -114,7 +114,7 @@ export function Navbar() {
               user.role === ROLES.TECHNIEKER) && (
               <Link
                 href="/Site"
-                className="flex  items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed/80 transition-colors"
+                className="flex  items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Compass size={20} className="" />
@@ -126,7 +126,7 @@ export function Navbar() {
               <>
                 <Link
                   href="/SiteManagement"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed/80 transition-colors"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <BarChart2 size={20} />
@@ -135,7 +135,7 @@ export function Navbar() {
 
                 <Link
                   href="/Kpi"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <ChartNoAxesCombined size={20} />
@@ -157,7 +157,7 @@ export function Navbar() {
 
                 <Link
                   href="/"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <FileText size={20} />
@@ -170,7 +170,7 @@ export function Navbar() {
               <>
                 <Link
                   href="/Employees"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors"
+                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Users size={20} />
@@ -184,7 +184,7 @@ export function Navbar() {
         <div className="space-y-4 px-6 pb-6">
           <Link
             href="notifications"
-            className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors cursor-pointer"
+            className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors cursor-pointer"
           >
             <Bell size={20} />
             <span>Notifications</span>
@@ -195,7 +195,7 @@ export function Navbar() {
 
           <div className="relative">
             <div
-              className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed/80 dark:hover:text-delawareRed transition-colors cursor-pointer"
+              className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors cursor-pointer"
               onClick={toggleProfile}
             >
               <User size={24} />

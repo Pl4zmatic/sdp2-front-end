@@ -55,7 +55,7 @@ export default function Kpi({}) {
       defaultValue="all"
       className="bg-[--lightGray] dark:bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
     >
-      <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--delawareRed)]">
+      <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--darkGray)]">
         <TabsTrigger value="all" onClick={() => setValue("all")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>All</TabsTrigger>
         <TabsTrigger value="site" onClick={() => {setValue("site"); setMachine("None")}} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Site</TabsTrigger>
         <TabsTrigger value="machine" onClick={() => setValue("machine")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Machine</TabsTrigger>
@@ -126,8 +126,8 @@ export default function Kpi({}) {
                     onClick={() => setMachine(obj.machineCode)}
                     key={index}
                   >
-                    <Card className="border-[var(--navy)] bg-[var(--navy)] rounded-t-lg size-full">
-                      <CardHeader className="bg-[var(--lightestNavy)] rounded-t-lg p-2">
+                    <Card className="border-[var(--darkGray)] dark:border-[var(--navy)] dark:bg-[var(--navy)] rounded-t-lg size-full">
+                      <CardHeader className="dark:bg-[var(--lightestNavy)] rounded-t-lg p-2">
                         {obj.machineCode}
                       </CardHeader>
                       <CardContent className="py-2">
