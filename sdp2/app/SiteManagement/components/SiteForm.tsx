@@ -91,33 +91,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
               required
             />
           </div>
-          <div className="flex-1 space-y-2">
-            <label className="block text-sm font-medium text-gray-300">
-              Status <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.STATUS ?? ""}
-              onChange={(e) => setFormData({ ...formData, STATUS: e.target.value })}
-              required
-            />
-          </div>
         </div>
-
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-300">
-            Health <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-            value={formData.HEALTH ?? ""}
-            onChange={(e) => setFormData({ ...formData, HEALTH: Number(e.target.value) })}
-            required
-          />
-        </div>
-
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 space-y-2">
             <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
@@ -171,42 +145,9 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
               </div>
             </div>
           </div>
-          <div className="flex-1 space-y-2">
-            <label className="block text-sm font-medium text-gray-300">
-              CurrentProduction <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.CURRENTPRODUCTION ?? ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  CURRENTPRODUCTION: Number(e.target.value),
-                })
-              }
-              required
-            />
-          </div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          <div className="flex-1 space-y-2">
-            <label className="block text-sm font-medium text-gray-300">
-              Efficiency rate {<span className="text-red-500">*</span>}
-            </label>
-            <input
-              type="text"
-              className={`w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400`}
-              value={formData.EFFICIENCYRATE ?? ""}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  EFFICIENCYRATE: Number(e.target.value),
-                })
-              }}
-            />
-          </div>
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
               Verantwoordelijke <span className="text-red-500">*</span>
