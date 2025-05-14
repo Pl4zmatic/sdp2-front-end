@@ -1,6 +1,6 @@
 "use client";
-import useSWR from 'swr'
-import { getAll, getById } from '../../api/index'
+import useSWR from "swr";
+import { getAll, getById } from "../../api/index";
 import { MachineCard } from "./Components/MachineCard";
 import PlantInfo from "./Components/PlantInfo";
 import type { Plant } from "../types/Plant";
@@ -9,27 +9,22 @@ import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Breadcrumbs from "./Components/Breadcrumbs"
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const PlantDetails = () => {
   const params = useParams();
   const plantId = params.plantName;
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
 
-  const {
-    data: plant,
-    isLoading,
-    error,
-  } = useSWR(`sites/${plantId}`, getById)
-  
-  
-  
+  const { data: plant, isLoading, error } = useSWR(`sites/${plantId}`, getById);
+
   const {
     data: machines = [],
     isLoading: isLoadingMachines,
     error: errorMachines,
-  } = useSWR(`sites/${selectedPlant?.NAME}/machines`, getById)
+  } = useSWR(`sites/${selectedPlant?.NAME}/machines`, getById);
 
-  useEffect(() => {  
+  useEffect(() => {
     if (plant) {
       sessionStorage.setItem("selectedPlant", JSON.stringify(plant));
       setSelectedPlant(plant);
@@ -49,12 +44,12 @@ const PlantDetails = () => {
 
   const hasValidPlant = selectedPlant;
 
-  if (isLoading) return <div>Loading...</div>
-  if(!plant) return <div>no plant found</div>
-  if(error) return <div>${error}</div>
+  if (isLoading) return <div>Loading...</div>;
+  if (!plant) return <div>no plant found</div>;
+  if (error) return <div>${error}</div>;
 
   return (
-    <div>
+    <ProtectedRoute>
       <Breadcrumbs {...plant}></Breadcrumbs>
       <div className="flex min-h-screen w-full items-center justify-center">
       <main className="flex-1 p-8 w-full">
@@ -63,8 +58,8 @@ const PlantDetails = () => {
             {hasValidPlant ? (
               <div className="flex flex-col items-center">
                 <span className="text-deepBlue dark:text-delawareRed">
-                  {plant.NAME}
                 </span>
+                  {plant.NAME}
                 <Button className="w-auto bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
               </div>
             ) : (
@@ -73,25 +68,26 @@ const PlantDetails = () => {
           </h1>
         </div>
 
-        {hasValidPlant ? (
-          <div className="flex-col items-center justify-center">
-            <PlantInfo
-              plantName={plant.NAME}
-              currentProduction={plant.CURRENTPRODUCTION}
-              efficiencyRate={plant.EFFICIENCYRATE}
-              machines={machines}
-            />
-            <MachineCard machines={machines} />
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
-          </div>
-        )}
-      </main>
-    </div>
-    </div>
-    
+          {hasValidPlant ? (
+            <div className="flex-col items-center justify-center">
+              <PlantInfo
+                plantName={plant.NAME}
+                currentProduction={plant.CURRENTPRODUCTION}
+                efficiencyRate={plant.EFFICIENCYRATE}
+                machines={machines}
+              />
+              <MachineCard machines={machines} />
+            </div>
+          ) : (
+            <div className="flex justify-center">
+              <Button className="w-[70%] bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors text-white mt-5">
+                <Link href={"/Site"}>Select another plant</Link>
+              </Button>
+            </div>
+          )}
+        </main>
+      </div>
+    </ProtectedRoute>
   );
 };
 

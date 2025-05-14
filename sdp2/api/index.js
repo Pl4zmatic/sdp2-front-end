@@ -44,3 +44,8 @@ export async function getAll(url) {
   const { data } = await api.get(`/${url}`);
   return Array.isArray(data) ? data : data.items;
 }
+
+export const getMe = async () => {
+  const { data } = await api.get("/users/me");
+  return data;
+};

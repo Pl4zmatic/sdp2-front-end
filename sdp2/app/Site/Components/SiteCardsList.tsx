@@ -21,7 +21,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
       (site) =>
         site.NAME.toLowerCase().includes(lowerCaseSearch) ||
         site.ADDRESS.toLowerCase().includes(lowerCaseSearch) ||
-        site.VERANTWOORDELIJKE.toLowerCase().includes(lowerCaseSearch)
+        site.VERANTWOORDELIJKE.toLowerCase().includes(lowerCaseSearch),
     );
   }, [sites, searchTerm]);
 
@@ -36,7 +36,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
       </div>
 
       {filteredSites.length === 0 ? (
-        <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
+        <div className="text-center py-8 text-black/90 bg-neutral-100 dark:bg-navy rounded-lg">
           <p>Geen locaties gevonden die overeenkomen met je zoekopdracht.</p>
         </div>
       ) : (
