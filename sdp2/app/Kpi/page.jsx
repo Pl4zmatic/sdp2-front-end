@@ -28,6 +28,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useEffect, useMemo, useState } from "react";
 import { TotalProduced, TotalMaintenanceCost, TotalDefectsOverTime, TotalDefectsBySite, AverageCostsBySite } from "./Components/charts/AllSiteCharts.jsx";
+import { TotalProducedByProduct, AverageThroughputByProduct, AverageAttainmentByProduct, DefectsByProduct, ProductionCostByProduct } from "./Components/charts/PerSiteCharts.jsx";
 
 // interface props {}
 
@@ -71,7 +72,7 @@ export default function Kpi({}) {
         value="all"
         className="flex flex-wrap pb-2 gap-4 justify-center rounded-lg"
       >
-        <TotalProduced />
+        <TotalProduced/>
         <TotalDefectsOverTime/>
         <TotalDefectsBySite/>
         <AverageCostsBySite/>
@@ -90,44 +91,11 @@ export default function Kpi({}) {
           )
         ) : (
           <>
-            <BarChart
-              title="Produced Items"
-              chartData={mergeObjectsByKey(
-                chartData.filter((obj) => obj.siteName == site),
-                "productName"
-              )}
-              axisName={"productName"}
-              valueKeys={["produced"]}
-              horizontal={false}
-            />
-            <PieChart
-              title="Produced Items in %"
-              chartData={mergeObjectsByKey(
-                chartData.filter((obj) => obj.siteName == site),
-                "productName"
-              ).map((obj, index, array) => {
-                obj["producedPercentage"] = Math.round(
-                  (obj.produced /
-                    array.reduce((prev, cur) => prev + cur.produced, 0)) *
-                    100
-                );
-                return obj;
-              })}
-              nameKey={"productName"}
-              dataKey="producedPercentage"
-            ></PieChart>
-            <RadialChart
-              title="Total Production Cost"
-              chartData={addFillFromConfig(
-                mergeObjectsByKey(
-                  chartData.filter((obj) => obj.siteName == site),
-                  "siteName"
-                ),
-                "siteName"
-              )}
-              dataName="Euro"
-              dataKey="averageCost"
-            ></RadialChart>
+            <TotalProducedByProduct siteName={site}/>
+            <AverageThroughputByProduct siteName={site}/>
+            <DefectsByProduct siteName={site}/>
+            <ProductionCostByProduct siteName={site}/>
+            <AverageAttainmentByProduct siteName={site}/>
           </>
         )}
       </TabsContent>

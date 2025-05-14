@@ -26,16 +26,24 @@ export const chartConfig = {
     label: "Total",
     color: "hsl(var(--chart-2))",
   },
+  target: {
+    label: "Target",
+    color: "hsl(var(--chart-3))",
+  },
   maintenanceCost: {
     label: "Costs",
     color: "hsl(var(--chart-4))",
   },
-  defectRate: {
-    label: "Defect Rate",
-    color: "hsl(var(--chart-1))",
-  },
   averageProductionCost: {
     label: "Defect Rate",
+    color: "hsl(var(--chart-5))",
+  },
+  productionCost: {
+    label: "Cost",
+    color: "hsl(var(--chart-4))",
+  },
+  throughput: {
+    label: "Throughput",
     color: "hsl(var(--chart-5))",
   },
 
@@ -57,11 +65,6 @@ export const chartConfig = {
   },
   Komkommers: {
     label: "Komkommers",
-    color: "hsl(var(--chart-5))",
-  },
-
-  productionCost: {
-    label: 'Cost',
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;

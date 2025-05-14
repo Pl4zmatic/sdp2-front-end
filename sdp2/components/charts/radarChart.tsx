@@ -20,9 +20,10 @@ import { chartConfig } from "./config";
 interface props {
   chartData: any[];
   xAxisName: DataKey<any>;
+  title: string
 }
 
-export default function Component({ chartData, xAxisName }: props) {
+export default function Component({ chartData, xAxisName, title }: props) {
   const valueKeys: DataKey<any>[] = Array.from(
     new Set(
       chartData
@@ -32,7 +33,7 @@ export default function Component({ chartData, xAxisName }: props) {
   );
 
   return (
-    <ChartCard>
+    <ChartCard title={title}>
       <ChartContainer config={chartConfig} className="mx-auto size-full">
         <RadarChart
           data={chartData}

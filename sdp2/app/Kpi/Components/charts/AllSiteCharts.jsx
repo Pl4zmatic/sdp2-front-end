@@ -90,10 +90,10 @@ export function AverageCostsBySite({}) {
     <div className="text-white">Loading...</div>
   ) : (
     <BarChart
-    title="Average Production Cost Per Product By Site"
-    chartData={data}
-    axisName={"productName"}
-    horizontal={false}
-  />
+      title="Average Production Cost Per Product By Site"
+      chartData={data}
+      axisName={"productName"}
+      horizontal={false}
+    />
   );
 }
