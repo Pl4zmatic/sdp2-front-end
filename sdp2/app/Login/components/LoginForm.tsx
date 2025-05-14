@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
-import { post } from "@/api"
+import { useAuth } from "@/app/contexts/useAuth"
 
 export default function LoginForm() {
   const [email, setEmail] = useState("")
@@ -16,30 +16,29 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
+  const { login } = useAuth()
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setIsLoading(true)
 
     try {
-      const response = await post('login', {
-        arg: {
-          EMAIL: email,
-          PASSWORD: password
-        }
-      });
+      const success = await login({
+        EMAIL: email,
+        PASSWORD: password,
+      })
 
-      localStorage.setItem("token", response.token)
-      
-      // Redirect naar de landing page
-      router.push("/Landing")
+      if (success) {
+        router.push("/Landing")
+      } else {
+        setError("Ongeldige inloggegevens")
+      }
     } catch (err: any) {
-      setError(err.response?.data?.error || "An unexpected error occurred. Please try again.")
+      setError("Onverwachte fout. Probeer opnieuw.")
     } finally {
       setIsLoading(false)
     }
-    // localStorage.setItem("token", "123")
-   router.push("/Landing")
   }
 
   return (
