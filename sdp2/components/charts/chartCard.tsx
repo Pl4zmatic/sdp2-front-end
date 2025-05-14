@@ -15,11 +15,11 @@ interface props {
 
 export default function ChartCard({ children, title }: props) {
   return (
-    <Card className="flex flex-col sm:w-full md:w-[45%] lg:w-[32%] aspect-video bg-[var(--navy)] text-white border-[var(--navy)] shadow-xl rounded-lg">
-      <CardHeader className="bg-[var(--lightestNavy)] rounded-t-lg p-4">
+    <Card className="flex flex-col sm:w-full md:w-[45%] lg:w-[32%] aspect-video dark:bg-[var(--navy)] dark:text-white bg-white dark:border-[var(--navy)] shadow-xl rounded-lg">
+      <CardHeader className="text-white bg-delawareRed dark:bg-[var(--lightestNavy)] rounded-t-lg p-4">
         {title}
       </CardHeader>
-      <CardContent className="flex-1 py-4 content-center">
+      <CardContent className="flex-1 py-4 content-center text-black dark:text-white">
         {children}
       </CardContent>
     </Card>

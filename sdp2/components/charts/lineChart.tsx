@@ -20,7 +20,6 @@ import {
 
 import { DataKey } from "recharts/types/util/types";
 import { chartConfig } from "./config";
-import { chartData } from "./exampledata";
 import ChartCard from "./chartCard";
 import { isDate } from "./globalChartFunctions";
 

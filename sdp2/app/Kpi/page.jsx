@@ -60,12 +60,12 @@ export default function Kpi({}) {
     <Breadcrumbs value={value} site={site} machine={machine} setSite={setSite} setMachine={setMachine}></Breadcrumbs>
     <Tabs
       defaultValue="all"
-      className="bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
+      className="bg-[--lightGray] dark:bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
     >
-      <TabsList className="grid w-full grid-cols-3 bg-[var(--navy)]">
-        <TabsTrigger value="all" onClick={() => setValue("all")}>All</TabsTrigger>
-        <TabsTrigger value="site" onClick={() => {setValue("site"); setMachine("None")}}>Site</TabsTrigger>
-        <TabsTrigger value="machine" onClick={() => setValue("machine")}>Machine</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--delawareRed)]">
+        <TabsTrigger value="all" onClick={() => setValue("all")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>All</TabsTrigger>
+        <TabsTrigger value="site" onClick={() => {setValue("site"); setMachine("None")}} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Site</TabsTrigger>
+        <TabsTrigger value="machine" onClick={() => setValue("machine")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Machine</TabsTrigger>
       </TabsList>
 
       <TabsContent

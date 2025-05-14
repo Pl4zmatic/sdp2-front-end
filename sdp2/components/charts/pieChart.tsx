@@ -59,7 +59,7 @@ export default function Component({ chartData, title, nameKey, dataKey }: props)
                   y={y + 4}
                   textAnchor={props.textAnchor}
                   dominantBaseline={props.dominantBaseline}
-                  fill="white"
+                  className="fill-black dark:fill-white"
                 >
                   {payload[dataKey]}
                 </text>

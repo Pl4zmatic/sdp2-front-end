@@ -83,7 +83,6 @@ export default function Barchart({
           <ChartTooltip content={<ChartTooltipContent />} />
           <ChartLegend
             content={<ChartLegendContent />}
-            className="text-white"
           />
 
           {valueKeys.map((key, index) => {
