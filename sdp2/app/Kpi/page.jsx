@@ -8,7 +8,7 @@ import RadialChart from "@/components/charts/radialChart";
 
 import { getAll } from "../../api/index.js";
 import SiteMap from "../Kpi/Components/Map";
-import Breadcrumbs from "./Components/Breadcrumbs"
+import Breadcrumbs from "./Components/Breadcrumbs";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -20,8 +20,20 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useEffect, useMemo, useState } from "react";
-import { TotalProduced, TotalMaintenanceCost, TotalDefectsOverTime, TotalDefectsBySite, AverageCostsBySite } from "./Components/charts/AllSiteCharts.jsx";
-import { TotalProducedByProduct, AverageThroughputByProduct, AverageAttainmentByProduct, DefectsByProduct, ProductionCostByProduct } from "./Components/charts/PerSiteCharts.jsx";
+import {
+  TotalProduced,
+  TotalMaintenanceCost,
+  TotalDefectsOverTime,
+  TotalDefectsBySite,
+  AverageCostsBySite,
+} from "./Components/charts/AllSiteCharts.jsx";
+import {
+  TotalProducedByProduct,
+  AverageThroughputByProduct,
+  AverageAttainmentByProduct,
+  DefectsByProduct,
+  ProductionCostByProduct,
+} from "./Components/charts/PerSiteCharts.jsx";
 
 // interface props {}
 
@@ -50,27 +62,43 @@ export default function Kpi({}) {
 
   return (
     <ProtectedRoute>
-    <Breadcrumbs value={value} site={site} machine={machine} setSite={setSite} setMachine={setMachine}></Breadcrumbs>
-    <Tabs
-      defaultValue="all"
-      className="bg-[--lightGray] dark:bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
-    >
-      <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--delawareRed)]">
-        <TabsTrigger value="all" onClick={() => setValue("all")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>All</TabsTrigger>
-        <TabsTrigger value="site" onClick={() => {setValue("site"); setMachine("None")}} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Site</TabsTrigger>
-        <TabsTrigger value="machine" onClick={() => setValue("machine")} className='data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray'>Machine</TabsTrigger>
-      </TabsList>
-
-      <TabsContent
-        value="all"
-        className="flex flex-wrap pb-2 gap-4 justify-center rounded-lg"
+      <Breadcrumbs
+        value={value}
+        site={site}
+        machine={machine}
+        setSite={setSite}
+        setMachine={setMachine}
+      ></Breadcrumbs>
+      <Tabs
+        defaultValue="all"
+        className="bg-[--lightGray] dark:bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
       >
-        <TotalProduced/>
-        <TotalDefectsOverTime/>
-        <TotalDefectsBySite/>
-        <AverageCostsBySite/>
-        <TotalMaintenanceCost/>
-      </TabsContent>
+        <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--delawareRed)]">
+          <TabsTrigger
+            value="all"
+            onClick={() => setValue("all")}
+            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+          >
+            All
+          </TabsTrigger>
+          <TabsTrigger
+            value="site"
+            onClick={() => {
+              setValue("site");
+              setMachine("None");
+            }}
+            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+          >
+            Site
+          </TabsTrigger>
+          <TabsTrigger
+            value="machine"
+            onClick={() => setValue("machine")}
+            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+          >
+            Machine
+          </TabsTrigger>
+        </TabsList>
 
         <TabsContent
           value="all"
@@ -87,24 +115,22 @@ export default function Kpi({}) {
           value="site"
           className="flex flex-wrap gap-4 justify-center rounded-lg size-full pb-2 px-4"
         >
-        {site == "None" ? (
-          sites == null ? (
-            <div className="text-white">loading...</div>
+          {site == "None" ? (
+            sites == null ? (
+              <div className="text-white">loading...</div>
+            ) : (
+              <SiteMap sites={sites} setSite={setSite}></SiteMap>
+            )
           ) : (
-            <SiteMap sites={sites} setSite={setSite}></SiteMap>
-          )
-        ) : (
-          <SiteMap sites={sites} setSite={setSite}></SiteMap>
-        )}
-          <>
-            <TotalProducedByProduct siteName={site}/>
-            <AverageThroughputByProduct siteName={site}/>
-            <DefectsByProduct siteName={site}/>
-            <ProductionCostByProduct siteName={site}/>
-            <AverageAttainmentByProduct siteName={site}/>
-          </>
-       
-      </TabsContent>
+            <>
+              <TotalProducedByProduct siteName={site} />
+              <AverageThroughputByProduct siteName={site} />
+              <DefectsByProduct siteName={site} />
+              <ProductionCostByProduct siteName={site} />
+              <AverageAttainmentByProduct siteName={site} />
+            </>
+          )}
+        </TabsContent>
 
         <TabsContent
           value="machine"
@@ -147,9 +173,9 @@ export default function Kpi({}) {
                 title="Total Produced"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
+                    (obj) => obj.siteName == site && obj.machineCode == machine
                   ),
-                  "machineCode",
+                  "machineCode"
                 )}
                 dataName={"Items"}
                 dataKey="produced"
@@ -158,8 +184,8 @@ export default function Kpi({}) {
                 title="Throughput Rate"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
-                  ),
+                    (obj) => obj.siteName == site && obj.machineCode == machine
+                  )
                 ).map((obj, index, array) => {
                   obj["throughputRate"] = Math.round(obj.produced / obj.uptime);
                   return obj;
@@ -171,8 +197,8 @@ export default function Kpi({}) {
                 title="Attainment (Produced / Target) %"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
-                  ),
+                    (obj) => obj.siteName == site && obj.machineCode == machine
+                  )
                 ).map((obj, index, array) => {
                   obj["attainment"] =
                     Math.round(obj.produced / obj.target) * 100;
@@ -185,11 +211,11 @@ export default function Kpi({}) {
                 title="Unit Maintenance Cost %"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
-                  ),
+                    (obj) => obj.siteName == site && obj.machineCode == machine
+                  )
                 ).map((obj, index, array) => {
                   obj["unitMaintenanceCost"] = Math.round(
-                    (obj.averageCost / obj.produced) * 100,
+                    (obj.averageCost / obj.produced) * 100
                   );
                   return obj;
                 })}
@@ -200,8 +226,8 @@ export default function Kpi({}) {
                 title="Defect Rate %"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
-                  ),
+                    (obj) => obj.siteName == site && obj.machineCode == machine
+                  )
                 ).map((obj, index, array) => {
                   obj["defectRate"] = (
                     (obj.maintenances / obj.produced) *
@@ -216,8 +242,8 @@ export default function Kpi({}) {
                 title="Total Production Cost"
                 chartData={mergeObjectsByKey(
                   chartData.filter(
-                    (obj) => obj.siteName == site && obj.machineCode == machine,
-                  ),
+                    (obj) => obj.siteName == site && obj.machineCode == machine
+                  )
                 ).map((obj, index, array) => {
                   obj["totalProductionCost"] = obj.productionCost;
                   return obj;
