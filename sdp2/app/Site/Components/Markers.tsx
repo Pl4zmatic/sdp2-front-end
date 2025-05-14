@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getCoordinates } from "../../../api/coordinates";
 import { InfoWindow, Marker } from "@vis.gl/react-google-maps";
 import { Plant } from "@/app/types/Plant";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface MarkersProps {
   sites: Plant[];
@@ -43,7 +45,12 @@ export default function Markers({ sites }: MarkersProps) {
       ))}
       {selectedMarker && <InfoWindow  headerContent={<p className="text-black">{selectedMarker.site.NAME}</p>} className="min-h-1" 
       position={selectedMarker} onCloseClick={() => setSelectedMarker(null)}>
-        <p className="text-black">{selectedMarker.site.ADDRESS}</p>
+        <p className="text-black mb-2">{selectedMarker.site.ADDRESS}</p>
+        <Link href={`${selectedMarker.site.ID}`}>
+          <Button className="bg-white hover:bg-white/90 dark:bg-lightestNavy dark:hover:bg-blueTransparant text-delawareRed dark:text-white border-0 transition-colors w-full">
+            Select Plant
+          </Button>
+        </Link>
          </InfoWindow>}      
     </>
   );

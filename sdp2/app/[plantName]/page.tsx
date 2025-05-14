@@ -8,6 +8,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Breadcrumbs from "./Components/Breadcrumbs"
 
 const PlantDetails = () => {
   const params = useParams();
@@ -53,7 +54,9 @@ const PlantDetails = () => {
   if(error) return <div>${error}</div>
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center">
+    <div>
+      <Breadcrumbs {...plant}></Breadcrumbs>
+      <div className="flex min-h-screen w-full items-center justify-center">
       <main className="flex-1 p-8 w-full">
         <div className="flex items-center justify-center w-full mb-5">
           <h1 className="text-7xl font-bold text-white mb-5">
@@ -87,6 +90,8 @@ const PlantDetails = () => {
         )}
       </main>
     </div>
+    </div>
+    
   );
 };
 

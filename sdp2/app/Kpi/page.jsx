@@ -8,6 +8,7 @@ import RadialChart from "@/components/charts/radialChart";
 import LineChart from "@/components/charts/lineChart";
 import { getAll } from "../../api/index.js";
 import SiteMap from "../Kpi/Components/Map";
+import Breadcrumbs from "./Components/Breadcrumbs"
 
 import {
   Card,
@@ -35,6 +36,7 @@ export default function Kpi({}) {
   const [machine, setMachine] = useState("None");
   const [chartData, setChartData] = useState(null);
   const [sites, setSites] = useState(null);
+  const [value, setValue] = useState("all");
 
   // const { data: sites = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
   // const filteredSites = !isLoading ? sites.filter((site) =>
@@ -53,14 +55,16 @@ export default function Kpi({}) {
   }, []);
 
   return (
+    <>
+    <Breadcrumbs value={value} site={site} machine={machine} setSite={setSite} setMachine={setMachine}></Breadcrumbs>
     <Tabs
       defaultValue="all"
       className="bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
     >
       <TabsList className="grid w-full grid-cols-3 bg-[var(--navy)]">
-        <TabsTrigger value="all">All</TabsTrigger>
-        <TabsTrigger value="site">Site</TabsTrigger>
-        <TabsTrigger value="machine">Machine</TabsTrigger>
+        <TabsTrigger value="all" onClick={() => setValue("all")}>All</TabsTrigger>
+        <TabsTrigger value="site" onClick={() => {setValue("site"); setMachine("None")}}>Site</TabsTrigger>
+        <TabsTrigger value="machine" onClick={() => setValue("machine")}>Machine</TabsTrigger>
       </TabsList>
 
       <TabsContent
@@ -250,5 +254,7 @@ export default function Kpi({}) {
         )}
       </TabsContent>
     </Tabs>
+    </>
+    
   );
 }
