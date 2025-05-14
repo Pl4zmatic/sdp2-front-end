@@ -152,8 +152,8 @@ export default function Kpi({}) {
                     onClick={() => setMachine(obj.machineCode)}
                     key={index}
                   >
-                    <Card className="border-[var(--navy)] bg-[var(--navy)] rounded-t-lg size-full">
-                      <CardHeader className="bg-[var(--lightestNavy)] rounded-t-lg p-2">
+                    <Card className="border-[var(--darkGray)] dark:border-[var(--navy)] dark:bg-[var(--navy)] rounded-t-lg size-full">
+                      <CardHeader className="dark:bg-[var(--lightestNavy)] rounded-t-lg p-2">
                         {obj.machineCode}
                       </CardHeader>
                       <CardContent className="py-2">

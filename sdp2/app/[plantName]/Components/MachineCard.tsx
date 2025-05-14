@@ -62,7 +62,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
   const displayFiveMachines = filteredMachines.slice(0, 5);
 
   return (
-    <div className="min-w-[25%]">
+    <div className="flex flex-col min-w-[25%]">
       <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
