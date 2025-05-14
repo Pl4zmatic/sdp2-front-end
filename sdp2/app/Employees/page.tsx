@@ -1,5 +1,9 @@
-import UserManagement from './components/UserManagement';
-
+import UserManagement from "./components/UserManagement";
+import ProtectedRoute from "@/components/ProtectedRoute";
 export default function UsersPage() {
-  return <UserManagement />;
+  return (
+    <ProtectedRoute>
+      <UserManagement />
+    </ProtectedRoute>
+  );
 }

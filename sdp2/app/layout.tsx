@@ -1,26 +1,26 @@
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { AuthLayout } from "@/components/auth-layout"
+import { AuthProvider } from "./contexts/Auth.context";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Shopfloor",
   description: "A shopfloor application for Delware",
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -31,10 +31,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthLayout>{children}</AuthLayout>
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
-

@@ -19,11 +19,14 @@ import {
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
 import { useLogout } from "@/hooks/useLogout";
+import { useAuth } from "@/app/contexts/useAuth";
+import { ROLES } from "@/types/roles";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const logout = useLogout();
+  const { user } = useAuth();
 
   // Verbieden scrollen wanneer hamburger menu open is
   const toggleMenu = () => {
@@ -35,7 +38,7 @@ export function Navbar() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
   const { data, error, isLoading } = useSWR<{ unreadCount: number }>(
-    `http://localhost:4000/api/notifications/user/3/count`, // Update the endpoint to match the new route
+    `http://localhost:4000/api/notifications/user/3/count`, 
     fetcher,
     {
       refreshInterval: 30000,
@@ -91,50 +94,49 @@ export function Navbar() {
           </div>
 
           <nav className="space-y-6">
-            <Link
-              href="/Site"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Compass size={20} />
-              <span>Plant Overview</span>
-            </Link>
+            {(user.role === ROLES.MANAGER || user.role === ROLES.VERANTWOORDELIJKE || user.role === ROLES.TECHNIEKER) && (
+              <Link href="/Site" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                <Compass size={20} />
+                <span>Plant Overview</span>
+              </Link>
+            )}
 
-            <Link
-              href="/SiteManagement"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <BarChart2 size={20} />
-              <span>Plant Management</span>
-            </Link>
+            {user.role === ROLES.MANAGER && (
+              <>
+                <Link href="/SiteManagement" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <BarChart2 size={20} />
+                  <span>Plant Management</span>
+                </Link>
 
-            <Link
-              href="#"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FileText size={20} />
-              <span>Quality Registration</span>
-            </Link>
+                <Link href="/Kpi" className="flex items-center gap-3 text-white hover:text-white transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <ChartNoAxesCombined size={20} />
+                  <span>KPI Dashboard</span>
+                </Link>
+              </>
+            )}
 
-            <Link
-              href="/Employees"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Users size={20} />
-              <span>Employees</span>
-            </Link>
+            {user.role === ROLES.VERANTWOORDELIJKE && (
+              <>
+                <Link href="/Employees" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <Users size={20} />
+                  <span>Employees</span>
+                </Link>
 
-            <Link
-              href="/Kpi"
-              className="flex items-center gap-3 text-white hover:text-white transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <ChartNoAxesCombined size={20} />
-              <span>Key Performance Indicators</span>
-            </Link>
+                <Link href="/" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <FileText size={20} />
+                  <span>Report</span>
+                </Link>
+              </>
+            )}
+
+            {user.role === ROLES.ADMIN && (
+              <>
+                <Link href="/Employees" className="flex items-center gap-3 text-white hover:text-white/80 transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <Users size={20} />
+                  <span>Gebruikersbeheer</span>
+                </Link>
+              </>
+            )}
           </nav>
         </div>
 
@@ -156,7 +158,7 @@ export function Navbar() {
               onClick={toggleProfile}
             >
               <User size={20} />
-              <span>John Doe</span>
+              <span>{user.firstName} {user.lastName}</span>
               <ChevronDown
                 size={16}
                 className={`ml-auto transition-transform ${isProfileOpen ? "rotate-180" : ""}`}
@@ -167,10 +169,10 @@ export function Navbar() {
               <div className="absolute bottom-full mb-2 w-full bg-white dark:bg-slate-800 rounded-md shadow-lg overflow-hidden">
                 <div className="p-3 border-b border-gray-200 dark:border-gray-700">
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    John Doe
+                    {user.firstName} {user.lastName}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    john.doe@example.com
+                    {user.email}
                   </p>
                 </div>
                 <div className="p-2">

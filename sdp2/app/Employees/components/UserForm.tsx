@@ -106,7 +106,7 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     <div className="bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
       {/* Form Header */}
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
-        <h2 className="text-xl font-bold text-white">{initialData ? "Edit Employee" : "Add New Employee"}</h2>
+        <h2 className="text-xl font-bold dark:text-white">{initialData ? "Edit Employee" : "Add New Employee"}</h2>
         <button
           type="button"
           onClick={onCancel}
@@ -121,18 +121,6 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
         <div className="flex flex-col md:flex-row gap-6">
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
-              Last Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
-              value={formData.LASTNAME}
-              onChange={(e) => setFormData({ ...formData, LASTNAME: e.target.value })}
-              required
-            />
-          </div>
-          <div className="flex-1 space-y-2">
-            <label className="block text-sm font-medium text-gray-300">
               First Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -140,6 +128,18 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.FIRSTNAME}
               onChange={(e) => setFormData({ ...formData, FIRSTNAME: e.target.value })}
+              required
+            />
+          </div>
+          <div className="flex-1 space-y-2">
+            <label className="block text-sm font-medium text-gray-300">
+              Last Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
+              value={formData.LASTNAME}
+              onChange={(e) => setFormData({ ...formData, LASTNAME: e.target.value })}
               required
             />
           </div>
