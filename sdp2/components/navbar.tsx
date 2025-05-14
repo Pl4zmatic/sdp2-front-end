@@ -92,7 +92,7 @@ export function Navbar() {
                   width={160}
                   height={80}
                   alt="Logo"
-                  className="w-auto h-full block dark:hidden px-4"
+                  className="w-auto h-full block dark:hidden pl-4"
                 />
 
                 {/* Dark mode image */}
@@ -101,7 +101,7 @@ export function Navbar() {
                   width={160}
                   height={80}
                   alt="Logo (Dark)"
-                  className="w-auto h-full hidden dark:block px-4"
+                  className="w-auto h-full hidden dark:block pl-4"
                 />
               </div>
             </a>

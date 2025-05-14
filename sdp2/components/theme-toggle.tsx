@@ -20,7 +20,7 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       className="text-black dark:text-white p-4"
     >
-      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+      {theme === "light" ? <Moon size={26} /> : <Sun size={26} />}
     </button>
   );
 }
