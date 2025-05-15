@@ -93,7 +93,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                   className="min-h-[50px] border-0"
                 >
                   <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#d13a32] dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
-                    {debug(displayFiveMachines)}
+
                     <div
                       className={`${
                         machine.CURRENTSTATESTRING === "running"
@@ -114,6 +114,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-white dark:text-white text-base">
+                    {debug(machine.laatste_onderhoud_datum)}
                     <MachineInfo
                       nameTechnician={machine.technieker_naam}
                       status={machine.CURRENTSTATESTRING}
