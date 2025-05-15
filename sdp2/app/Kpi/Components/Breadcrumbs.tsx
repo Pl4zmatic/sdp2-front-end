@@ -18,7 +18,8 @@ interface BreadcrumbsProps {
 
  const Breadcrumbs = ({value, site, machine, setSite, setMachine} : BreadcrumbsProps) => {
     return (
-    <Breadcrumb>
+      <div className="mb-3">
+        <Breadcrumb>
       <BreadcrumbList>
         <button onClick={() => {
             setSite("None");
@@ -48,6 +49,8 @@ interface BreadcrumbsProps {
 
       </BreadcrumbList>
     </Breadcrumb>
+      </div>
+    
   )
 }
 
