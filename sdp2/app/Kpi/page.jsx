@@ -119,6 +119,7 @@ export default function Kpi({}) {
             )
           ) : (
             <>
+              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b></span>
               <TotalProducedByProduct siteName={site} />
               <AverageThroughputByProduct siteName={site} />
               <DefectsByProduct siteName={site} />
@@ -139,9 +140,13 @@ export default function Kpi({}) {
               <SiteMap sites={sites} setSite={setSite}></SiteMap>
             )
           ) : machine == "None" ? (
-            <SelectMachine chartData={chartData} site={site} setMachine={setMachine}/>
+            <>
+              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b></span>
+              <SelectMachine chartData={chartData} site={site} setMachine={setMachine}/>
+            </>
           ) : (
             <>
+              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b> : <b>{machine}</b></span>
               <TotalProducedByTime siteName={site} machineCode={machine}/>
               <ThroughputByTime siteName={site} machineCode={machine}/>
               <AttainmentByTime siteName={site} machineCode={machine}/>
