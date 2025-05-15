@@ -1,17 +1,21 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import type { FormEvent } from "react"
-import type { User, CreateUserBody } from "@/types/user"
-import { X, Eye, EyeOff, RefreshCw } from "lucide-react"
+import { useState, useEffect } from "react";
+import type { FormEvent } from "react";
+import type { User, CreateUserBody } from "@/types/user";
+import { X, Eye, EyeOff, RefreshCw } from "lucide-react";
 
 interface UserFormProps {
-  onSubmit: (data: CreateUserBody, id?: number) => Promise<void>
-  onCancel: () => void
-  initialData?: User | null
+  onSubmit: (data: CreateUserBody, id?: number) => Promise<void>;
+  onCancel: () => void;
+  initialData?: User | null;
 }
 
-export default function UserForm({ onSubmit, onCancel, initialData }: UserFormProps) {
+export default function UserForm({
+  onSubmit,
+  onCancel,
+  initialData,
+}: UserFormProps) {
   const [formData, setFormData] = useState({
     LASTNAME: "",
     FIRSTNAME: "",
@@ -24,23 +28,22 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
     BIRTHDATE: "",
     GSMNUMMER: "",
     PASSWORD: "",
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [isGeneratingPassword, setIsGeneratingPassword] = useState(false)
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [isGeneratingPassword, setIsGeneratingPassword] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   const roles = {
     0: "Administrator",
     1: "Supervisor",
     2: "Technician",
     3: "Manager",
-  }
+  };
 
   useEffect(() => {
     if (initialData) {
-      const [street = "", number = "", city = "", postalCode = ""] = initialData.ADRES.split(",").map((part) =>
-        part.trim(),
-      )
+      const [street = "", number = "", city = "", postalCode = ""] =
+        initialData.ADRES.split(",").map((part) => part.trim());
       setFormData({
         LASTNAME: initialData.LASTNAME,
         FIRSTNAME: initialData.FIRSTNAME,
@@ -53,60 +56,63 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
         BIRTHDATE: initialData.BIRTHDATE || "",
         GSMNUMMER: initialData.GSMNUMMER || "",
         PASSWORD: "",
-      })
+      });
     }
-  }, [initialData])
+  }, [initialData]);
 
-  const isPhoneRequired = formData.ROL === 2
+  const isPhoneRequired = formData.ROL === 2;
 
   const getFullAddress = () => {
-    return `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY}`.trim()
-  }
+    return `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY}`.trim();
+  };
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const errors: Record<string, string> = {}
-    const combinedAddress = `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY} `
+    const errors: Record<string, string> = {};
+    const combinedAddress = `${formData.STREET} ${formData.HOUSE_NUMBER}, ${formData.POSTAL_CODE} ${formData.CITY} `;
 
     const submisionData: CreateUserBody = {
       ...formData,
       ADRES: combinedAddress,
-    }
+    };
     if (isPhoneRequired && !formData.GSMNUMMER) {
-      errors.GSMNUMMER = "Phone number is required for Technicians"
-      setFormErrors(errors)
-      return
+      errors.GSMNUMMER = "Phone number is required for Technicians";
+      setFormErrors(errors);
+      return;
     }
 
-    setFormErrors({})
-    await onSubmit(submisionData, initialData?.ID)
-  }
+    setFormErrors({});
+    await onSubmit(submisionData, initialData?.ID);
+  };
 
   const generatePassword = () => {
-    setIsGeneratingPassword(true)
+    setIsGeneratingPassword(true);
 
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?"
-    const length = Math.floor(Math.random() * 5) + 8
-    let password = ""
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?";
+    const length = Math.floor(Math.random() * 5) + 8;
+    let password = "";
 
     for (let i = 0; i < length; i++) {
-      password += chars.charAt(Math.floor(Math.random() * chars.length))
+      password += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
-    setFormData({ ...formData, PASSWORD: password })
-    setShowPassword(true)
+    setFormData({ ...formData, PASSWORD: password });
+    setShowPassword(true);
 
     setTimeout(() => {
-      setIsGeneratingPassword(false)
-    }, 500)
-  }
+      setIsGeneratingPassword(false);
+    }, 500);
+  };
 
   return (
     <div className="bg-gray-800 rounded-xl border border-gray-700 shadow-lg">
       {/* Form Header */}
       <div className="flex justify-between items-center p-4 border-b border-gray-700">
-        <h2 className="text-xl font-bold dark:text-white">{initialData ? "Edit Employee" : "Add New Employee"}</h2>
+        <h2 className="text-xl font-bold dark:text-white">
+          {initialData ? "Edit Employee" : "Add New Employee"}
+        </h2>
         <button
           type="button"
           onClick={onCancel}
@@ -127,7 +133,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.FIRSTNAME}
-              onChange={(e) => setFormData({ ...formData, FIRSTNAME: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, FIRSTNAME: e.target.value })
+              }
               required
             />
           </div>
@@ -139,7 +147,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               type="text"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.LASTNAME}
-              onChange={(e) => setFormData({ ...formData, LASTNAME: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, LASTNAME: e.target.value })
+              }
               required
             />
           </div>
@@ -153,7 +163,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
             type="email"
             className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
             value={formData.EMAIL}
-            onChange={(e) => setFormData({ ...formData, EMAIL: e.target.value })}
+            onChange={(e) =>
+              setFormData({ ...formData, EMAIL: e.target.value })
+            }
             required
           />
         </div>
@@ -171,7 +183,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
                 type="text"
                 className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.STREET}
-                onChange={(e) => setFormData({ ...formData, STREET: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, STREET: e.target.value })
+                }
                 required
               />
             </div>
@@ -183,7 +197,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
                 type="text"
                 className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.HOUSE_NUMBER}
-                onChange={(e) => setFormData({ ...formData, HOUSE_NUMBER: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, HOUSE_NUMBER: e.target.value })
+                }
                 required
               />
             </div>
@@ -195,7 +211,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
                 type="text"
                 className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.POSTAL_CODE}
-                onChange={(e) => setFormData({ ...formData, POSTAL_CODE: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, POSTAL_CODE: e.target.value })
+                }
                 required
               />
             </div>
@@ -207,7 +225,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
                 type="text"
                 className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
                 value={formData.CITY}
-                onChange={(e) => setFormData({ ...formData, CITY: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, CITY: e.target.value })
+                }
                 required
               />
             </div>
@@ -223,13 +243,15 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               type="date"
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400"
               value={formData.BIRTHDATE}
-              onChange={(e) => setFormData({ ...formData, BIRTHDATE: e.target.value })}
-              required
+              onChange={(e) =>
+                setFormData({ ...formData, BIRTHDATE: e.target.value })
+              }
             />
           </div>
           <div className="flex-1 space-y-2">
             <label className="block text-sm font-medium text-gray-300">
-              Phone Number {isPhoneRequired && <span className="text-red-500">*</span>}
+              Phone Number{" "}
+              {isPhoneRequired && <span className="text-red-500">*</span>}
             </label>
             <input
               type="tel"
@@ -238,14 +260,18 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
               }`}
               value={formData.GSMNUMMER}
               onChange={(e) => {
-                setFormData({ ...formData, GSMNUMMER: e.target.value })
+                setFormData({ ...formData, GSMNUMMER: e.target.value });
                 if (formErrors.GSMNUMMER) {
-                  setFormErrors({ ...formErrors, GSMNUMMER: "" })
+                  setFormErrors({ ...formErrors, GSMNUMMER: "" });
                 }
               }}
               required={isPhoneRequired}
             />
-            {formErrors.GSMNUMMER && <p className="text-red-500 text-xs mt-1">{formErrors.GSMNUMMER}</p>}
+            {formErrors.GSMNUMMER && (
+              <p className="text-red-500 text-xs mt-1">
+                {formErrors.GSMNUMMER}
+              </p>
+            )}
           </div>
         </div>
 
@@ -256,7 +282,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
             </label>
             <select
               value={formData.ROL}
-              onChange={(e) => setFormData({ ...formData, ROL: Number(e.target.value) })}
+              onChange={(e) =>
+                setFormData({ ...formData, ROL: Number(e.target.value) })
+              }
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             >
@@ -271,14 +299,17 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
 
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-300">
-            {initialData ? "New Password" : "Password"} {!initialData && <span className="text-red-500">*</span>}
+            {initialData ? "New Password" : "Password"}{" "}
+            {!initialData && <span className="text-red-500">*</span>}
           </label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 placeholder-gray-400 pr-24"
               value={formData.PASSWORD}
-              onChange={(e) => setFormData({ ...formData, PASSWORD: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, PASSWORD: e.target.value })
+              }
               required={!initialData}
               placeholder={initialData ? "Leave empty to keep current" : ""}
             />
@@ -289,7 +320,10 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
                 className="p-2 text-gray-400 hover:text-white transition-colors"
                 title="Generate password"
               >
-                <RefreshCw size={18} className={isGeneratingPassword ? "animate-spin" : ""} />
+                <RefreshCw
+                  size={18}
+                  className={isGeneratingPassword ? "animate-spin" : ""}
+                />
               </button>
               <button
                 type="button"
@@ -302,7 +336,9 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
             </div>
           </div>
           <div className="flex justify-between items-center mt-2">
-            <p className="text-xs text-gray-400">Click the refresh icon to generate a secure password.</p>
+            <p className="text-xs text-gray-400">
+              Click the refresh icon to generate a secure password.
+            </p>
           </div>
         </div>
 
@@ -323,5 +359,5 @@ export default function UserForm({ onSubmit, onCancel, initialData }: UserFormPr
         </div>
       </form>
     </div>
-  )
+  );
 }
