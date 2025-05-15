@@ -92,8 +92,7 @@ const SiteManagement = () => {
       const matchesSearch =
         searchTerm === "" ||
         site.NAME.toLowerCase().includes(lowerCaseSearch) ||
-        site.ADDRESS.toLowerCase().includes(lowerCaseSearch) ||
-        site.VERANTWOORDELIJKE.toLowerCase().includes(lowerCaseSearch);
+        site.ADDRESS.toLowerCase().includes(lowerCaseSearch);
 
       return matchesPosition && matchesSearch;
     });

@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 import { Machine } from "./Machine";
 
 export interface Plant {
@@ -9,7 +10,7 @@ export interface Plant {
   ADDRESS: string;
   CURRENTPRODUCTION: number;
   EFFICIENCYRATE: number;
-  VERANTWOORDELIJKE: string;
+  VERANTWOORDELIJKE: User;
   MACHINES: Machine[];
 }
 
@@ -20,5 +21,5 @@ export interface CreatePlantBody {
   ADDRESS: string;
   CURRENTPRODUCTION: number;
   EFFICIENCYRATE: number;
-  VERANTWOORDELIJKE: string;
-} 
+  VERANTWOORDELIJKE: User;
+}

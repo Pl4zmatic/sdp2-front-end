@@ -9,7 +9,6 @@ export interface Machine {
   LOCATIE: string;
   PRODUCTINFO: string;
   PRODUCTIESTATUS: string;
-  technieker_naam: string;
   UPTIMEINHOURS: number;
   supervisor: string;
 }
