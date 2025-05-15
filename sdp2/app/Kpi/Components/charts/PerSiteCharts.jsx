@@ -8,7 +8,6 @@ import RadarChart from "@/components/charts/radarChart";
 import RadialChart from "@/components/charts/radialChart";
 import LineChart from "@/components/charts/lineChart";
 import RadialChartMultiple from "@/components/charts/radialChartMultiple";
-import BarChartStacked from "@/components/charts/barChartStacked";
 
 export function TotalProducedByProduct({ siteName }) {
   const { data, isLoading, error } = useSWR(`kpi/${siteName}/produced`, getAll);
@@ -58,10 +57,11 @@ export function AverageAttainmentByProduct({ siteName }) {
   return isLoading ? (
     <div className="text-white">Loading...</div>
   ) : (
-    <BarChartStacked
-      title="Average Attainment Per Product in %"
+    <BarChart
       chartData={data}
-      axisName={"productName"}
+      title="Average Attainment Per Product in %"
+      axisName="date"
+      type="step"
       valueKeys={["target", "produced"]}
       labelKey="attainment"
     />
@@ -86,7 +86,10 @@ export function DefectsByProduct({ siteName }) {
 }
 
 export function ProductionCostByProduct({ siteName }) {
-  const { data, isLoading, error } = useSWR(`kpi/${siteName}/productionCost`, getAll);
+  const { data, isLoading, error } = useSWR(
+    `kpi/${siteName}/productionCost`,
+    getAll
+  );
 
   if (error) return <div className="text-white">Error</div>;
 

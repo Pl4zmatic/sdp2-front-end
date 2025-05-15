@@ -1,29 +1,32 @@
 "use client";
 
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+import { chartConfig } from "@/components/charts/config";
 import { DataKey } from "recharts/types/util/types";
-import { chartConfig } from "./config";
 import ChartCard from "./chartCard";
 import { isDate } from "./globalChartFunctions";
+import { CurveType } from "recharts/types/shape/Curve";
 
 interface props {
   chartData: any[];
   axisName: DataKey<any>;
   valueKeys?: any[];
   title: string;
+  type: CurveType;
 }
 
-export default function lineChart({
+export default function Component({
   chartData,
   axisName,
   valueKeys,
   title,
+  type,
 }: props) {
   valueKeys =
     valueKeys != undefined
@@ -39,7 +42,7 @@ export default function lineChart({
   return (
     <ChartCard title={title}>
       <ChartContainer config={chartConfig}>
-        <LineChart
+        <AreaChart
           accessibilityLayer
           data={chartData}
           margin={{
@@ -64,21 +67,57 @@ export default function lineChart({
               return value;
             }}
           />
-          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+          <ChartTooltip
+            cursor={false}
+            content={
+              <ChartTooltipContent
+                labelFormatter={(value) => {
+                  if (isDate(value)) {
+                    value = new Date(value);
+                    return value.toLocaleDateString("nl-BE", {
+                      month: "short",
+                      year: "numeric",
+                    });
+                  }
+                  return value;
+                }}
+              />
+            }
+          />
+
+          <defs>
+            {valueKeys.map((key, index) => {
+              return (
+                <linearGradient x1="0" y1="0" x2="0" y2="1" key={index}>
+                  <stop
+                    offset="5%"
+                    stopColor={`var(--color-${key})`}
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor={`var(--color-${key})`}
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+              );
+            })}
+          </defs>
 
           {valueKeys.map((key, index) => {
             return (
-              <Line
-                key={index}
+              <Area
                 dataKey={key}
-                type="monotone"
+                type={type}
+                fill={`var(--color-${key})`}
+                fillOpacity={0.4}
                 stroke={`var(--color-${key})`}
-                strokeWidth={2}
-                dot={false}
+                stackId="a"
+                key={index}
               />
             );
           })}
-        </LineChart>
+        </AreaChart>
       </ChartContainer>
     </ChartCard>
   );

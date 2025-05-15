@@ -1,6 +1,13 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -16,9 +23,10 @@ import { isDate } from "@/components/charts/globalChartFunctions.js";
 interface props {
   chartData: any[];
   axisName: DataKey<any>;
-  valueKeys?: any[];
   title: string;
   horizontal: boolean;
+  valueKeys?: any[];
+  labelKey?: DataKey<any>;
 }
 
 export default function Barchart({
@@ -27,6 +35,7 @@ export default function Barchart({
   valueKeys,
   title,
   horizontal,
+  labelKey,
 }: props) {
   valueKeys =
     valueKeys != undefined
@@ -59,8 +68,8 @@ export default function Barchart({
                   if (isDate(value)) {
                     value = new Date(value);
                     return value.toLocaleDateString("nl-BE", {
+                      year: "numeric",
                       month: "short",
-                      day: "numeric",
                     });
                   }
                   return value.substring(0, 6);
@@ -80,19 +89,51 @@ export default function Barchart({
               />
             </>
           )}
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <ChartLegend
-            content={<ChartLegendContent />}
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                labelFormatter={(value) => {
+                  if (isDate(value)) {
+                    value = new Date(value);
+                    return value.toLocaleDateString("nl-BE", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    });
+                  }
+                  return value;
+                }}
+              />
+            }
           />
+          <ChartLegend content={<ChartLegendContent />} />
 
-          {valueKeys.map((key, index) => {
+          {valueKeys.map((key, index, arr) => {
+            let radiusVar = [0, 0, 0, 0];
+            if (arr.length - 1 == index) {
+              radiusVar = [4, 4, 0, 0];
+            }
+            if(labelKey == undefined) {
+              radiusVar = 4;
+            }
             return (
               <Bar
                 dataKey={key}
                 fill={`var(--color-${key})`}
-                radius={4}
+                radius={radiusVar}
                 key={index}
-              ></Bar>
+                stackId={labelKey == undefined ? undefined : 'a'}
+              >
+                {labelKey == undefined ? null : (
+                  <LabelList
+                    position="top"
+                    offset={12}
+                    className="fill-foreground"
+                    fontSize={12}
+                    dataKey={labelKey}
+                  />
+                )}
+              </Bar>
             );
           })}
         </BarChart>

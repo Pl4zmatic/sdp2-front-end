@@ -46,6 +46,14 @@ export const chartConfig = {
     label: "Throughput",
     color: "hsl(var(--chart-5))",
   },
+  attainment: {
+    label: "Attainment",
+    color: "hsl(var(--chart-1))",
+  },
+  maintenances: {
+    label: "Maintenances",
+    color: "hsl(var(--chart-1))",
+  },
 
   Tomaten: {
     label: "Tomaten",
