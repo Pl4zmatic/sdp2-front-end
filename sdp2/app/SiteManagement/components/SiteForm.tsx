@@ -24,7 +24,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
     CITY: "",
     CURRENTPRODUCTION: 0,
     EFFICIENCYRATE: 0,
-    VERANTWOORDELIJKE: "",
+    verantwoordelijke_id: -1,
   })
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
         CITY: city,
         CURRENTPRODUCTION: initialData.CURRENTPRODUCTION,
         EFFICIENCYRATE: initialData.EFFICIENCYRATE,
-        VERANTWOORDELIJKE: initialData.VERANTWOORDELIJKE,
+        verantwoordelijke_id: initialData.verantwoordelijke_id,
       })
     }
   }, [initialData])
@@ -57,7 +57,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
       ADDRESS: combinedAddress,
     }
 
-    console.log("user:", submissionData.VERANTWOORDELIJKE)
+    console.log("user:", submissionData.verantwoordelijke_id)
 
     await onSubmit(submissionData, initialData?.ID)
   }
@@ -153,8 +153,8 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
               Verantwoordelijke <span className="text-red-500">*</span>
             </label>
             <select
-              value={formData.VERANTWOORDELIJKE ?? ""}
-              onChange={(e) => setFormData({ ...formData, VERANTWOORDELIJKE: e.target.value })}
+              value={formData.verantwoordelijke_id ?? ""}
+              onChange={(e) => setFormData({ ...formData, verantwoordelijke_id: Number(e.target.value) })}
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             >
@@ -162,7 +162,7 @@ export default function UserForm({ onSubmit, onCancel, initialData, verantwoorde
               {verantwoordelijkes.map((ver) => {
                 const fullName = `${ver.FIRSTNAME} ${ver.LASTNAME}`
                 return (
-                  <option key={ver.ID} value={fullName}>
+                  <option key={ver.ID} value={ver.ID}>
                     {fullName}
                   </option>
                 )

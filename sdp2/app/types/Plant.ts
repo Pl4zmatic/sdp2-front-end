@@ -10,7 +10,8 @@ export interface Plant {
   ADDRESS: string;
   CURRENTPRODUCTION: number;
   EFFICIENCYRATE: number;
-  VERANTWOORDELIJKE: User;
+  verantwoordelijke_id: number;
+  verantwoordelijke?: User;
   MACHINES: Machine[];
 }
 
@@ -21,5 +22,5 @@ export interface CreatePlantBody {
   ADDRESS: string;
   CURRENTPRODUCTION: number;
   EFFICIENCYRATE: number;
-  VERANTWOORDELIJKE: User;
+  verantwoordelijke_id: number;
 }
