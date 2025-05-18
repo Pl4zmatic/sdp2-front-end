@@ -7,6 +7,7 @@ import Breadcrumbs from "./Components/Breadcrumbs";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useMemo, useState } from "react";
 import SelectMachine from "./Components/charts/SelectMachine.jsx";
+import FilterDropdown from "./Components/FilterDropdown";
 
 import {
   TotalProduced,
@@ -33,12 +34,15 @@ import {
 
 // interface props {}
 
-export default function Kpi({}) {
+export default function Kpi({ }) {
   const [site, setSite] = useState("None");
   const [machine, setMachine] = useState("None");
   const [chartData, setChartData] = useState(null);
   const [sites, setSites] = useState(null);
+  const [machines, setMachines] = useState(null);
   const [value, setValue] = useState("all");
+  const [sitePosition, setSitePosition] = useState("None");
+  const [machinePosition, setMachinePosition] = useState("None");
 
   // const { data: sites = [], error, isLoading } = useSWR("sites", () => getAll("sites"));
   // const filteredSites = !isLoading ? sites.filter((site) =>
@@ -54,7 +58,30 @@ export default function Kpi({}) {
       setSites(await getAll("sites"));
     };
     fetchSites();
-  }, []);
+
+    // const fetchMachines = async () => {
+    //   console.log("test", sites)
+    //   setMachines(await getAll(`sites/${site.ID}/machines`));
+    // };
+    // fetchMachines();
+  },[]);
+
+  useEffect(() => {
+    setSite(sitePosition)
+  }, [sitePosition])
+
+  useEffect(() => {
+    setMachine(machinePosition)
+  }, [machinePosition])
+
+  useEffect(() => {
+    const fetchMachines = async () => {
+      if (site != "None") {
+        setMachines(await getAll(`sites/${site}/machines`));
+      }
+    };
+    fetchMachines();
+  }, [site])
 
   return (
     <ProtectedRoute>
@@ -118,14 +145,30 @@ export default function Kpi({}) {
               <SiteMap sites={sites} setSite={setSite}></SiteMap>
             )
           ) : (
-            <>
-              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b></span>
-              <TotalProducedByProduct siteName={site} />
-              <AverageThroughputByProduct siteName={site} />
-              <DefectsByProduct siteName={site} />
-              <ProductionCostByProduct siteName={site} />
-              <AverageAttainmentByProduct siteName={site} />
-            </>
+            <div className="relative w-full">
+              <div className="mb-4">
+                <span className="w-full text-center block text-[2em] text-black dark:text-white">
+                  <b>{site}</b>
+                </span>
+
+                <div className="absolute top-0 right-0 z-10">
+                  <FilterDropdown
+                    position={sitePosition}
+                    setPosition={setSitePosition}
+                    objects={sites}
+                  />
+                </div>
+
+              </div>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <TotalProducedByProduct siteName={site} />
+                <AverageThroughputByProduct siteName={site} />
+                <DefectsByProduct siteName={site} />
+                <ProductionCostByProduct siteName={site} />
+                <AverageAttainmentByProduct siteName={site} />
+              </div>
+            </div>
+
           )}
         </TabsContent>
 
@@ -142,16 +185,29 @@ export default function Kpi({}) {
           ) : machine == "None" ? (
             <>
               <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b></span>
-              <SelectMachine chartData={chartData} site={site} setMachine={setMachine}/>
+              <SelectMachine chartData={chartData} site={site} setMachine={setMachine} />
             </>
           ) : (
-            <>
-              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b> : <b>{machine}</b></span>
-              <TotalProducedByTime siteName={site} machineCode={machine}/>
-              <ThroughputByTime siteName={site} machineCode={machine}/>
-              <AttainmentByTime siteName={site} machineCode={machine}/>
-              <DefectsByTime siteName={site} machineCode={machine}/>
-            </>
+            <div className="relative w-full">
+              <div className="mb-4">
+                <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b> : <b>{machine}</b></span>
+                <div className="absolute top-0 right-0 z-10">
+                  <FilterDropdown
+                    position={machinePosition}
+                    setPosition={setMachinePosition}
+                    objects={machines}
+                  />
+                </div>
+
+              </div>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <TotalProducedByTime siteName={site} machineCode={machine} />
+                <ThroughputByTime siteName={site} machineCode={machine} />
+                <AttainmentByTime siteName={site} machineCode={machine} />
+                <DefectsByTime siteName={site} machineCode={machine} />
+
+              </div>
+            </div>
           )}
         </TabsContent>
       </Tabs>

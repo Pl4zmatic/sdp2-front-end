@@ -32,8 +32,6 @@ export function TotalMaintenanceCost({}) {
 
   if (error) return <div className="text-white">Error</div>;
 
-  if(!isLoading) console.log(data);
-
   return isLoading ? (
     <div className="text-white">Loading...</div>
   ) : (
@@ -89,10 +87,7 @@ export function AverageCostsBySite({}) {
     getAll
   );
 
-  if (error) return <div className="text-white">Error</div>;
-  
-  if(!isLoading) console.log(data);
-  
+  if (error) return <div className="text-white">Error</div>;  
 
   return isLoading ? (
     <div className="text-white">Loading...</div>

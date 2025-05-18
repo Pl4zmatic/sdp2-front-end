@@ -40,7 +40,6 @@ export default function Component({ chartData, title }: props) {
   const [timeRange, setTimeRange] = React.useState("All");
 
   const filteredData = () => {
-    console.log(timeRange);
 
     if(timeRange === '1m') {
       return chartData.filter(obj => new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-1) >= 0)

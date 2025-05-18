@@ -24,7 +24,6 @@ export default function Markers({ sites, setSite }: MarkersProps) {
       try {
         const fetchedCoordinates = await Promise.all(
           sites.map(async (site) => {
-            console.log(site);
             const response = await getCoordinates(site.ID);
             if (response) {
               return response.data;
