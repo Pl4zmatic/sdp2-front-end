@@ -28,15 +28,16 @@ interface props {
   title : string
   nameKey : string,
   dataKey : string
+  config: any,
 }
 
-export default function Component({ chartData, title, nameKey, dataKey }: props) {
+export default function Component({ chartData, title, nameKey, dataKey, config }: props) {
   chartData = addFillFromConfig(chartData, nameKey);
 
   return (
     <ChartCard title={title}>
       <ChartContainer
-        config={chartConfig}
+        config={config? config : chartConfig}
         className="mx-auto size-full [&_.recharts-text]:fill-background"
       >
         <PieChart>

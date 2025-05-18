@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/chart";
 
 import { DataKey } from "recharts/types/util/types";
-import { chartConfig } from "./config";
 import ChartCard from "./chartCard";
 import { isDate } from "./globalChartFunctions";
 
@@ -17,6 +16,7 @@ interface props {
   axisName: DataKey<any>;
   valueKeys?: any[];
   title: string;
+  config: any;
 }
 
 export default function lineChart({
@@ -24,6 +24,7 @@ export default function lineChart({
   axisName,
   valueKeys,
   title,
+  config,
 }: props) {
   valueKeys =
     valueKeys != undefined
@@ -38,7 +39,7 @@ export default function lineChart({
 
   return (
     <ChartCard title={title}>
-      <ChartContainer config={chartConfig}>
+      <ChartContainer config={config}>
         <LineChart
           accessibilityLayer
           data={chartData}

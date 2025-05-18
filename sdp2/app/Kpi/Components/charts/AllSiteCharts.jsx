@@ -7,6 +7,7 @@ import PieChart from "@/components/charts/pieChart";
 import RadarChart from "@/components/charts/radarChart";
 import RadialChart from "@/components/charts/radialChart";
 import LineChart from "@/components/charts/lineChart";
+import { generateLinePlantConfig } from "../../../../components/charts/config";
 
 export function TotalProduced({}) {
   const { data, isLoading, error } = useSWR("kpi/all/produced", getAll);
@@ -31,6 +32,8 @@ export function TotalMaintenanceCost({}) {
 
   if (error) return <div className="text-white">Error</div>;
 
+  if(!isLoading) console.log(data);
+
   return isLoading ? (
     <div className="text-white">Loading...</div>
   ) : (
@@ -46,7 +49,7 @@ export function TotalMaintenanceCost({}) {
 
 export function TotalDefectsOverTime({}) {
   const { data, isLoading, error } = useSWR("kpi/all/defectsOverTime", getAll);
-
+  const config = generateLinePlantConfig()
   if (error) return <div className="text-white">Error</div>;
 
   return isLoading ? (
@@ -57,13 +60,14 @@ export function TotalDefectsOverTime({}) {
       chartData={data}
       axisName={"year"}
       horizontal={false}
+      config={config}
     />
   );
 }
 
 export function TotalDefectsBySite({}) {
   const { data, isLoading, error } = useSWR("kpi/all/defectsBySite", getAll);
-
+  const config = generateLinePlantConfig()
   if (error) return <div className="text-white">Error</div>;
 
   return isLoading ? (
@@ -74,6 +78,7 @@ export function TotalDefectsBySite({}) {
       chartData={data}
       nameKey={"siteName"}
       dataKey="maintenances"
+      config={config}
     ></PieChart>
   );
 }
@@ -85,6 +90,9 @@ export function AverageCostsBySite({}) {
   );
 
   if (error) return <div className="text-white">Error</div>;
+  
+  if(!isLoading) console.log(data);
+  
 
   return isLoading ? (
     <div className="text-white">Loading...</div>

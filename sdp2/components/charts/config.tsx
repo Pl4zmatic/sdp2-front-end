@@ -1,4 +1,30 @@
+import { Plant } from "@/app/types/Plant";
 import { ChartConfig } from "../ui/chart";
+import useSWR from "swr";
+import { getAll } from "@/api";
+
+const chartColors = [
+  "hsl(var(--chart-1))",
+  "hsl(var(--chart-2))",
+  "hsl(var(--chart-3))",
+  "hsl(var(--chart-4))",
+  "hsl(var(--chart-5))",
+];
+
+export function generateLinePlantConfig() {
+  const { data, isLoading, error } = useSWR("sites", getAll);
+  const config: Record<string, { label: string; color: string }> = {};
+  if(!isLoading) {
+    data.forEach((plant : Plant, index: number) => {
+      config[plant.NAME] = {
+        label: plant.NAME,
+        color: chartColors[index % chartColors.length],
+      };
+    });
+  }
+
+  return config;
+}
 
 export const chartConfig = {
   Antwerpen: {
