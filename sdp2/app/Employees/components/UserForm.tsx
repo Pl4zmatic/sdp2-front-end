@@ -53,7 +53,7 @@ export default function UserForm({
         HOUSE_NUMBER: number,
         POSTAL_CODE: postalCode,
         CITY: city,
-        BIRTHDATE: initialData.BIRTHDATE || "",
+        BIRTHDATE: initialData.BIRTHDATE.substring(0, 10) || "",
         GSMNUMMER: initialData.GSMNUMMER || "",
         PASSWORD: "",
       });
