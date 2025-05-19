@@ -42,8 +42,15 @@ export default function UserForm({
 
   useEffect(() => {
     if (initialData) {
-      const [street = "", number = "", city = "", postalCode = ""] =
-        initialData.ADRES.split(",").map((part) => part.trim());
+      const [streetPart = "", cityPart = ""] = initialData.ADRES.split(",").map(part => part.trim());
+
+      const streetMatch = streetPart.match(/^(.+)\s+(\S+)$/); // Matches "street name" and "number"
+      const cityMatch = cityPart.match(/^(\S+)\s+(.+)$/);     // Matches "postalCode" and "city name"
+
+      const street = streetMatch ? streetMatch[1] : "";
+      const number = streetMatch ? streetMatch[2] : "";
+      const postalCode = cityMatch ? cityMatch[1] : "";
+      const city = cityMatch ? cityMatch[2] : "";
       setFormData({
         LASTNAME: initialData.LASTNAME,
         FIRSTNAME: initialData.FIRSTNAME,
