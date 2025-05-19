@@ -84,7 +84,7 @@ const PlantDetails = () => {
                 efficiencyRate={plant.EFFICIENCYRATE}
                 machines={machines}
               />
-              <MachineCard machines={machines} />
+              <MachineCard machines={machines}/>
               <MaintenanceCard maintenances={maintenances}/>
             </div>
           ) : (

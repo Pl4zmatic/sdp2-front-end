@@ -24,6 +24,7 @@ import { Label } from "@/components/ui/label";
 import { machine } from "os";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Maintenance } from "@/app/types/Maintenance";
 interface MachineCardProps {
   machines: Machine[];
 }
@@ -114,13 +115,13 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="text-black dark:text-white text-base">
-                    {debug(machine.laatste_onderhoud_datum)}
                     <MachineInfo
                       idTechnician={machine.technieker_id}
-                      status={machine.CURRENTSTATESTRING}
+                      status={machine.CURRENTSTATESTRING.charAt(0).toUpperCase() + machine.CURRENTSTATESTRING.slice(1)}
                       uptime={machine.UPTIMEINHOURS}
-                      lastMaintenance={new Date(machine.laatste_onderhoud_datum).toLocaleDateString()}
-                      nextMaintenance={new Date(machine.datum_toekomstige_onderhoud).toLocaleDateString()}
+                      lastMaintenance={new Date(machine.laatste_onderhoud_datum).toISOString().slice(0, 10)}
+                      nextMaintenance={new Date(machine.datum_toekomstige_onderhoud).toISOString().slice(0, 10)}
+                      idMachine={machine.ID}
                     />
                   </AccordionContent>
                 </AccordionItem>
