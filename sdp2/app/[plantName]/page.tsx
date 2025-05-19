@@ -58,8 +58,8 @@ const PlantDetails = () => {
   return (
     <ProtectedRoute>
       <Breadcrumbs {...plant}></Breadcrumbs>
-      <div className="flex min-h-screen w-full items-center justify-center">
-      <main className="flex-1 p-8 w-full">
+      <div className="flex min-h-screen items-center justify-center">
+      <main className="flex-1 p-8 w-[68%]">
         <div className="flex items-center justify-center w-full mb-5">
           <h1 className="text-7xl font-bold text-white mb-5">
             {hasValidPlant ? (
@@ -77,7 +77,7 @@ const PlantDetails = () => {
         </div>
 
           {hasValidPlant ? (
-            <div className="flex-col items-center justify-center">
+            <div className="flex-col items-center justify-center w-full">
               <PlantInfo
                 plantName={plant.NAME}
                 currentProduction={plant.CURRENTPRODUCTION}

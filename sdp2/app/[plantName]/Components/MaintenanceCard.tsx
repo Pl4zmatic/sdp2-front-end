@@ -91,7 +91,7 @@ const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
   }
 
   return (
-    <div className="min-w-[50%]">
+    <div className="min-w-[50%] <-full">
       <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
@@ -131,8 +131,8 @@ const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
                             </div>
                           </div>
                         </div>
-                        <div className="btnDiv">
-                          <Button onClick={() => downloadPdfFile(maintenance)} className="dark:bg-lightNavy bg-delawareRed text-white dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg">Export as PDF</Button>
+                        <div className="btnDiv w-auto text-wrap">
+                          <Button onClick={() => downloadPdfFile(maintenance)} className="p-5 dark:bg-lightNavy bg-delawareRed text-white text-wrap dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg">Export as PDF</Button>
                         </div>
 
                         
