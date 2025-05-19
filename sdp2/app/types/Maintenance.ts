@@ -1,5 +1,5 @@
 export interface Maintenance {
-  ID: number;
+  MAINTENANCEID: number;
   MACHINECODE: string;
   CURRENTSTATESTRING: string;
   ENDDATE: Date;

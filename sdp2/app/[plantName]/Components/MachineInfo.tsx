@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 interface MachineInfoProps {
-  nameTechnician: string
+  idTechnician: number
   status: string
   uptime: number
   lastMaintenance: string
@@ -26,7 +26,7 @@ interface MachineInfoProps {
 }
 
 const MachineInfo = ({
-  nameTechnician,
+  idTechnician,
   status,
   uptime,
   lastMaintenance,
@@ -39,7 +39,7 @@ const MachineInfo = ({
     <div className="flex py-[10px] ml-2 mt-2 border-l-4">
       <div className="flex-col flex-1 px-[20px]">
         <p>
-          <span className="font-bold">Technician</span>: {nameTechnician}
+          <span className="font-bold">Technician</span>: {idTechnician}
         </p>
         <p>
           <span className="font-bold">Status</span>: {status}
