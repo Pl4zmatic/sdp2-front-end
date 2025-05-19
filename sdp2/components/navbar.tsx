@@ -40,7 +40,7 @@ export function Navbar() {
 
   const { data } = useSWR<{ unreadCount: number }>(
     user?.id
-      ? `http://localhost:4000/api/notifications/user/${user.id}/count`
+      ? `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/user/${user.id}/count`
       : null,
     fetcher,
     {

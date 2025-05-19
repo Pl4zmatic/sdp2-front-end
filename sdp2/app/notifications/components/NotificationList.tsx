@@ -39,7 +39,7 @@ export default function NotificationsList({ userId }: { userId: string }) {
     error,
     isLoading,
   } = useSWR<Notification[]>(
-    userId ? `http://localhost:4000/api/notifications/user/${userId}` : null,
+    userId ? `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/user/${userId}` : null,
     fetcher,
     {
       refreshInterval: 0,
@@ -48,12 +48,12 @@ export default function NotificationsList({ userId }: { userId: string }) {
   );
 
   const handleDeleteNotification = async (notification: Notification) => {
-    const url = `http://localhost:4000/api/notifications/${notification.ID}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/${notification.ID}`;
     try {
       await fetch(url, { method: "DELETE" });
 
       mutate(
-        `http://localhost:4000/api/notifications/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/user/${userId}`,
         notifications?.filter((n) => n.ID !== notification.ID),
         false,
       );
@@ -66,12 +66,12 @@ export default function NotificationsList({ userId }: { userId: string }) {
     setSelectedNotification(notification);
     setIsModalOpen(true);
 
-    const url = `http://localhost:4000/api/notifications/${notification.user_id}/${notification.notification_id}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/${notification.user_id}/${notification.notification_id}`;
     try {
       await fetch(url, { method: "PATCH" });
 
       mutate(
-        `http://localhost:4000/api/notifications/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/notifications/user/${userId}`,
         notifications?.map((n) =>
           n.ID === notification.ID ? { ...n, ISREAD: true } : n,
         ),

@@ -1,7 +1,7 @@
 import axiosRoot from 'axios';
 
 const axios = axiosRoot.create({
-    baseURL: "http://localhost:4000/api", })
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`, })
 
 export async function getCoordinates(id) {
   if(id && !isNaN(id)){
