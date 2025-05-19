@@ -91,15 +91,15 @@ const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
   }
 
   return (
-    <div className="min-w-[25%]">
+    <div className="min-w-[50%]">
       <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
-          placeholder="Zoek op machine of datum"
+          placeholder="Zoek op datum"
           onSearch={setSearchTerm}
         />
       </div>
-      <div className="flex flex-col h-auto mx-auto max-w-[80%] rounded-lg">
+      <div className="flex flex-col h-auto mx-auto max-w-[80%] w-full rounded-lg">
           {maintenances.length === 0 ? (
             <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
               <p>
@@ -132,7 +132,7 @@ const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
                           </div>
                         </div>
                         <div className="btnDiv">
-                          <Button onClick={() => downloadPdfFile(maintenance)} className="dark:bg-navy bg-delawareRed text-white">Download</Button>
+                          <Button onClick={() => downloadPdfFile(maintenance)} className="dark:bg-lightNavy bg-delawareRed text-white dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg">Export as PDF</Button>
                         </div>
 
                         
