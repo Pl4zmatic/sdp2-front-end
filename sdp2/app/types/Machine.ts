@@ -11,4 +11,5 @@ export interface Machine {
   PRODUCTIESTATUS: string;
   UPTIMEINHOURS: number;
   supervisor: string;
+  technieker_id: number;
 }

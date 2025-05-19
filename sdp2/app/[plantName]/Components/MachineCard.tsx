@@ -62,7 +62,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
   const displayFiveMachines = filteredMachines.slice(0, 5);
 
   return (
-    <div className="flex flex-col min-w-[25%]">
+    <div className="flex flex-col min-w-[50%]">
       <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
@@ -72,14 +72,14 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
         <Checkbox checked={showActive} onCheckedChange={(checked) => setShowActive(!!checked)} id="show-active-checkbox"/>
         <Label htmlFor="show-active-checkbox" className="ml-2">Show non-active</Label>
       </div>
-      <div className="flex flex-col h-auto mx-auto max-w-[65%] bg-delawareRed dark:bg-lightestNavy rounded-lg">
+      <div className="flex flex-col h-auto mx-auto max-w-[65%] w-full bg-neutral-100 dark:bg-lightestNavy rounded-lg">
         <Accordion
           type="single"
           collapsible
-          className="bg-delawareRed dark:bg-lightestNavy w-full rounded-xl p-[10px]"
+          className="bg-neutral-100 dark:bg-lightestNavy w-full rounded-xl p-[10px]"
         >
           {filteredMachines.length === 0 ? (
-            <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
+            <div className="text-center py-8 text-black dark:text-white bg-neutral-100 dark:bg-navy rounded-lg">
               <p>
                 Geen machines gevonden die overeenkomen met je zoekopdracht.
               </p>
@@ -92,7 +92,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                   key={machine.CODE}
                   className="min-h-[50px] border-0"
                 >
-                  <AccordionTrigger className="flex items-center w-full h-full text-white hover:no-underline hover:bg-[#d13a32] dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
+                  <AccordionTrigger className="flex items-center w-full h-full text-black dark:text-white hover:no-underline hover:bg-neutral-200 dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
 
                     <div
                       className={`${
@@ -105,18 +105,18 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
                       <span className="font-semibold text-2xl px-[20px] hover:no-underline text-nowrap">
                         {`Machine ${index + 1}`}
                       </span>
-                      <span className="text-white/80 dark:text-[#999] text-sm text-nowrap ">
+                      <span className="text-black/80 dark:text-[#999] text-sm text-nowrap ">
                         ({machine.CODE})
                       </span>
                     </p>
                     <div>
-                      <FileText className="ml-3 text-white"/>
+                      <FileText className="ml-3 text-black dark:text-white"/>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-white dark:text-white text-base">
+                  <AccordionContent className="text-black dark:text-white text-base">
                     {debug(machine.laatste_onderhoud_datum)}
                     <MachineInfo
-                      nameTechnician={machine.technieker_naam}
+                      idTechnician={machine.technieker_id}
                       status={machine.CURRENTSTATESTRING}
                       uptime={machine.UPTIMEINHOURS}
                       lastMaintenance={new Date(machine.laatste_onderhoud_datum).toLocaleDateString()}

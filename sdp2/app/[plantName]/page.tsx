@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Breadcrumbs from "./Components/Breadcrumbs"
 import ProtectedRoute from "@/components/ProtectedRoute";
+import MaintenanceCard from "./Components/MaintenanceCard";
 
 const PlantDetails = () => {
   const params = useParams();
@@ -23,6 +24,12 @@ const PlantDetails = () => {
     isLoading: isLoadingMachines,
     error: errorMachines,
   } = useSWR(`sites/${selectedPlant?.NAME}/machines`, getById);
+
+  const {
+    data: maintenances = [],
+    isLoading: isLoadingMaintenances,
+    error: errorMaintenances,
+  } = useSWR(`sites/${selectedPlant?.ID}/maintenances`, getById)
 
   useEffect(() => {
     if (plant) {
@@ -78,6 +85,7 @@ const PlantDetails = () => {
                 machines={machines}
               />
               <MachineCard machines={machines} />
+              <MaintenanceCard maintenances={maintenances}/>
             </div>
           ) : (
             <div className="flex justify-center">
