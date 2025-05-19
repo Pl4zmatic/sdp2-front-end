@@ -36,7 +36,7 @@ const PlantTable = ({ plants }: PlantTableProps) => {
         <TableBody>
           {plants.map((plant, index) => (
             <TableRow
-              key={plant.name}
+              key={plant.NAME}
               className="hover:bg-[rgba(74,84,133,0.43)] rounded-lg border-0 h-[54px]"
               onClick={
                 plant == selectedPlant
@@ -45,26 +45,26 @@ const PlantTable = ({ plants }: PlantTableProps) => {
               }
             >
               <TableCell className="font-medium">{index + 1}</TableCell>
-              <TableCell>{plant.name}</TableCell>
+              <TableCell>{plant.NAME}</TableCell>
               <TableCell className="">
                 <span
                   className={`${
-                    plant.status == "Active"
+                    plant.STATUS == "Active"
                       ? "text-greenErrorMessage"
                       : "text-[rgb(255,14,0)]"
                   }
                   ${
-                    plant.status == "Active"
+                    plant.STATUS == "Active"
                       ? "bg-[rgba(34,197,94,0.42)]"
                       : "bg-[rgba(255,14,0,0.40)]"
                   } px-2 py-1 rounded-sm`}
                 >
-                  {plant.status}
+                  {plant.STATUS}
                 </span>
               </TableCell>
-              <TableCell className="">{plant.health}</TableCell>
-              <TableCell>{plant.maintenance}</TableCell>
-              <TableCell>{plant.location}</TableCell>
+              <TableCell className="">{plant.HEALTH}</TableCell>
+              <TableCell>{plant.MAINTENANCE}</TableCell>
+              <TableCell>{plant.LOCATION}</TableCell>
             </TableRow>
           ))}
         </TableBody>
