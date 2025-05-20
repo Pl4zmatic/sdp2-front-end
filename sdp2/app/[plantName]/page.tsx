@@ -75,7 +75,7 @@ const PlantDetails = () => {
             )}
           </h1>
           <p className="text-darkGray dark:text-white">
-                  Supervisor: {plant.verantwoordelijke?.FIRSTNAME + " " + plant.verantwoordelijke?.LASTNAME}
+                  <span className="font-semibold">Supervisor:</span> {plant.verantwoordelijke?.FIRSTNAME + " " + plant.verantwoordelijke?.LASTNAME}
                 </p>
          
         </div>

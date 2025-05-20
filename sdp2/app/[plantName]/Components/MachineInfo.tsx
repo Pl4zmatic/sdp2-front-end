@@ -65,6 +65,21 @@ const MachineInfo = ({
     }
   };
 
+  const updateMachineUptime = async () => {
+    try {
+      await save(`machines`, {
+        arg: {
+          id: idMachine ?? null,
+          UPTIMEINHOURS: 0,
+        },
+      });
+      await mutate(`machines/${idMachine}`);
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to update machine uptime", error);
+    }
+  }
+
   const handleUncheckingCheckboxes = () => {
     setInspectionChecked(false);
     setMaintenanceChecked(false);
@@ -194,6 +209,7 @@ const MachineInfo = ({
                   </AlertDialogCancel>
                   <AlertDialogAction className="bg-white dark:bg-lightestNavy text-gray-700 dark:text-white border border-gray-300 dark:border-0 hover:bg-gray-100 dark:hover:bg-[#5C658C]" onClick={() => {
                     updateMachineStatus("stopped");
+                    updateMachineUptime();
                     handleSendNotification();
                     handleUncheckingCheckboxes();
                   }}>
