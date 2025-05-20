@@ -109,12 +109,12 @@ export default function Barchart({
           <ChartLegend content={<ChartLegendContent />} />
 
           {valueKeys.map((key, index, arr) => {
-            let radiusVar = [0, 0, 0, 0];
+            let radiusVar: [number, number, number, number] = [0, 0, 0, 0];
             if (arr.length - 1 == index) {
               radiusVar = [4, 4, 0, 0];
             }
             if(labelKey == undefined) {
-              radiusVar = 4;
+              radiusVar = [4, 4, 4, 4];
             }
             return (
               <Bar

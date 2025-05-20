@@ -2,6 +2,8 @@ import { User } from "@/types/user";
 import { Machine } from "./Machine";
 
 export interface Plant {
+  VERANTWOORDELIJKE: string;
+  LOCATION: string;
   ID: number;
   NAME: string;
   STATUS: string;

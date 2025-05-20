@@ -2,7 +2,6 @@
 import useSWR from "swr";
 import { useState } from "react";
 import SiteCardList from "./Components/SiteCardsList";
-import { arrPlants } from "./Mock";
 import SiteMap from "./Components/Map";
 import { getAll } from "../../api/index";
 import { Plant } from "@/app/types/Plant";
