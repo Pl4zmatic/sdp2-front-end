@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import { MachineCard } from "./MachineCard";
 import PlantInfo from "./PlantInfo";
 
 interface PlantTableProps {
