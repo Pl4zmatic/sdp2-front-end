@@ -1,7 +1,6 @@
 "use client";
 import useSWR from "swr";
-import { getAll, getById } from "../../api/index";
-import { MachineCard } from "./Components/MachineCard";
+import { getById } from "../../api/index";
 import PlantInfo from "./Components/PlantInfo";
 import type { Plant } from "../types/Plant";
 import { useEffect, useState, useMemo } from "react";
@@ -11,6 +10,7 @@ import Link from "next/link";
 import Breadcrumbs from "./Components/Breadcrumbs"
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MaintenanceCard from "./Components/MaintenanceCard";
+import { MachineCardList } from "./Components/MachineCardList";
 
 const PlantDetails = () => {
   const params = useParams();
@@ -68,7 +68,7 @@ const PlantDetails = () => {
                 
                   {plant.NAME}
                   </span>
-                <Button className="w-auto text-darkGray bg-white/10 hover:bg-white/20 dark:bg-lightestNavy dark:hover:bg-blueTransparant border-0 transition-colors dark:text-white mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
+                <Button className="wp-5 dark:bg-lightestNavy bg-delawareRed text-white text-wrap dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
               </div>
             ) : (
               <span className="text-delawareRed">{"DetailsPage"}</span>
@@ -88,7 +88,7 @@ const PlantDetails = () => {
                 efficiencyRate={plant.EFFICIENCYRATE}
                 machines={machines}
               />
-              <MachineCard machines={machines}/>
+              <MachineCardList machines={machines}/>
               <MaintenanceCard maintenances={maintenances}/>
             </div>
           ) : (
