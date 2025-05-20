@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Applicatie
+Dit is een [Next.js](https://nextjs.org) project bootstrapped met [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). Dit project gebruikt voornamelijk [Shadcn](https://ui.shadcn.com/) als component library en [Tailwind](https://tailwindcss.com/) voor snelle css styling.
 
-## Getting Started
+## Before
+Gelieve een terminal open te doen om de volgende stappen te kunnen uitvoeren, dit allemaal zal gebeuren in de folder **2025-react-gent2**.
 
-First, run the development server:
+## Dependencies
+Om nodige dependecies te installeren, gebruik:
+```bash
+npm install
+```
+## Environment
 
+Hiervoor kan je een **.env** file maken in de root van het project dus:
+
+```
+2025-react-gent2
+    |
+    - ...
+    - api
+    - app
+    - ...
+    - .env
+```
+En ziet er als volgt uit:
+```env
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyATaM2lc81FB86XfU2iM3ZuDNnofKei_mw
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+NEXT_PUBLIC_API_URL is de **URL** waar de bijhorende **API** van dit project loopt, dit kunt u aanpassen aan uw noden.
+
+## Run
+Om het te laten lopen:
+### In Development
+Gebruik in terminal:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### In Productie
+Gebruik in terminal:
+```bash
+npm run build; npm run start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Dan zal de service op http://localhost:3000 lopen.
