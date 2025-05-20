@@ -174,7 +174,7 @@ export function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Users size={20} />
-                  <span>Gebruikersbeheer</span>
+                  <span>Employees</span>
                 </Link>
               </>
             )}

@@ -19,7 +19,7 @@ const SiteTable = ({
           <div>ID</div>
           <div>NAME</div>
           <div>ADRESS</div>
-          <div>VERANTWOORDELIJKE</div>
+          <div>SUPERVISOR</div>
           <div>EDIT</div>
           <div>DELETE</div>
         </div>

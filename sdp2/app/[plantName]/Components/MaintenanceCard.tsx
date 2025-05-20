@@ -95,7 +95,7 @@ const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
       <div className="flex justify-center items-center mt-5">
         <SearchField
           className="w-[25%] px-4 py-3 text-lg rounded-lg"
-          placeholder="Zoek op datum"
+          placeholder="Search..."
           onSearch={setSearchTerm}
         />
       </div>

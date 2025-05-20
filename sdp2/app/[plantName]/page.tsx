@@ -60,7 +60,7 @@ const PlantDetails = () => {
       <Breadcrumbs {...plant}></Breadcrumbs>
       <div className="flex min-h-screen items-center justify-center">
       <main className="flex-1 p-8 w-[68%]">
-        <div className="flex items-center justify-center w-full mb-5">
+        <div className="flex flex-col items-center justify-center w-full mb-5">
           <h1 className="text-7xl font-bold text-white mb-5">
             {hasValidPlant ? (
               <div className="flex flex-col items-center">
@@ -74,6 +74,10 @@ const PlantDetails = () => {
               <span className="text-delawareRed">{"DetailsPage"}</span>
             )}
           </h1>
+          <p className="text-darkGray dark:text-white">
+                  Supervisor: {plant.verantwoordelijke?.FIRSTNAME + " " + plant.verantwoordelijke?.LASTNAME}
+                </p>
+         
         </div>
 
           {hasValidPlant ? (

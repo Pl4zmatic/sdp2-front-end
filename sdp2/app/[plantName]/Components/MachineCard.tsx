@@ -82,7 +82,7 @@ export const MachineCard = ({ machines }: MachineCardProps) => {
           {filteredMachines.length === 0 ? (
             <div className="text-center py-8 text-black dark:text-white bg-neutral-100 dark:bg-navy rounded-lg">
               <p>
-                Geen machines gevonden die overeenkomen met je zoekopdracht.
+                No machines found matching current filters.
               </p>
             </div>
           ) : (

@@ -21,7 +21,7 @@ const FilterDropdown = ({
   <div className="border-black border-2 rounded p-2 mw-50 flex justify-center dark:border-white">
     <DropdownMenu>
       <DropdownMenuTrigger>
-        {position === "" ? "Filter Verantwoordelijke" : position}
+        {position === "" ? "Filter Supervisor" : position}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
