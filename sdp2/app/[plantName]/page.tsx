@@ -1,7 +1,6 @@
 "use client";
 import useSWR from "swr";
-import { getAll, getById } from "../../api/index";
-import { MachineCard } from "./Components/MachineCard";
+import { getById } from "../../api/index";
 import PlantInfo from "./Components/PlantInfo";
 import type { Plant } from "../types/Plant";
 import { useEffect, useState, useMemo } from "react";
@@ -11,6 +10,7 @@ import Link from "next/link";
 import Breadcrumbs from "./Components/Breadcrumbs"
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MaintenanceCard from "./Components/MaintenanceCard";
+import { MachineCardList } from "./Components/MachineCardList";
 
 const PlantDetails = () => {
   const params = useParams();
@@ -88,7 +88,7 @@ const PlantDetails = () => {
                 efficiencyRate={plant.EFFICIENCYRATE}
                 machines={machines}
               />
-              <MachineCard machines={machines}/>
+              <MachineCardList machines={machines}/>
               <MaintenanceCard maintenances={maintenances}/>
             </div>
           ) : (

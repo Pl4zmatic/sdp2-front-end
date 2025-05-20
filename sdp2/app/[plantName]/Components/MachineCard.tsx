@@ -1,135 +1,53 @@
 import { FileText } from "lucide-react";
-import MachineInfo from "./MachineInfo";
+import useSWR from "swr";
+import { getById } from "@/api";
 import { Machine } from "@/app/types/Machine";
-
+import MachineInfo from "./MachineInfo";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-
-import {
-  Accordion,
-  AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  AccordionContent,
 } from "@/components/ui/accordion";
-import SearchField from "@/components/ui/SearchField";
-import { useMemo, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { machine } from "os";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Maintenance } from "@/app/types/Maintenance";
+
 interface MachineCardProps {
-  machines: Machine[];
+  machine: Machine;
+  index: number;
 }
 
-function debug(msg: any) {
-  console.log(msg)
-  return (
-    <></>  
-  )
-}
+export default function MachineCard({ machine, index }: MachineCardProps) {
+  const { data: currentMachine = machine } = useSWR(`machines/${machine.ID}`, getById, {
+    fallbackData: machine,
+  });
 
-export const MachineCard = ({ machines }: MachineCardProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showActive, setShowActive] = useState(false);
-
-  const filteredMachines = useMemo(() => {
-    let filteredMachines = [...machines];
-    if(!showActive) {
-      filteredMachines = filteredMachines.filter((machine) => machine.CURRENTSTATESTRING === "running");
-    }
-    if (searchTerm.trim()){
-      const lowerCaseSearch = searchTerm.toLowerCase();
-      return filteredMachines.filter(
-        (machine) => {
-          for(const [key, value] of Object.entries(machine)) {
-            if(value != null && `${value}`.toLowerCase().includes(lowerCaseSearch))
-              return true;
-          }
-          return false;
-        }
-      );
-    }
-    return filteredMachines;
-  }, [machines, searchTerm, showActive]);
-
-  const displayFiveMachines = filteredMachines.slice(0, 5);
+  const statusColor =
+    currentMachine.CURRENTSTATESTRING === "running"
+      ? "bg-[#3CEF3C]"
+      : "bg-rancidRed dark:bg-delawareRed";
 
   return (
-    <div className="flex flex-col min-w-[50%]">
-      <div className="flex justify-center items-center mt-5">
-        <SearchField
-          className="w-[25%] px-4 py-3 text-lg rounded-lg"
-          placeholder="Zoek op naam, code, supervisor,..."
-          onSearch={setSearchTerm}
+    <AccordionItem
+      value={currentMachine.CODE}
+      key={currentMachine.CODE}
+      className="min-h-[50px] border-0"
+    >
+      <AccordionTrigger className="flex items-center w-full h-full text-black dark:text-white hover:no-underline hover:bg-neutral-200 dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
+        <div className={`${statusColor} w-5 h-5 rounded-full mx-2 border-2 border-white`} />
+        <p>
+          <span className="font-semibold text-2xl px-[20px] hover:no-underline text-nowrap">
+            {`Machine ${index + 1}`}
+          </span>
+          <span className="text-black/80 dark:text-[#999] text-sm text-nowrap">
+            ({currentMachine.CODE})
+          </span>
+        </p>
+        <FileText className="ml-3 text-black dark:text-white" />
+      </AccordionTrigger>
+      <AccordionContent className="text-black dark:text-white text-base">
+        <MachineInfo
+          idTechnician={currentMachine.technieker_id}
+          idMachine={currentMachine.ID}
         />
-        <Checkbox checked={showActive} onCheckedChange={(checked) => setShowActive(!!checked)} id="show-active-checkbox"/>
-        <Label htmlFor="show-active-checkbox" className="ml-2">Show non-active</Label>
-      </div>
-      <div className="flex flex-col h-auto mx-auto max-w-[65%] w-full bg-neutral-100 dark:bg-lightestNavy rounded-lg">
-        <Accordion
-          type="single"
-          collapsible
-          className="bg-neutral-100 dark:bg-lightestNavy w-full rounded-xl p-[10px]"
-        >
-          {filteredMachines.length === 0 ? (
-            <div className="text-center py-8 text-black dark:text-white bg-neutral-100 dark:bg-navy rounded-lg">
-              <p>
-                No machines found matching current filters.
-              </p>
-            </div>
-          ) : (
-            <div>
-              {displayFiveMachines.map((machine, index) => (
-                <AccordionItem
-                  value={machine.CODE}
-                  key={machine.CODE}
-                  className="min-h-[50px] border-0"
-                >
-                  <AccordionTrigger className="flex items-center w-full h-full text-black dark:text-white hover:no-underline hover:bg-neutral-200 dark:hover:bg-[#5C658C] rounded-xl px-[10px]">
-
-                    <div
-                      className={`${
-                        machine.CURRENTSTATESTRING === "running"
-                          ? "bg-[#3CEF3C]"
-                          : "bg-rancidRed dark:bg-delawareRed"
-                      } w-5 h-5 rounded-[50%] mx-2 border-2 border-white `}
-                    ></div>
-                    <p className="">
-                      <span className="font-semibold text-2xl px-[20px] hover:no-underline text-nowrap">
-                        {`Machine ${index + 1}`}
-                      </span>
-                      <span className="text-black/80 dark:text-[#999] text-sm text-nowrap ">
-                        ({machine.CODE})
-                      </span>
-                    </p>
-                    <div>
-                      <FileText className="ml-3 text-black dark:text-white"/>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-black dark:text-white text-base">
-                    <MachineInfo
-                      idTechnician={machine.technieker_id}
-                      status={machine.CURRENTSTATESTRING.charAt(0).toUpperCase() + machine.CURRENTSTATESTRING.slice(1)}
-                      uptime={machine.UPTIMEINHOURS}
-                      lastMaintenance={new Date(machine.laatste_onderhoud_datum).toISOString().slice(0, 10)}
-                      nextMaintenance={new Date(machine.datum_toekomstige_onderhoud).toISOString().slice(0, 10)}
-                      idMachine={machine.ID}
-                    />
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </div>
-          )}
-        </Accordion>
-      </div>
-    </div>
+      </AccordionContent>
+    </AccordionItem>
   );
-};
+}
