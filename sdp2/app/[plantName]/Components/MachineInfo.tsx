@@ -141,7 +141,7 @@ const MachineInfo = ({
       </div>
         <div className="flex justify-center items-center">
           <Dialog>
-            <DialogTrigger className="w-[50%] bg-delawareRed hover:bg-white/20 dark:bg-lightNavy dark:hover:bg-navy hover:bg-delawareRedAccent hover:shadow-lg border-0 transition-colors text-white mt-5 p-2 px-6 rounded-md">
+            <DialogTrigger className="w-[50%] bg-delawareRed hover:bg-delawareRedAccent hover:shadow-lg dark:bg-lightNavy dark:hover:bg-navy hover:bg-delawareRedAccent hover:shadow-lg border-0 transition-colors text-white mt-5 p-2 px-6 rounded-md">
               Show maintenances (last 30 days)
             </DialogTrigger>
             <DialogContent className="w-auto max-w-[75%] min-w-[50%]">
