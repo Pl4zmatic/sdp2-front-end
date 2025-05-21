@@ -12,6 +12,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import MaintenanceCard from "./Components/MaintenanceCard";
 import { MachineCardList } from "./Components/MachineCardList";
 import { Separator } from "@/components/ui/separator";
+import MaintenanceDashboard from "./Components/MaintenanceDash";
 const PlantDetails = () => {
   const params = useParams();
   const plantId = params.plantName;
@@ -101,7 +102,7 @@ const PlantDetails = () => {
               <MachineCardList machines={machines} />
               <h1 className="text-4xl font-bold mt-16 mb-4">Maintenances</h1>
               <Separator className="my-8" />
-              <MaintenanceCard maintenances={maintenances} />
+              <MaintenanceDashboard maintenances={maintenances} />
             </div>
           ) : (
             <div className="flex justify-center">

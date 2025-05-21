@@ -1,176 +1,138 @@
 "use client";
-import SearchField from "@/components/ui/SearchField";
-import { useMemo, useState } from "react";
-import { Maintenance } from "@/app/types/Maintenance";
+
 import { Card, CardContent } from "@/components/ui/card";
-import { Check, CalendarClock, Wrench } from "lucide-react";
-import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { Button } from "@/components/ui/button";
+import { Check, Wrench, CalendarClock } from "lucide-react";
 
 interface MaintenanceCardProps {
-  maintenances: Maintenance[];
+  maintenance: {
+    MAINTENANCEID: string;
+    CURRENTSTATESTRING: string;
+    MACHINECODE: string;
+    STARTDATE: string;
+    REASON: string;
+    REMARKS: string;
+  };
+  downloadPdfFile: (maintenance: any) => void;
 }
 
-const MaintenanceCard = ({ maintenances }: MaintenanceCardProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function MaintenanceCard({
+  maintenance,
+  downloadPdfFile,
+}: MaintenanceCardProps) {
+  // Determine status icon and color
+  const getStatusInfo = () => {
+    const status = maintenance.CURRENTSTATESTRING.toLowerCase();
 
-  const filteredMaintenances = useMemo(() => {
-    let filteredMaintenances = [...maintenances];
-    if (searchTerm.trim()) {
-      const lowerCaseSearch = searchTerm.toLowerCase();
-      return filteredMaintenances.filter((maintenance) => {
-        for (const [key, value] of Object.entries(maintenance)) {
-          if (
-            value != null &&
-            `${value}`.toLowerCase().includes(lowerCaseSearch)
-          )
-            return true;
-        }
-        return false;
-      });
+    if (status === "finishedstate") {
+      return {
+        icon: <Check size={24} />,
+        label: "Completed",
+        bgColor: "bg-green-100 dark:bg-green-900/30",
+        textColor: "text-green-700 dark:text-green-400",
+      };
+    } else if (status === "progressstate") {
+      return {
+        icon: <Wrench size={24} />,
+        label: "In Progress",
+        bgColor: "bg-amber-100 dark:bg-amber-900/30",
+        textColor: "text-amber-700 dark:text-amber-400",
+      };
+    } else {
+      return {
+        icon: <CalendarClock size={24} />,
+        label: "Scheduled",
+        bgColor: "bg-blue-100 dark:bg-blue-900/30",
+        textColor: "text-blue-700 dark:text-blue-400",
+      };
     }
-    return filteredMaintenances;
-  }, [maintenances, searchTerm]);
+  };
 
-  const displayAndSortFiveMaintenances = useMemo(() => {
-    return [...filteredMaintenances]
-      .sort(
-        (a, b) =>
-          new Date(b.STARTDATE).getTime() - new Date(a.STARTDATE).getTime(),
-      )
-      .slice(0, 5);
-  }, [filteredMaintenances]);
+  const statusInfo = getStatusInfo();
 
-  async function downloadPdfFile(maintenance: Maintenance) {
-    const pdfFile = await PDFDocument.create();
-    const page = pdfFile.addPage();
-
-    const { width, height } = page.getSize();
-
-    const font = await pdfFile.embedFont(StandardFonts.Helvetica);
-
-    const fontSize = 12;
-    let y = height - 50;
-
-    page.drawText(`Maintenance Details`, {
-      x: 50,
-      y,
-      size: 18,
-      font,
-      color: rgb(0, 0, 0),
+  // Format date properly
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-CA", {
+      // en-CA gives YYYY-MM-DD format
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
-
-    y -= 30;
-
-    const lines = [
-      `Machine Code: ${maintenance.MACHINECODE}`,
-      `Start Date: ${new Date(maintenance.STARTDATE).toLocaleDateString()}`,
-      `Reason: ${maintenance.REASON}`,
-      `Remarks: ${maintenance.REMARKS}`,
-      `Current State: ${
-        maintenance.CURRENTSTATESTRING === "ProgressState"
-          ? "In progress"
-          : maintenance.CURRENTSTATESTRING === "FinishedState"
-            ? "Finished"
-            : "Planned"
-      }`,
-    ];
-
-    lines.forEach((line) => {
-      page.drawText(line, { x: 50, y, size: fontSize, font });
-      y -= 20;
-    });
-
-    const pdfBytes = await pdfFile.save();
-
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `maintenance_${maintenance.MAINTENANCEID}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }
+  };
 
   return (
-    <div className="w-full">
-      <div className="flex justify-left items-center mb-4">
-        <SearchField
-          className="w-64 pr-4 text-lg rounded-lg"
-          placeholder="Search..."
-          onSearch={setSearchTerm}
-        />
-      </div>
-      <div className="flex flex-col h-auto w-full rounded-lg">
-        {maintenances.length === 0 ? (
-          <div className="text-center py-8 text-white bg-delawareRed dark:bg-navy rounded-lg">
-            <p>No maintenances found.</p>
-          </div>
-        ) : (
-          <div className="flex gap-5 w-fulljustify-left items-center flex-wrap">
-            {displayAndSortFiveMaintenances.map((maintenance) => (
-              <Card
-                key={maintenance.MAINTENANCEID}
-                className=" h-auto border-0 w-[32%] rounded-xl p-4 bg-neutral-100 dark:bg-lightestNavy flex items-center justify-center"
-              >
-                <CardContent className="flex flex-col items-center justify-center h-full w-full text-black p-0 gap-5 text-wrap">
-                  <div className="flex items-center justify-center">
-                    {maintenance.CURRENTSTATESTRING.toLowerCase() ===
-                    "finishedstate" ? (
-                      <Check className="text-black dark:text-white" />
-                    ) : maintenance.CURRENTSTATESTRING.toLowerCase() ===
-                      "progressstate" ? (
-                      <Wrench className="text-black dark:text-white" />
-                    ) : (
-                      <CalendarClock className="text-black dark:text-white" />
-                    )}
-                  </div>
-                  <div className="flex item-center justify-center gap-5">
-                    <div className="flex flex-col w-full justify-center items-center gap-5 text-black dark:text-white text-wrap mr-auto">
-                      <div className="flex flex-col h-full w-full gap-3 text-wrap">
-                        <div>
-                          <span className="font-semibold text-lg">
-                            Machine:{" "}
-                          </span>
-                          {maintenance.MACHINECODE}
-                        </div>
-                        <div>
-                          <span className="font-semibold text-lg">Date: </span>
-                          {`${new Date(maintenance.STARTDATE).getFullYear()}-${new Date(maintenance.STARTDATE).getMonth() + 1 < 10 ? "0" : ""}${new Date(maintenance.STARTDATE).getMonth() + 1}-${new Date(maintenance.STARTDATE).getDate()}`}
-                        </div>
-                        <div className="text-wrap">
-                          <span className="font-semibold text-lg">
-                            Reason:{" "}
-                          </span>
-                          {maintenance.REASON}
-                        </div>
-                        <div>
-                          <span className="font-semibold text-lg">
-                            Remarks:{" "}
-                          </span>
-                          {maintenance.REMARKS}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="btnDiv w-auto text-wrap">
-                    <Button
-                      onClick={() => downloadPdfFile(maintenance)}
-                      className="p-5 dark:bg-lightNavy bg-delawareRed text-white text-wrap dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg"
-                    >
-                      Export as PDF
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
+    <Card className="rounded-xl bg-neutral-100 dark:bg-lightestNavy  hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+      <CardContent className="p-5 flex flex-col h-full ">
+        {/* Status Badge */}
+        <div
+          className={`self-start px-3 py-1.5 rounded-full mb-4 flex items-center gap-2 ${statusInfo.bgColor} ${statusInfo.textColor}`}
+        >
+          {statusInfo.icon}
+          <span className="font-medium">{statusInfo.label}</span>
+        </div>
 
-export default MaintenanceCard;
+        {/* Content */}
+        <div className="flex flex-col  gap-4 flex-grow text-black dark:text-white">
+          <div className="flex items-start gap-2">
+            <span className="font-semibold text-black/70 dark:text-white/70 w-24 shrink-0">
+              Machine:
+            </span>
+            <span className="font-medium">{maintenance.MACHINECODE}</span>
+          </div>
+
+          <div className="flex items-start gap-2">
+            <span className="font-semibold text-black/70 dark:text-white/70 w-24 shrink-0">
+              Date:
+            </span>
+            <span>{formatDate(maintenance.STARTDATE)}</span>
+          </div>
+
+          <div className="flex items-start gap-2">
+            <span className="font-semibold text-black/70 dark:text-white/70 w-24 shrink-0">
+              Reason:
+            </span>
+            <span className="break-words">{maintenance.REASON}</span>
+          </div>
+
+          {maintenance.REMARKS && (
+            <div className="flex items-start gap-2">
+              <span className="font-semibold text-black/70 dark:text-white/70 w-24 shrink-0">
+                Remarks:
+              </span>
+              <span className="break-words">{maintenance.REMARKS}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Button */}
+        <div className="mt-6 pt-4 border-t border-black/10 dark:border-white/10">
+          <Button
+            onClick={() => downloadPdfFile(maintenance)}
+            className="w-full bg-delawareRed hover:bg-delawareRedAccent dark:bg-lightNavy dark:hover:bg-navy text-white transition-colors hover:shadow-lg flex items-center justify-center gap-2 py-5"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-file-type-pdf"
+            >
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+              <polyline points="14 2 14 8 20 8" />
+              <path d="M9 13v-1h6v1" />
+              <path d="M11 15v4" />
+              <path d="M9 17h4" />
+            </svg>
+            Export as PDF
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

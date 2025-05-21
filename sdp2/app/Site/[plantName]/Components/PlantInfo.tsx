@@ -22,8 +22,8 @@ const PlantInfo = ({ machines }: PlantInfoProps) => {
               Active Machines
             </h1>
           </div>
-          <div className="mt-4">
-            <div className="flex">
+          <div className="mt-8">
+            <div className="flex ">
               <p className="text-5xl text-delawareRed truncate">
                 {(activeMachines / length) * 100}%
               </p>
