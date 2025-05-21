@@ -87,7 +87,11 @@ const SiteManagement = () => {
 
     return data.filter((site: Plant) => {
       const matchesPosition =
-        position === "" || site.verantwoordelijke?.FIRSTNAME + " " + site.verantwoordelijke?.LASTNAME === position;
+        position === "" ||
+        site.verantwoordelijke?.FIRSTNAME +
+          " " +
+          site.verantwoordelijke?.LASTNAME ===
+          position;
 
       const matchesSearch =
         searchTerm === "" ||

@@ -24,9 +24,9 @@ export default function Site() {
   return (
     <ProtectedRoute>
       <div className="flex min-h-screen justify-center items-center">
-        <main className="p-8 w-[68%]">
+        <main className="px-16 w-full">
           <div>
-            <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white text-center">
+            <h1 className="text-3xl font-bold mb-4 text-darkGray dark:text-white text-left">
               Plants
             </h1>
             <SiteMap sites={filteredSites}></SiteMap>

@@ -22,17 +22,20 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
       (site) =>
         site.NAME.toLowerCase().includes(lowerCaseSearch) ||
         site.ADDRESS.toLowerCase().includes(lowerCaseSearch) ||
-        site.verantwoordelijke?.FIRSTNAME?.toLowerCase().includes(lowerCaseSearch) ||
-        site.verantwoordelijke?.LASTNAME?.toLowerCase().includes(lowerCaseSearch),
+        site.verantwoordelijke?.FIRSTNAME?.toLowerCase().includes(
+          lowerCaseSearch,
+        ) ||
+        site.verantwoordelijke?.LASTNAME?.toLowerCase().includes(
+          lowerCaseSearch,
+        ),
     );
-
   }, [sites, searchTerm]);
 
   return (
     <div className="space-y-6 w-full">
-      <div className="flex justify-center rounded-lg w-full">
+      <div className="flex justify-left rounded-lg w-full">
         <SearchField
-          className="mt-8 w-[50%]"
+          className="mt-8 w-[33%]"
           placeholder="Search name, address or responsible person..."
           onSearch={setSearchTerm}
         />
@@ -48,7 +51,11 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
             <SiteCard
               key={site.ID}
               site={site}
-              verantwoordelijke={site.verantwoordelijke?.FIRSTNAME + " " + site.verantwoordelijke?.LASTNAME}
+              verantwoordelijke={
+                site.verantwoordelijke?.FIRSTNAME +
+                " " +
+                site.verantwoordelijke?.LASTNAME
+              }
             />
           ))}
         </div>

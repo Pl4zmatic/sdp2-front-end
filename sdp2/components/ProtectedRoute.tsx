@@ -31,7 +31,9 @@ export default function ProtectedRoute({
     <div className="flex min-h-screen ">
       {isAuthed && <Navbar />}
       <div className={`flex-1 ${isAuthed ? "md:ml-64" : ""}`}>
-        <main className={`${isAuthed ? "p-8" : "p-0"} w-full`}>{children}</main>
+        <main className={`${isAuthed ? "px-8" : "p-0"} w-full`}>
+          {children}
+        </main>
       </div>
     </div>
   );
