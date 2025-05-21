@@ -53,7 +53,7 @@ Gebruik in terminal:
 npm run cypress
 ```
 ### Stap 2
-Er opent een applicatie (cypress). Op het scherm klik je op E2E testing en kies je jouw browser. Klik op "Start E2E testing in {jouw browser}".
+Er opent een applicatie (cypress). Op het scherm klik je op E2E testing en kies je jouw browser. Klik op "Start E2E testing in `{jouw browser}`".
 ### Stap 3
 Jouw browser naar keuze opent op een tablad met alle specs. Klik op het bestand "spec.cy.ts".
 De tests zouden nu automatisch moeten runnen. Als dat niet het geval is, klik op het rond pijltje rechts bovenaan waar de testen zich bevinden.
