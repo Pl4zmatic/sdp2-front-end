@@ -1,16 +1,10 @@
 import { Machine } from "@/app/types/Machine";
 
 interface PlantInfoProps {
-  plantName: string;
-  currentProduction: number;
-  efficiencyRate: number;
   machines: Machine[];
 }
 
 const PlantInfo = ({
-  plantName,
-  currentProduction,
-  efficiencyRate,
   machines,
 }: PlantInfoProps) => {
   const length = machines.length;

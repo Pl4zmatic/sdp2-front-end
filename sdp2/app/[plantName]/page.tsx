@@ -83,9 +83,6 @@ const PlantDetails = () => {
           {hasValidPlant ? (
             <div className="flex-col items-center justify-center w-full">
               <PlantInfo
-                plantName={plant.NAME}
-                currentProduction={plant.CURRENTPRODUCTION}
-                efficiencyRate={plant.EFFICIENCYRATE}
                 machines={machines}
               />
               <MachineCardList machines={machines}/>
