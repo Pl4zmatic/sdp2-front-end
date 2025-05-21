@@ -77,7 +77,7 @@ export default function SiteCard({
         </div>
       </CardContent>
       <CardFooter className="pt-0">
-        <Link href={`${site.ID}`}>
+        <Link href={`Site/${site.ID}`}>
           <Button className="bg-delawareRed text-white hover:bg-delawareRed dark:bg-lightestNavy dark:hover:bg-blueTransparant dark:text-white border-0 transition-colors w-full">
             Select Plant
           </Button>

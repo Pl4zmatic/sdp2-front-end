@@ -1,13 +1,13 @@
 "use client";
 import useSWR from "swr";
-import { getById } from "../../api/index";
+import { getById } from "../../../api/index";
 import PlantInfo from "./Components/PlantInfo";
-import type { Plant } from "../types/Plant";
+import type { Plant } from "../../types/Plant";
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import Breadcrumbs from "./Components/Breadcrumbs"
+import Breadcrumbs from "./Components/Breadcrumbs";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import MaintenanceCard from "./Components/MaintenanceCard";
 import { MachineCardList } from "./Components/MachineCardList";
@@ -29,7 +29,7 @@ const PlantDetails = () => {
     data: maintenances = [],
     isLoading: isLoadingMaintenances,
     error: errorMaintenances,
-  } = useSWR(`sites/${selectedPlant?.ID}/maintenances`, getById)
+  } = useSWR(`sites/${selectedPlant?.ID}/maintenances`, getById);
 
   useEffect(() => {
     if (plant) {
@@ -59,34 +59,35 @@ const PlantDetails = () => {
     <ProtectedRoute>
       <Breadcrumbs {...plant}></Breadcrumbs>
       <div className="flex min-h-screen items-center justify-center">
-      <main className="flex-1 p-8 w-[68%]">
-        <div className="flex flex-col items-center justify-center w-full mb-5">
-          <h1 className="text-7xl font-bold text-white mb-5">
-            {hasValidPlant ? (
-              <div className="flex flex-col items-center">
-                <span className="text-darkGray dark:text-white">
-                
-                  {plant.NAME}
+        <main className="flex-1 p-8 w-[68%]">
+          <div className="flex flex-col items-center justify-center w-full mb-5">
+            <h1 className="text-7xl font-bold text-white mb-5">
+              {hasValidPlant ? (
+                <div className="flex flex-col items-center">
+                  <span className="text-darkGray dark:text-white">
+                    {plant.NAME}
                   </span>
-                <Button className="wp-5 dark:bg-lightestNavy bg-delawareRed text-white text-wrap dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg mt-5"><Link href={"/Site"}>Select another plant</Link></Button>
-              </div>
-            ) : (
-              <span className="text-delawareRed">{"DetailsPage"}</span>
-            )}
-          </h1>
-          <p className="text-darkGray dark:text-white">
-                  <span className="font-semibold">Supervisor:</span> {plant.verantwoordelijke?.FIRSTNAME + " " + plant.verantwoordelijke?.LASTNAME}
-                </p>
-         
-        </div>
+                  <Button className="wp-5 dark:bg-lightestNavy bg-delawareRed text-white text-wrap dark:hover:bg-navy hover:bg-delawareRedAccent transistion-colors hover:shadow-lg mt-5">
+                    <Link href={"/Site"}>Select another plant</Link>
+                  </Button>
+                </div>
+              ) : (
+                <span className="text-delawareRed">{"DetailsPage"}</span>
+              )}
+            </h1>
+            <p className="text-darkGray dark:text-white">
+              <span className="font-semibold">Supervisor:</span>{" "}
+              {plant.verantwoordelijke?.FIRSTNAME +
+                " " +
+                plant.verantwoordelijke?.LASTNAME}
+            </p>
+          </div>
 
           {hasValidPlant ? (
             <div className="flex-col items-center justify-center w-full">
-              <PlantInfo
-                machines={machines}
-              />
-              <MachineCardList machines={machines}/>
-              <MaintenanceCard maintenances={maintenances}/>
+              <PlantInfo machines={machines} />
+              <MachineCardList machines={machines} />
+              <MaintenanceCard maintenances={maintenances} />
             </div>
           ) : (
             <div className="flex justify-center">
