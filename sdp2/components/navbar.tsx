@@ -21,11 +21,12 @@ import { ThemeToggle } from "./theme-toggle";
 import { useLogout } from "@/hooks/useLogout";
 import { useAuth } from "@/app/contexts/useAuth";
 import { ROLES } from "@/types/roles";
+import { useParams, usePathname } from "next/navigation";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-
+  const pathname = usePathname();
   const logout = useLogout();
   const { user } = useAuth();
 
@@ -114,10 +115,17 @@ export function Navbar() {
               user.role === ROLES.TECHNIEKER) && (
               <Link
                 href="/Site"
-                className="flex  items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                className={`flex items-center gap-3 transition-colors
+                        text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                        ${
+                          pathname.startsWith("/Site/") || pathname === "/Site"
+                            ? "text-delawareRed dark:text-delawareRed font-semibold"
+                            : ""
+                        }
+                      `}
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Compass size={20} className="" />
+                <Compass size={20} />
                 <span>Plant Overview</span>
               </Link>
             )}
@@ -126,7 +134,14 @@ export function Navbar() {
               <>
                 <Link
                   href="/SiteManagement"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  className={`flex items-center gap-3 transition-colors
+                          text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                          ${
+                            pathname.startsWith("/SiteManagement")
+                              ? "text-delawareRed dark:text-delawareRed font-semibold"
+                              : ""
+                          }
+                        `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <BarChart2 size={20} />
@@ -135,7 +150,14 @@ export function Navbar() {
 
                 <Link
                   href="/Kpi"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  className={`flex items-center gap-3 transition-colors
+                          text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                          ${
+                            pathname.startsWith("/Kpi")
+                              ? "text-delawareRed dark:text-delawareRed font-semibold"
+                              : ""
+                          }
+                        `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <ChartNoAxesCombined size={20} />
@@ -148,7 +170,14 @@ export function Navbar() {
               <>
                 <Link
                   href="/Employees"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  className={`flex items-center gap-3 transition-colors
+                          text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                          ${
+                            pathname.startsWith("/Employees")
+                              ? "text-delawareRed dark:text-delawareRed font-semibold"
+                              : ""
+                          }
+                        `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Users size={20} />
@@ -156,8 +185,15 @@ export function Navbar() {
                 </Link>
 
                 <Link
-                  href="/"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  href="/report"
+                  className={`flex items-center gap-3 transition-colors
+                          text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                          ${
+                            pathname.startsWith("/report")
+                              ? "text-delawareRed dark:text-delawareRed font-semibold"
+                              : ""
+                          }
+                        `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <FileText size={20} />
@@ -170,7 +206,14 @@ export function Navbar() {
               <>
                 <Link
                   href="/Employees"
-                  className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors"
+                  className={`flex items-center gap-3 transition-colors
+                          text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                          ${
+                            pathname.startsWith("/Employees")
+                              ? "text-delawareRed dark:text-delawareRed font-semibold"
+                              : ""
+                          }
+                        `}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Users size={20} />
@@ -184,7 +227,14 @@ export function Navbar() {
         <div className="space-y-4 px-6 pb-6">
           <Link
             href="notifications"
-            className="flex items-center gap-3 text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed transition-colors cursor-pointer"
+            className={`flex items-center gap-3 transition-colors
+                    text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
+                    ${
+                      pathname.startsWith("/notifications")
+                        ? "text-delawareRed dark:text-delawareRed font-semibold"
+                        : ""
+                    }
+                  `}
           >
             <Bell size={20} />
             <span>Notifications</span>
