@@ -38,6 +38,7 @@ export default function Toast({ message, type, onClose, duration = 5000 }: Toast
 
   return (
     <div
+      data-cy="toast-success"
       className={`fixed bottom-4 right-4 max-w-md bg-gray-800 border ${
         type === "success" ? "border-green-500" : "border-red-500"
       } rounded-lg shadow-lg transform transition-all duration-300 ${
@@ -51,7 +52,7 @@ export default function Toast({ message, type, onClose, duration = 5000 }: Toast
           <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
         )}
         <div className="flex-1">
-          <p className="text-white">{message}</p>
+          <p className="dark:text-white text-black">{message}</p>
         </div>
         <button onClick={() => setIsVisible(false)} className="text-gray-400 hover:text-white">
           <X className="h-5 w-5" />
