@@ -35,7 +35,7 @@ export default function SiteCardsList({ sites }: SiteCardsListProps) {
     <div className="space-y-6 w-full">
       <div className="flex justify-left rounded-lg w-full">
         <SearchField
-          className="mt-8 w-[33%]"
+          className="mt-8 w-96"
           placeholder="Search name, address or responsible person..."
           onSearch={setSearchTerm}
         />
