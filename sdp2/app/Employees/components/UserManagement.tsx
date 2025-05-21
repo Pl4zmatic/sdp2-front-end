@@ -64,7 +64,6 @@ const UserManagement = () => {
   if (isLoading) return <div>Loading...</div>
   if (error) return <div>Error loading users: {error.message}</div>
 
-  // Create the full name for highlighting
   const fullName = deleteUser ? `${deleteUser.FIRSTNAME} ${deleteUser.LASTNAME}` : ""
 
   return (
