@@ -29,6 +29,7 @@ const UserTable: React.FC<Props> = ({ users, roles, onEdit, onDelete, editingUse
           <React.Fragment key={user.ID || user.EMAIL}>
             <div
               className="grid grid-cols-[0.5fr_1fr_1fr_1fr_0.5fr_0.5fr] p-4 border-b border-gray-700 last:border-0"
+              data-cy="user-row"
             >
               <div>{user.ID}</div>
               <div>{user.LASTNAME}</div>
@@ -38,6 +39,7 @@ const UserTable: React.FC<Props> = ({ users, roles, onEdit, onDelete, editingUse
                 <button
                   className="text-red-500 hover:text-red-400"
                   onClick={() => onEdit(user)}
+                  data-cy="edit-button"
                 >
                   ✏️
                 </button>
@@ -46,6 +48,7 @@ const UserTable: React.FC<Props> = ({ users, roles, onEdit, onDelete, editingUse
                 <button
                   className="text-red-500 hover:text-red-400"
                   onClick={() => onDelete(user)}
+                  data-cy="delete-button"
                 >
                   🗑️
                 </button>
