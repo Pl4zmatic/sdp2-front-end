@@ -81,6 +81,7 @@ export default function UserForm({
 
     const submisionData: CreateUserBody = {
       ...formData,
+      BIRTHDATE: new Date(formData.BIRTHDATE).toISOString(), 
       ADRES: combinedAddress,
     };
     if (isPhoneRequired && !formData.GSMNUMMER) {
