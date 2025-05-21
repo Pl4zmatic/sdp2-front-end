@@ -84,8 +84,8 @@ export function Navbar() {
         }`}
       >
         <div className="space-y-8">
-          <div className="flex items-center justify-between pt-6 pl-6">
-            <a href="Landing">
+          <div className="flex items-center justify-between pt-6 px-6">
+            <a href="/Landing">
               <div className="relative">
                 {/* Light mode image */}
                 <Image
@@ -93,7 +93,7 @@ export function Navbar() {
                   width={160}
                   height={80}
                   alt="Logo"
-                  className="w-auto h-full block dark:hidden pl-4"
+                  className="w-auto h-full block dark:hidden px-4"
                 />
 
                 {/* Dark mode image */}
@@ -102,11 +102,10 @@ export function Navbar() {
                   width={160}
                   height={80}
                   alt="Logo (Dark)"
-                  className="w-auto h-full hidden dark:block pl-4"
+                  className="w-auto h-full hidden dark:block px-4"
                 />
               </div>
             </a>
-            <ThemeToggle />
           </div>
 
           <nav className="space-y-6 px-6">
@@ -226,7 +225,7 @@ export function Navbar() {
 
         <div className="space-y-4 px-6 pb-6">
           <Link
-            href="notifications"
+            href="/notifications"
             className={`flex items-center gap-3 transition-colors
                     text-black dark:text-white hover:text-delawareRed dark:hover:text-delawareRed
                     ${
@@ -268,6 +267,9 @@ export function Navbar() {
                     {user.email}
                   </p>
                 </div>
+
+                <ThemeToggle />
+
                 <div className="p-2">
                   <button
                     onClick={handleLogout}

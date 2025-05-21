@@ -18,9 +18,12 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="text-black dark:text-white p-4 hover:text-delawareRed p-4 transition-colors duration-200 dark:hover:text-delawareRed p-4 transition-colors duration-200"
+      className="text-black w-full dark:text-white hover:text-delawareRed transition-colors duration-200 dark:hover:text-delawareRed transition-colors duration-200"
     >
-      {theme === "light" ? <Moon size={26} /> : <Sun size={26} />}
+      <div className="flex items-center p-3 border-b border-gray-200 dark:border-gray-700">
+        {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+        <p className="ml-2">Toggle Mode</p>
+      </div>
     </button>
   );
 }
