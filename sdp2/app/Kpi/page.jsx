@@ -40,7 +40,7 @@ export default function Kpi({}) {
   const [chartData, setChartData] = useState(null);
   const [sites, setSites] = useState(null);
   const [machines, setMachines] = useState(null);
-  const [value, setValue] = useState("all");
+  const [value, setValue] = useState("All");
   const [sitePosition, setSitePosition] = useState("None");
   const [machinePosition, setMachinePosition] = useState("None");
 
@@ -96,21 +96,21 @@ export default function Kpi({}) {
           ></Breadcrumbs>
         </div>
         <Tabs
-          defaultValue="all"
+          defaultValue="All"
           className="bg-transparent  text-white rounded-lg size-full"
         >
           <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-red-300">
             <TabsTrigger
-              value="all"
-              onClick={() => setValue("all")}
+              value="All"
+              onClick={() => setValue("All")}
               className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
             >
               All
             </TabsTrigger>
             <TabsTrigger
-              value="site"
+              value="Site"
               onClick={() => {
-                setValue("site");
+                setValue("Site");
                 setMachine("None");
               }}
               className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
@@ -118,8 +118,8 @@ export default function Kpi({}) {
               Site
             </TabsTrigger>
             <TabsTrigger
-              value="machine"
-              onClick={() => setValue("machine")}
+              value="Machine"
+              onClick={() => setValue("Machine")}
               className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
             >
               Machine

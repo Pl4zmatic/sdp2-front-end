@@ -40,7 +40,7 @@ export default function SiteCard({
     const firstInitial = nameParts[0][0].toUpperCase();
     const lastName = nameParts.slice(1).join(" ");
 
-    return `${firstInitial}. ${lastName}`;
+    return `${lastName}`;
   };
 
   const formattedName = formatName(verantwoordelijke);
@@ -91,7 +91,7 @@ export default function SiteCard({
           </div>
         </div>
       </CardContent>
-      <CardFooter className="pt-0 mt-auto">
+      <CardFooter className="pt-0 mt-auto h-full flex items-end">
         <Link href={`Site/${site.ID}`} className="w-full">
           <Button className="bg-delawareRed text-white hover:bg-delawareRed dark:bg-lightestNavy dark:hover:bg-blueTransparant dark:text-white border-0 transition-colors w-full">
             Select Plant
