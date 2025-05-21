@@ -86,6 +86,7 @@ const UserManagement = () => {
         <button
           onClick={handleAddClick}
           className="w-full md:w-auto bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 flex items-center justify-center gap-2"
+          data-cy="submit"
         >
           <span className="text-xl">+</span>
           Add Employee
@@ -100,6 +101,7 @@ const UserManagement = () => {
         onFormSubmit={handleFormSubmit}
         onCancelEdit={handleCancelEdit}
         addingNew={addingNew}
+        data-cy="userform"
       />
       <UserListMobile users={filteredUsers} roles={roles} onEdit={handleEdit} onDelete={handleDeleteClick} />
       <DeleteConfirmation

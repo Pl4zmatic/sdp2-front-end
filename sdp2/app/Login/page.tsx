@@ -51,6 +51,7 @@ export default function LoginPage() {
             variant="outline"
             onClick={() => quickLogin("admin@mail.com", "admin")}
             className="bg-white hover:bg-gray-100 text-gray-800 dark:bg-[#252a43] dark:text-white dark:hover:bg-[#2a304d] transition-colors"
+            data-cy="admin-login"
           >
             Login as Administrator
           </Button>

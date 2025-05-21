@@ -144,6 +144,7 @@ export default function UserForm({
               onChange={(e) =>
                 setFormData({ ...formData, FIRSTNAME: e.target.value })
               }
+              data-cy="firstname-input"
               required
             />
           </div>
@@ -158,6 +159,7 @@ export default function UserForm({
               onChange={(e) =>
                 setFormData({ ...formData, LASTNAME: e.target.value })
               }
+              data-cy="lastname-input"
               required
             />
           </div>
@@ -174,6 +176,7 @@ export default function UserForm({
             onChange={(e) =>
               setFormData({ ...formData, EMAIL: e.target.value })
             }
+            data-cy="email-input"
             required
           />
         </div>
@@ -194,6 +197,7 @@ export default function UserForm({
                 onChange={(e) =>
                   setFormData({ ...formData, STREET: e.target.value })
                 }
+                data-cy="street-input"
                 required
               />
             </div>
@@ -208,6 +212,7 @@ export default function UserForm({
                 onChange={(e) =>
                   setFormData({ ...formData, HOUSE_NUMBER: e.target.value })
                 }
+                data-cy="housenr-input"
                 required
               />
             </div>
@@ -222,6 +227,7 @@ export default function UserForm({
                 onChange={(e) =>
                   setFormData({ ...formData, POSTAL_CODE: e.target.value })
                 }
+                data-cy="postalcode-input"
                 required
               />
             </div>
@@ -236,6 +242,7 @@ export default function UserForm({
                 onChange={(e) =>
                   setFormData({ ...formData, CITY: e.target.value })
                 }
+                data-cy="city-input"
                 required
               />
             </div>
@@ -254,6 +261,7 @@ export default function UserForm({
               onChange={(e) =>
                 setFormData({ ...formData, BIRTHDATE: e.target.value })
               }
+              data-cy="birthdate-input"
             />
           </div>
           <div className="flex-1 space-y-2">
@@ -273,6 +281,7 @@ export default function UserForm({
                   setFormErrors({ ...formErrors, GSMNUMMER: "" });
                 }
               }}
+              data-cy="phonenr-input"
               required={isPhoneRequired}
             />
             {formErrors.GSMNUMMER && (
@@ -294,6 +303,7 @@ export default function UserForm({
                 setFormData({ ...formData, ROL: Number(e.target.value) })
               }
               className="w-full px-4 py-3 bg-zinc-100 dark:bg-slate-800 text-gray-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              data-cy="role-input"
               required
             >
               {Object.entries(roles).map(([value, label]) => (
@@ -318,6 +328,7 @@ export default function UserForm({
               onChange={(e) =>
                 setFormData({ ...formData, PASSWORD: e.target.value })
               }
+              data-cy="password-input"
               required={!initialData}
               placeholder={initialData ? "Leave empty to keep current" : ""}
             />
@@ -354,6 +365,7 @@ export default function UserForm({
           <button
             type="submit"
             className="flex-1 bg-red-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-red-600 transition-colors"
+            data-cy="submit-button"
           >
             {initialData ? "Update Employee" : "Add Employee"}
           </button>
@@ -361,6 +373,7 @@ export default function UserForm({
             type="button"
             onClick={onCancel}
             className="flex-1 bg-zinc-100 dark:dark:bg-slate-800 text-gray-900 dark:text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            data-cy="cancel-button"
           >
             Cancel
           </button>

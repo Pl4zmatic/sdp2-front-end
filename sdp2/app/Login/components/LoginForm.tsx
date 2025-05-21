@@ -77,6 +77,7 @@ export default function LoginForm() {
         type="submit"
         className="w-full bg-delawareRed hover:bg-[#F16776] text-white"
         disabled={isLoading}
+        cy-data="submit"
       >
         {isLoading ? "Logging in..." : "Login"}
       </Button>
