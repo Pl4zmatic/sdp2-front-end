@@ -1,5 +1,5 @@
 "use client";
-
+import { Separator } from "../ui/separator";
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
@@ -36,25 +36,42 @@ interface props {
 }
 
 export default function Component({ chartData, title }: props) {
-  chartData.sort((obj1, obj2) => new Date(obj1.date).getTime() - new Date(obj2.date).getTime())
+  chartData.sort(
+    (obj1, obj2) =>
+      new Date(obj1.date).getTime() - new Date(obj2.date).getTime(),
+  );
   const [timeRange, setTimeRange] = React.useState("All");
 
   const filteredData = () => {
-
-    if(timeRange === '1m') {
-      return chartData.filter(obj => new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-1) >= 0)
+    if (timeRange === "1m") {
+      return chartData.filter(
+        (obj) =>
+          new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-1) >= 0,
+      );
     }
 
-    if(timeRange == '6m') {
-      return chartData.filter(obj => new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-6) >= 0)
+    if (timeRange == "6m") {
+      return chartData.filter(
+        (obj) =>
+          new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-6) >= 0,
+      );
     }
 
-    if(timeRange == '1y') {
-      return chartData.filter(obj => new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-12) >= 0)
+    if (timeRange == "1y") {
+      return chartData.filter(
+        (obj) =>
+          new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-12) >=
+          0,
+      );
     }
 
-    if(timeRange == '5y') {
-      return chartData.filter(obj => new Date(obj.date).getTime() - new Date(Date.now()).setMonth(-12 * 5) >= 0)
+    if (timeRange == "5y") {
+      return chartData.filter(
+        (obj) =>
+          new Date(obj.date).getTime() -
+            new Date(Date.now()).setMonth(-12 * 5) >=
+          0,
+      );
     }
 
     return chartData;
@@ -64,17 +81,20 @@ export default function Component({ chartData, title }: props) {
     new Set(
       chartData
         .flatMap((value) => Object.keys(value))
-        .filter((value) => value != "date")
-    )
+        .filter((value) => value != "date"),
+    ),
   );
 
   return (
-    <Card className="w-[95%] bg-white dark:bg-[var(--navy)] dark:border-[var(--navy)]">
-      <CardHeader className="flex flex-row items-center bg-bgGray text-darkGray dark:text-white font-semibold dark:bg-[var(--lightestNavy)] rounded-t-lg p-4">
-        <div className="p-0 m-0 size-fit font-semibold">{title}</div>
+    <Card className="w-full bg-white dark:bg-navy  shadow-none border-none">
+      <CardHeader className="flex flex-row items-center  text-darkGray dark:text-white font-semibold dark:bg-navy  rounded-t-lg p-4">
+        <div className="p-0 m-0 text-xl pl-4 size-fit font-semibold">
+          {title}
+        </div>
+
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
-            className="w-[160px] rounded-lg sm:ml-auto bg-white"
+            className="w-[160px] dark:bg-lightNavy rounded-lg sm:ml-auto bg-white"
             aria-label="Select a value"
           >
             <SelectValue placeholder="All" />
@@ -98,6 +118,9 @@ export default function Component({ chartData, title }: props) {
           </SelectContent>
         </Select>
       </CardHeader>
+      <div className="flex justify-center">
+        <Separator className="mb-6 w-[95%]" />
+      </div>
 
       <CardContent className="text-black dark:text-white">
         <ChartContainer
@@ -108,7 +131,14 @@ export default function Component({ chartData, title }: props) {
             <defs>
               {valueKeys.map((key, index) => {
                 return (
-                  <linearGradient id={`fill${key}`} x1="0" y1="0" x2="0" y2="1" key={index}>
+                  <linearGradient
+                    id={`fill${key}`}
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                    key={index}
+                  >
                     <stop
                       offset="5%"
                       stopColor={`var(--color-${key})`}

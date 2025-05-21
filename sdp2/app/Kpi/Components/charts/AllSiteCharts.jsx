@@ -47,7 +47,7 @@ export function TotalMaintenanceCost({}) {
 
 export function TotalDefectsOverTime({}) {
   const { data, isLoading, error } = useSWR("kpi/all/defectsOverTime", getAll);
-  const config = generateLinePlantConfig()
+  const config = generateLinePlantConfig();
   if (error) return <div className="text-white">Error</div>;
 
   return isLoading ? (
@@ -65,7 +65,7 @@ export function TotalDefectsOverTime({}) {
 
 export function TotalDefectsBySite({}) {
   const { data, isLoading, error } = useSWR("kpi/all/defectsBySite", getAll);
-  const config = generateLinePlantConfig()
+  const config = generateLinePlantConfig();
   if (error) return <div className="text-white">Error</div>;
 
   return isLoading ? (
@@ -84,10 +84,10 @@ export function TotalDefectsBySite({}) {
 export function AverageCostsBySite({}) {
   const { data, isLoading, error } = useSWR(
     "kpi/all/averageCostsBySite",
-    getAll
+    getAll,
   );
 
-  if (error) return <div className="text-white">Error</div>;  
+  if (error) return <div className="text-white">Error</div>;
 
   return isLoading ? (
     <div className="text-white">Loading...</div>

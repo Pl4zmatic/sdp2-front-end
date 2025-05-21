@@ -24,20 +24,26 @@ import { chartConfig } from "./config";
 import { addFillFromConfig } from "./globalChartFunctions";
 
 interface props {
-  chartData: any[],
-  title : string
-  nameKey : string,
-  dataKey : string
-  config: any,
+  chartData: any[];
+  title: string;
+  nameKey: string;
+  dataKey: string;
+  config: any;
 }
 
-export default function Component({ chartData, title, nameKey, dataKey, config }: props) {
+export default function Component({
+  chartData,
+  title,
+  nameKey,
+  dataKey,
+  config,
+}: props) {
   chartData = addFillFromConfig(chartData, nameKey);
 
   return (
     <ChartCard title={title}>
       <ChartContainer
-        config={config? config : chartConfig}
+        config={config ? config : chartConfig}
         className="mx-auto size-full [&_.recharts-text]:fill-background"
       >
         <PieChart>
@@ -49,9 +55,13 @@ export default function Component({ chartData, title, nameKey, dataKey, config }
             dataKey={dataKey}
             labelLine={false}
             label={({ payload, ...props }) => {
-              const radius = props.innerRadius + (props.outerRadius - props.innerRadius) * 1.15;
-              const x = props.cx + radius * Math.cos(-props.midAngle * (Math.PI / 180));
-              const y = props.cy + radius * Math.sin(-props.midAngle * (Math.PI / 180));
+              const radius =
+                props.innerRadius +
+                (props.outerRadius - props.innerRadius) * 1.15;
+              const x =
+                props.cx + radius * Math.cos(-props.midAngle * (Math.PI / 180));
+              const y =
+                props.cy + radius * Math.sin(-props.midAngle * (Math.PI / 180));
               return (
                 <text
                   cx={props.cx}
@@ -73,7 +83,7 @@ export default function Component({ chartData, title, nameKey, dataKey, config }
               stroke="none"
               fontSize={12}
               formatter={(value: keyof typeof chartConfig) =>
-                chartConfig[value]?.label.substring(0,6)
+                chartConfig[value]?.label.substring(0, 6)
               }
             />
           </Pie>

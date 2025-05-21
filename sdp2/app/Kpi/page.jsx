@@ -29,12 +29,12 @@ import {
   TotalProducedByTime,
   ThroughputByTime,
   AttainmentByTime,
-  DefectsByTime
+  DefectsByTime,
 } from "./Components/charts/PerMachineCharts.jsx";
 
 // interface props {}
 
-export default function Kpi({ }) {
+export default function Kpi({}) {
   const [site, setSite] = useState("None");
   const [machine, setMachine] = useState("None");
   const [chartData, setChartData] = useState(null);
@@ -64,15 +64,15 @@ export default function Kpi({ }) {
     //   setMachines(await getAll(`sites/${site.ID}/machines`));
     // };
     // fetchMachines();
-  },[]);
+  }, []);
 
   useEffect(() => {
-    setSite(sitePosition)
-  }, [sitePosition])
+    setSite(sitePosition);
+  }, [sitePosition]);
 
   useEffect(() => {
-    setMachine(machinePosition)
-  }, [machinePosition])
+    setMachine(machinePosition);
+  }, [machinePosition]);
 
   useEffect(() => {
     const fetchMachines = async () => {
@@ -81,136 +81,148 @@ export default function Kpi({ }) {
       }
     };
     fetchMachines();
-  }, [site])
+  }, [site]);
 
   return (
     <ProtectedRoute>
-      <Breadcrumbs
-        value={value}
-        site={site}
-        machine={machine}
-        setSite={setSite}
-        setMachine={setMachine}
-      ></Breadcrumbs>
-      <Tabs
-        defaultValue="all"
-        className="bg-[--lightGray] dark:bg-[var(--lightestNavy)] text-white shadow-xl rounded-lg size-full"
-      >
-        <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-[var(--delawareRed)]">
-          <TabsTrigger
+      <div className="px-10">
+        <div className="my-4">
+          <Breadcrumbs
+            value={value}
+            site={site}
+            machine={machine}
+            setSite={setSite}
+            setMachine={setMachine}
+          ></Breadcrumbs>
+        </div>
+        <Tabs
+          defaultValue="all"
+          className="bg-transparent  text-white rounded-lg size-full"
+        >
+          <TabsList className="grid w-full grid-cols-3 dark:bg-[var(--navy)] bg-red-300">
+            <TabsTrigger
+              value="all"
+              onClick={() => setValue("all")}
+              className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            >
+              All
+            </TabsTrigger>
+            <TabsTrigger
+              value="site"
+              onClick={() => {
+                setValue("site");
+                setMachine("None");
+              }}
+              className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            >
+              Site
+            </TabsTrigger>
+            <TabsTrigger
+              value="machine"
+              onClick={() => setValue("machine")}
+              className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            >
+              Machine
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent
             value="all"
-            onClick={() => setValue("all")}
-            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            className="flex-col justify-start items-center bg-transparent dark:bg-transparent"
           >
-            All
-          </TabsTrigger>
-          <TabsTrigger
+            <h1 className="text-4xl font-bold text-black dark:text-white mb-1 py-2">
+              All Charts
+            </h1>
+            <div className="flex flex-wrap gap-4 justify-center bg-neutral-100 dark:bg-lightestNavy p-4 rounded-lg size-full ">
+              <TotalProduced />
+              <TotalDefectsOverTime />
+              <TotalDefectsBySite />
+              <AverageCostsBySite />
+              <TotalMaintenanceCost />
+            </div>
+          </TabsContent>
+
+          <TabsContent
             value="site"
-            onClick={() => {
-              setValue("site");
-              setMachine("None");
-            }}
-            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            className="flex flex-wrap gap-4 justify-center rounded-lg size-full "
           >
-            Site
-          </TabsTrigger>
-          <TabsTrigger
+            {site == "None" ? (
+              sites == null ? (
+                <div className="text-white">loading...</div>
+              ) : (
+                <SiteMap sites={sites} setSite={setSite}></SiteMap>
+              )
+            ) : (
+              <div className="relative w-full ">
+                <div className="flex justify-start items-center py-2 mb-2">
+                  <h1 className="text-4xl font-bold text-black dark:text-white ">
+                    {site}
+                  </h1>
+                  <div className="w-full flex justify-end items-center">
+                    <FilterDropdown
+                      position={sitePosition}
+                      setPosition={setSitePosition}
+                      objects={sites}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4 justify-center bg-neutral-100 dark:bg-lightNavy p-4  rounded-lg size-full">
+                  <TotalProducedByProduct siteName={site} />
+                  <AverageThroughputByProduct siteName={site} />
+                  <DefectsByProduct siteName={site} />
+                  <ProductionCostByProduct siteName={site} />
+                  <AverageAttainmentByProduct siteName={site} />
+                </div>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent
             value="machine"
-            onClick={() => setValue("machine")}
-            className="data-[state=inactive]:text-white dark:data-[state=inactive]:text-gray"
+            className="flex flex-wrap gap-4 justify-start rounded-lg size-full pb-2"
           >
-            Machine
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent
-          value="all"
-          className="flex flex-wrap gap-4 justify-center rounded-lg size-full pb-2 px-4"
-        >
-          <TotalProduced />
-          <TotalDefectsOverTime />
-          <TotalDefectsBySite />
-          <AverageCostsBySite />
-          <TotalMaintenanceCost />
-        </TabsContent>
-
-        <TabsContent
-          value="site"
-          className="flex flex-wrap gap-4 justify-center rounded-lg size-full pb-2 px-4"
-        >
-          {site == "None" ? (
-            sites == null ? (
-              <div className="text-white">loading...</div>
+            {site == "None" ? (
+              sites == null ? (
+                <div className="text-white">loading...</div>
+              ) : (
+                <SiteMap sites={sites} setSite={setSite}></SiteMap>
+              )
+            ) : machine == "None" ? (
+              <>
+                <h1 className="text-4xl font-bold text-black dark:text-white ">
+                  {site}
+                </h1>
+                <SelectMachine
+                  chartData={chartData}
+                  site={site}
+                  setMachine={setMachine}
+                />
+              </>
             ) : (
-              <SiteMap sites={sites} setSite={setSite}></SiteMap>
-            )
-          ) : (
-            <div className="relative w-full">
-              <div className="mb-4">
-                <span className="w-full text-center block text-[2em] text-black dark:text-white">
-                  <b>{site}</b>
-                </span>
-
-                <div className="absolute top-0 right-0 z-10">
-                  <FilterDropdown
-                    position={sitePosition}
-                    setPosition={setSitePosition}
-                    objects={sites}
-                  />
+              <div className="relative w-full">
+                <div className="mb-4 flex">
+                  <h1 className="text-4xl font-bold text-black dark:text-white ">
+                    {site} : {machine}
+                  </h1>
+                  <div className="w-full flex justify-end items-center">
+                    <FilterDropdown
+                      position={machinePosition}
+                      setPosition={setMachinePosition}
+                      objects={machines}
+                    />
+                  </div>
                 </div>
-
-              </div>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <TotalProducedByProduct siteName={site} />
-                <AverageThroughputByProduct siteName={site} />
-                <DefectsByProduct siteName={site} />
-                <ProductionCostByProduct siteName={site} />
-                <AverageAttainmentByProduct siteName={site} />
-              </div>
-            </div>
-
-          )}
-        </TabsContent>
-
-        <TabsContent
-          value="machine"
-          className="flex flex-wrap gap-4 justify-center rounded-lg size-full pb-2 px-4"
-        >
-          {site == "None" ? (
-            sites == null ? (
-              <div className="text-white">loading...</div>
-            ) : (
-              <SiteMap sites={sites} setSite={setSite}></SiteMap>
-            )
-          ) : machine == "None" ? (
-            <>
-              <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b></span>
-              <SelectMachine chartData={chartData} site={site} setMachine={setMachine} />
-            </>
-          ) : (
-            <div className="relative w-full">
-              <div className="mb-4">
-                <span className="w-full text-center text-[2em] text-black dark:text-white"><b>{site}</b> : <b>{machine}</b></span>
-                <div className="absolute top-0 right-0 z-10">
-                  <FilterDropdown
-                    position={machinePosition}
-                    setPosition={setMachinePosition}
-                    objects={machines}
-                  />
+                <div className="flex flex-wrap gap-4 justify-center w-full bg-neutral-100 dark:bg-lightestNavy p-4 rounded-xl">
+                  <TotalProducedByTime siteName={site} machineCode={machine} />
+                  <ThroughputByTime siteName={site} machineCode={machine} />
+                  <AttainmentByTime siteName={site} machineCode={machine} />
+                  <DefectsByTime siteName={site} machineCode={machine} />
                 </div>
-
               </div>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <TotalProducedByTime siteName={site} machineCode={machine} />
-                <ThroughputByTime siteName={site} machineCode={machine} />
-                <AttainmentByTime siteName={site} machineCode={machine} />
-                <DefectsByTime siteName={site} machineCode={machine} />
-
-              </div>
-            </div>
-          )}
-        </TabsContent>
-      </Tabs>
+            )}
+          </TabsContent>
+        </Tabs>
+      </div>
     </ProtectedRoute>
   );
 }

@@ -22,7 +22,7 @@ export default function SelectMachine({ chartData, site, setMachine }) {
             products: [],
             uptime: 0,
             produced: 0,
-          }
+          },
         );
       mergedObjects.push(mergedObject);
     }
@@ -34,17 +34,22 @@ export default function SelectMachine({ chartData, site, setMachine }) {
     <div className="size-full flex flex-wrap gap-2 justify-center">
       {mergedUniqueMachines().map((obj, index) => (
         <div
-          className="hover:cursor-pointer w-[24%]"
+          className="hover:cursor-pointer w-full"
           onClick={() => setMachine(obj.machineCode)}
           key={index}
         >
-          <Card className="border-[var(--darkGray)] dark:border-[var(--navy)] dark:bg-[var(--navy)] rounded-t-lg size-full">
-            <CardHeader className="dark:bg-[var(--lightestNavy)] rounded-t-lg p-2 font-semibold border-b-2">
+          <Card className="bg-neutral-100 shadow-none dark:bg-lightestNavy rounded-t-lg size-full">
+            <CardHeader className=" rounded-t-lg p-2 font-semibold border-b-2">
               <strong>{obj.machineCode}</strong>
             </CardHeader>
             <CardContent className="py-2">
-              <div className="overflow-hidden text-ellipsis w-full text-nowrap"> <small className="text-gray">Products:</small> {obj.products.join(', ')}</div>
-              <small className="text-gray">Total Produced:</small> {obj.produced}
+              <div className="overflow-hidden text-ellipsis w-full text-nowrap">
+                {" "}
+                <small className="text-gray">Products:</small>{" "}
+                {obj.products.join(", ")}
+              </div>
+              <small className="text-gray">Total Produced:</small>{" "}
+              {obj.produced}
               <br />
               <small className="text-gray">Total Uptime:</small> {obj.uptime}h
             </CardContent>
