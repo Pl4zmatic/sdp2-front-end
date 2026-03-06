@@ -24,7 +24,7 @@ Hiervoor kan je een **.env** file maken in de root van het project dus:
 ```
 En ziet er als volgt uit:
 ```env
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyATaM2lc81FB86XfU2iM3ZuDNnofKei_mw
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyATaM2lc81FB86XfU2iM3ZuDNnofKei_mw # (Deze key key is niet functioneel, je zal er zelf 1 moeten aangeven)
 NEXT_PUBLIC_API_URL=http://localhost:4000
 ```
 NEXT_PUBLIC_API_URL is de **URL** waar de bijhorende **API** van dit project loopt, dit kunt u aanpassen aan uw noden.
