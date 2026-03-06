@@ -127,7 +127,7 @@ export default function Kpi({}) {
           </TabsList>
 
           <TabsContent
-            value="all"
+            value="All"
             className="flex-col justify-start items-center bg-transparent dark:bg-transparent"
           >
             <h1 className="text-4xl font-bold text-black dark:text-white mb-1 py-2">
@@ -143,7 +143,7 @@ export default function Kpi({}) {
           </TabsContent>
 
           <TabsContent
-            value="site"
+            value="Site"
             className="flex flex-wrap gap-4 justify-center rounded-lg size-full "
           >
             {site == "None" ? (
@@ -178,7 +178,7 @@ export default function Kpi({}) {
           </TabsContent>
 
           <TabsContent
-            value="machine"
+            value="Machine"
             className="flex flex-wrap gap-4 justify-start rounded-lg size-full pb-2"
           >
             {site == "None" ? (
