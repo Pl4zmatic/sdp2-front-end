@@ -45,6 +45,21 @@ npm run build; npm run start
 
 Dan zal de service op http://localhost:3000 lopen.
 
+### Example Credentials
+
+1. Admin Rol
+    * Email: admin@mail.com
+    * Password: Admin
+2. Technieker Rol
+    * Email: technieker@mail.com
+    * Password: Technieker
+3. Manager Rol
+    * Email: manager@mail.com
+    * Password: Manager
+4. Verantwoordelijke Rol
+    * Email: Verantwoordelijke@mail.com
+    * Password: Verantwoordelijke
+
 ## Tests
 
 ### Stap 1
