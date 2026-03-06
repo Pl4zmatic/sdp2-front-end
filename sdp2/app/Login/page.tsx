@@ -49,7 +49,7 @@ export default function LoginPage() {
         <div className="grid grid-cols-1 gap-2 p-4 rounded-md">
           <Button
             variant="outline"
-            onClick={() => quickLogin("admin@mail.com", "admin")}
+            onClick={() => quickLogin("admin@mail.com", "Admin")}
             className="bg-white hover:bg-gray-100 text-gray-800 dark:bg-[#252a43] dark:text-white dark:hover:bg-[#2a304d] transition-colors"
             data-cy="admin-login"
           >
@@ -66,7 +66,7 @@ export default function LoginPage() {
           </Button>
           <Button
             variant="outline"
-            onClick={() => quickLogin("manager@mail.com", "manager")}
+            onClick={() => quickLogin("manager@mail.com", "Manager")}
             className="bg-white hover:bg-gray-100 text-gray-800 dark:bg-[#252a43] dark:text-white dark:hover:bg-[#2a304d] transition-colors"
           >
             Login as Manager
