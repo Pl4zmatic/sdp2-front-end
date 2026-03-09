@@ -57,7 +57,7 @@ Dan zal de service op http://localhost:3000 lopen.
     * Email: manager@mail.com
     * Password: Manager
 4. Verantwoordelijke Rol
-    * Email: Verantwoordelijke@mail.com
+    * Email: verantwoordelijke@mail.com
     * Password: Verantwoordelijke
 
 ## Tests
